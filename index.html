@@ -258,20 +258,18 @@
     window.__stop  = function () { alert('Stop (placeholder).'); }
 
     // === Recorder URL wiring (set this once) ===
-    // Din inspelar-URL:
-    const RECORDER_URL = 'https://kenai.technology/recorder.html';
+    // Vi länkar till ./recorder.html i samma repo/domän (fungerar på GitHub Pages och när du kopplar custom domän).
+    const RECORDER_URL = './recorder.html';
 
     (function () {
       const navRecorder   = document.getElementById('nav-recorder');
       const heroStart     = document.getElementById('hero-start');
       const mobileLink    = document.getElementById('mobile-recorder');
       const slotOpenLink  = document.getElementById('slot-open');
-      if (RECORDER_URL) {
-        if (navRecorder)  navRecorder.href  = RECORDER_URL;
-        if (heroStart)    heroStart.href    = RECORDER_URL;
-        if (mobileLink)   mobileLink.href   = RECORDER_URL;
-        if (slotOpenLink) slotOpenLink.href = RECORDER_URL;
-      }
+      if (navRecorder)  navRecorder.href  = RECORDER_URL;
+      if (heroStart)    heroStart.href    = RECORDER_URL;
+      if (mobileLink)   mobileLink.href   = RECORDER_URL;
+      if (slotOpenLink) slotOpenLink.href = RECORDER_URL;
     })();
 
     // Share modal
