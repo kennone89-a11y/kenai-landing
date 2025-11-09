@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 → Kenai</title>
+  <meta http-equiv="refresh" content="0; url=https://kenai.technology/" />
+  <script>location.replace("https://kenai.technology/");</script>
+</head>
+<body>
+  <p>Hittar inte sidan. Går till <a href="https://kenai.technology/">kenai.technology</a>…</p>
+</body>
+</html>
