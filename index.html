@@ -147,4 +147,374 @@
       height: 18px;
       border-radius: 999px;
       background: radial-gradient(circle at 35% 25%, #4ade80 0, #22c55e 40%, #15803d 80%);
-      box-shadow: 0
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5),
+        0 10px 26px rgba(16, 185, 129, 0.6);
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      letter-spacing: 0.03em;
+    }
+    .hero h1 span {
+      color: #60a5fa;
+    }
+    .hero p {
+      margin: 0 0 18px;
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
+        background 0.15s ease-out;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      color: white;
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.7);
+    }
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 10px 26px rgba(37, 99, 235, 0.55);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:active {
+      transform: translateY(1px) scale(0.99);
+    }
+    .hero-note {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .hero-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 0.75rem;
+    }
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      color: var(--muted);
+    }
+    .hero-card-main {
+      margin-top: 4px;
+      padding: 10px 10px 10px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.78rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      color: #d1fae5;
+      max-height: 130px;
+      overflow: auto;
+    }
+    .hero-card-main span.muted {
+      color: #9ca3af;
+    }
+
+    .section {
+      margin-top: 46px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+    .section-header p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border-radius: 18px;
+      padding: 13px 13px 12px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+    .card h3 {
+      margin: 0 0 4px;
+      font-size: 0.98rem;
+    }
+    .card p {
+      margin: 0 0 10px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .tag {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .tag-live {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.08);
+    }
+    .card-status {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.95);
+      padding: 14px 20px 18px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .nav-links {
+        display: none;
+      }
+      .shell {
+        padding-top: 22px;
+      }
+    }
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">
+        <div class="logo-mark"><span>K</span></div>
+        <span>Kenai</span>
+      </div>
+      <div class="nav-links">
+        <a href="#verktyg">Verktyg</a>
+        <a href="#om">Om</a>
+        <a
+          class="nav-cta"
+          href="https://app.kenai.technology"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Live</span> 🎙 Inspelaren
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="shell">
+      <section class="hero">
+        <div>
+          <div class="badge">
+            <div class="badge-dot"></div>
+            Live: Röstrecessioner & ljud-inspelning
+          </div>
+          <h1>
+            Svensk <span>AI-verktygshubb</span> för ljud, text och kreativa
+            workflows.
+          </h1>
+          <p>
+            Kenai gör det enkelt att spela in röster, recensera poddar och
+            i framtiden sammanfatta möten och videos – direkt i webbläsaren,
+            på svenska.
+          </p>
+          <div class="hero-actions">
+            <a
+              href="https://app.kenai.technology"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              🎙 Öppna inspelaren
+            </a>
+            <a href="#verktyg" class="btn btn-ghost">
+              🚀 Se nuvarande & kommande verktyg
+            </a>
+          </div>
+          <div class="hero-note">
+            Ingen app, ingen inloggning – bara öppna sidan, spela in och dela
+            länken.
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Förhandsvisning av Kenai Recorder">
+          <div class="hero-card-header">
+            <span style="color:#e5e7eb;">Kenai Recorder – SuperSafe v2</span>
+            <span style="font-size:0.75rem;color:#9ca3af;">WAV · 44.1k mono</span>
+          </div>
+          <div class="hero-chip-row">
+            <div class="chip">Auto-stop (t.ex. 5–120 sek)</div>
+            <div class="chip">Supabase upload</div>
+            <div class="chip">Delbar länk</div>
+          </div>
+          <div class="hero-card-main">
+            <span class="muted">Status:</span> <span class="ok">Idle.</span>
+            <br />
+            <span class="muted">Auto-stop:</span> 120 sek · codec: wav @ 44.1k mono
+            <br />
+            <br />
+            <span class="muted">Logg:</span><br />
+            Ber om mikrofonåtkomst...<br />
+            Recording... auto-stop in 120s<br />
+            Auto-stop nådd, stoppar inspelning...<br />
+            Done: kenai-123456789.wav ≈ 0.41 MB @ 44100 Hz<br />
+            Laddar upp till Supabase...<br />
+            Upload OK ✅ – delbar länk skapad.
+          </div>
+        </aside>
+      </section>
+
+      <section id="verktyg" class="section">
+        <div class="section-header">
+          <h2>Verktyg</h2>
+          <p>
+            Först ut är inspelaren. Därefter kommer AI-summaries för poddar,
+            möten och videoklipp – allt samlat på ett ställe.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="tag-row">
+              <span class="tag tag-live">Live</span>
+              <span class="tag">Ljud · Röstrecessioner</span>
+            </div>
+            <h3>Kenai Recorder</h3>
+            <p>
+              Spela in korta röster direkt i webbläsaren, få en WAV-fil och en
+              delbar länk. Perfekt för podd-recensioner, feedback eller snabba
+              röstmeddelanden.
+            </p>
+            <div class="card-status">
+              🎙 Öppen nu på <strong>app.kenai.technology</strong>.
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag-row">
+              <span class="tag">Planerat</span>
+              <span class="tag">AI-sammanfattning</span>
+            </div>
+            <h3>Mötes- och samtals-sammanfattning</h3>
+            <p>
+              Spela in ett möte, låt AI:n transkribera och få en kort
+              sammanfattning av vad som bestämdes – i text och senare som
+              talsvar.
+            </p>
+            <div class="card-status">
+              ⏳ Planerat – byggs ovanpå samma inspelare.
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="tag-row">
+              <span class="tag">Planerat</span>
+              <span class="tag">YouTube · Podd</span>
+            </div>
+            <h3>Sammanfatta video & podd via länk</h3>
+            <p>
+              Klistra in en länk till ett videoklipp eller ett podd-avsnitt och
+              få en AI-sammanfattning av innehållet – vad det handlar om och
+              de viktigaste poängerna.
+            </p>
+            <div class="card-status">
+              🧪 Idé-stadie – kommer till Kenai /tools.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="om" class="section">
+        <div class="section-header">
+          <h2>Om Kenai</h2>
+        </div>
+        <p style="max-width:640px;font-size:0.9rem;color:var(--muted);">
+          Kenai är ett personligt projekt som växer fram steg för steg. Fokus
+          är enkla, snabba verktyg som faktiskt används – inte 1000
+          inställningar. Först löser vi inspelning och delning av röster, sen
+          kopplar vi på AI för att göra vardagen lite enklare.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Kenai · Byggt med kärlek till ljud, AI och enkelhet. ·
+    <a href="https://app.kenai.technology" target="_blank" rel="noopener noreferrer">
+      Öppna inspelaren
+    </a>
+  </footer>
+</body>
+</html>
