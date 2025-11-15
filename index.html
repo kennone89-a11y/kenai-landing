@@ -44,46 +44,53 @@
 }
 
 
- /* Kenai Legends – poster bara i nederdelen */
+/* Kenai Legends – poster i nederdelen */
 body::before {
     content: "";
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
-    height: 60vh; /* mer av posten syns på desktop */
+    bottom: -8vh;           /* tryck ner bilden lite på desktop */
+    height: 55vh;           /* bara nederdelen syns */
     z-index: -1;
     pointer-events: none;
 
     background:
-        /* lite mildare mörkning så bilden syns mer */
+        /* mörkt upptill så texten är ren på desktop */
         linear-gradient(
-            to top,
-            rgba(2, 6, 23, 0.0) 0%,
-            rgba(2, 6, 23, 0.35) 45%,
-            rgba(2, 6, 23, 0.85) 100%
+            to bottom,
+            rgba(2, 6, 23, 1.0) 0%,
+            rgba(2, 6, 23, 0.98) 25%,
+            rgba(2, 6, 23, 0.9) 55%,
+            rgba(2, 6, 23, 0.0) 100%
         ),
         url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
-            center bottom / 95% auto no-repeat;
+            center bottom / 80% auto no-repeat;
 
-    opacity: 0.95; /* gör den nästan fullt synlig på desktop */
+    opacity: 0.85;
 }
 
-    background:
-        /* mörkare mot mitten, helt mörkt uppåt */
-        linear-gradient(
-            to top,
-            rgba(2, 6, 23, 0.0) 0%,
-            rgba(2, 6, 23, 0.55) 55%,
-            rgba(2, 6, 23, 0.95) 100%
-        ),
-        url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
-            center bottom / 70% auto no-repeat;
-    opacity: 0.7;  /* styr hur stark posten är (0–1) */
+/* Mobil – mer bild, lite mindre mörkning (behåll den känslan du gillade) */
+@media (max-width: 900px) {
+    body::before {
+        bottom: -10vh;
+        height: 70vh;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(2, 6, 23, 1.0) 0%,
+                rgba(2, 6, 23, 0.9) 30%,
+                rgba(2, 6, 23, 0.5) 65%,
+                rgba(2, 6, 23, 0.0) 100%
+            ),
+            url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
+                center bottom / 125% auto no-repeat;
+
+        opacity: 1;
+    }
 }
 
-
-}
 
 
 
