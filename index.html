@@ -472,21 +472,23 @@
       .tools-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-  /* Kenai Legends – bakgrund med djup */
+/* Kenai Legends – bakgrund med djup (TEST) */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 0;
-    background-image:
-        linear-gradient(to bottom, rgba(15,23,42,0.6), rgba(15,23,42,0.95)),
-        url("img/kenai-legends-bg.jpg.jpg");
+    z-index: -1;
+
+    /* Bara bilden – ingen extra gradient */
+    background-image: url("img/kenai-legends-bg.jpg.jpg");
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
+
+    /* Gör den tydlig så vi ser att det funkar */
     opacity: 1;
-    filter: blur(0);
-    transform: scale(1.02);
+    filter: none;
+    transform: none;
 }
 }
     }
