@@ -38,23 +38,19 @@
  body {
   margin: 0;
   min-height: 100vh;
-  background: #020617;  /* enkel mörk bas, bilden läggs ovanpå via ::before */
   color: #e5e7eb;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", sans-serif;
-}
 
-
-  /* Kenai Legends – bild + mörk overlay */
-  background:
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98)),
-    url("img/kenai-legends-bg.jpg.jpg");
+  /* Kenai Legends – bakgrund direkt på body */
+  background-image:
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.96)),
+    url("img/kenai-legends-bg.jpg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: center 45%;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* lite “parallax”-känsla */
+  background-attachment: fixed;
 }
-
     }
 
     a {
@@ -361,7 +357,8 @@
     .tool-card {
       border-radius: var(--radius-md);
       padding: 14px 14px 12px;
-      background: radial-gradient(circle at top left, #020617, #020617);
+      background: rgba(2, 6, 23, 0.82);  /* lite transparent */
+      backdrop-filter: blur(6px);
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85);
       display: flex;
@@ -487,7 +484,7 @@
       .tools-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-/* Kenai Legends – bakgrund med djup (TEST 2) */
+/* Kenai Legends – bakgrund med djup (FINAL) */
 body::before {
   content: "";
   position: fixed;
@@ -495,16 +492,17 @@ body::before {
   z-index: -1;
   pointer-events: none;
 
-  /* Själva bilden */
+  /* Själva postern */
   background-image: url("img/kenai-legends-bg.jpg");
   background-size: cover;
-  background-position: center 40%;   /* lyft upp texten i bilden */
+  background-position: center 45%;
   background-repeat: no-repeat;
 
-  /* Gör den mycket mer tydlig */
-  opacity: 0.9;                      /* 0.0 = osynlig, 1.0 = max */
-  filter: brightness(1.9) contrast(1.35);
+  /* MAXA synligheten */
+  opacity: 1;                 /* full styrka */
+  filter: brightness(2.4) contrast(1.5);  /* gör bilden ljusare & krispigare */
 }
+
 
 </style>
 </head>
