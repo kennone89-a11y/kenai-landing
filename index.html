@@ -38,13 +38,15 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
 
-    /* Bakgrund: Kenai Legends + lite mörkt lager ovanpå */
+    /* Desktop: gradient + Kenai Legends-postern, mindre & längre bak */
     background:
-        /* mörk overlay men inte för stark */
-        linear-gradient(to bottom, rgba(2, 6, 23, 0.35), rgba(15, 23, 42, 0.85)),
-        /* själva postern */
+        /* mörk overlay så texten är läsbar */
+        linear-gradient(to bottom, rgba(2, 6, 23, 0.85), rgba(15, 23, 42, 0.97)),
+        /* själva postern, nedskalad */
         url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
-            center bottom / cover no-repeat fixed;
+            center bottom / 70% auto no-repeat fixed;
+}
+
 }
 
 
