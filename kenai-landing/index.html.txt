@@ -1,271 +1,692 @@
 <!DOCTYPE html>
-<html lang="sv" class="scroll-smooth">
+<html lang="sv">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kenai – Röstrecessioner, AI & Delning</title>
-  <meta name="description" content="Spela in, dela och sammanfatta röster. Kenai gör ljud enkelt: inspelning, transkribering, AI-sammanfattning och delning – i ett klick." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Kenai – Svensk AI-verktygshubb</title>
+  <meta
+    name="description"
+    content="Kenai är en svensk AI-verktygshubb för ljud, text och kreativa workflows. Spela in röster, recensera poddar och sammanfatta video – direkt i webbläsaren."
+  />
   <style>
-    :root { color-scheme: dark; }
-    html, body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    /* Subtle animated gradient ring */
-    .radial-bg { background: radial-gradient(1000px 600px at 10% 10%, rgba(56,189,248,0.10), transparent 60%),
-                              radial-gradient(800px 500px at 90% 20%, rgba(167,139,250,0.10), transparent 60%),
-                              radial-gradient(700px 400px at 30% 90%, rgba(74,222,128,0.12), transparent 60%);}    
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.04); }
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card: #020617;
+      --border: #0f172a;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.18);
+      --danger: #f87171;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --radius-lg: 22px;
+      --shadow-lg: 0 40px 120px rgba(15, 23, 42, 0.9);
+      --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+
+      /* Bakgrund: gradient + Kenai Legends-bilden */
+      background:
+        radial-gradient(circle at top left, #0b1120 0, #020617 60%),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.96)),
+        url("img/kenai-legends-bg.jpg.jpg");
+      background-size: cover;
+      background-position: center 40%;
+      background-attachment: fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 48px;
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 0 18px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 22px rgba(34, 197, 94, 0.9);
+    }
+
+    .logo-text {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #22c55e, #4ade80);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+      margin-right: 6px;
+    }
+
+    .pill-small {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.86rem;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      transition: background 0.18s ease-out, transform 0.12s ease-out,
+        box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #22c55e, #15803d);
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #0b1120;
+      box-shadow: 0 14px 40px rgba(22, 163, 74, 0.7);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 55px rgba(22, 163, 74, 0.85);
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 40px;
+      align-items: center;
+      padding: 30px 0 46px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-kicker span {
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: 2.6rem;
+      line-height: 1.1;
+      margin: 0 0 18px;
+    }
+
+    .hero-title span {
+      color: #22c55e;
+    }
+
+    .hero-copy {
+      max-width: 540px;
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    /* “Terminal” kortet */
+    .hero-card {
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-card);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-card-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .hero-card-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+
+    .hero-card-dots span:nth-child(1) {
+      background: #f97373;
+    }
+
+    .hero-card-dots span:nth-child(2) {
+      background: #facc15;
+    }
+
+    .hero-card-dots span:nth-child(3) {
+      background: #22c55e;
+    }
+
+    .hero-card-body {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border-radius: 12px;
+      padding: 12px 12px 10px;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-card-body .cmd {
+      color: #22c55e;
+    }
+
+    .hero-card-body .line-muted {
+      color: #64748b;
+    }
+
+    .hero-card-body .ok {
+      color: #4ade80;
+    }
+
+    /* “Live”-banners */
+    .live-banner-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .live-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(14px);
+    }
+
+    .live-banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* Tools-sektion */
+    .section-header {
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .tools-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 12px;
+      background: rgba(2, 6, 23, 0.86);
+      backdrop-filter: blur(9px);
+      border: 1px solid rgba(30, 64, 175, 0.5);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.84rem;
+    }
+
+    .tool-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.7rem;
+    }
+
+    .pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--muted);
+    }
+
+    .pill-planerad {
+      border-color: rgba(250, 204, 21, 0.9);
+      background: rgba(30, 64, 175, 0.4);
+      color: #eab308;
+    }
+
+    .pill-beta {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: rgba(22, 163, 74, 0.18);
+      color: #bbf7d0;
+    }
+
+    .tool-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 2px;
+    }
+
+    .tool-body {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .tool-link {
+      margin-top: 8px;
+      font-size: 0.8rem;
+    }
+
+    .tool-link a {
+      color: #22c55e;
+    }
+
+    .tool-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Om Kenai */
+    .section {
+      margin-top: 46px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 18px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .about-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.6);
+      background: rgba(2, 6, 23, 0.88);
+      padding: 14px 16px 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .about-card strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-link {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #22c55e;
+    }
+
+    .about-link a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      font-size: 0.74rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    footer a {
+      color: #22c55e;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .tools-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 radial-bg">
-  <!-- NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 border-b border-white/5">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2">
-        <div class="h-7 w-7 rounded-xl bg-gradient-to-tr from-sky-400 via-fuchsia-400 to-emerald-400"></div>
-        <span class="font-extrabold tracking-tight text-lg">Kenai</span>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#features" class="hover:text-white/90 text-white/70">Funktioner</a>
-        <a href="#how" class="hover:text-white/90 text-white/70">Så funkar det</a>
-        <a href="#roadmap" class="hover:text-white/90 text-white/70">Roadmap</a>
-        <a href="#faq" class="hover:text-white/90 text-white/70">FAQ</a>
+<body>
+  <div class="page">
+    <!-- Nav -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-dot"></div>
+        <div class="logo-text">Kenai</div>
       </div>
-      <div class="hidden md:flex items-center gap-3">
-        <a href="#recorder" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-sm">Öppna inspelare</a>
-        <a href="#share" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-500 via-fuchsia-500 to-emerald-500 text-zinc-900 font-semibold text-sm">Dela klipp</a>
+
+      <nav class="nav-links">
+        <a href="#verktyg">Verktyg</a>
+        <a href="#om">Om</a>
+      </nav>
+
+      <div class="nav-right">
+        <span class="pill-small">
+          <span class="pill-dot"></span>
+          Live: Röstrecensioner &amp; ljud-inspelning
+        </span>
       </div>
-      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg p-2 bg-white/5 border border-white/10" aria-label="Öppna meny">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-    </nav>
-    <div id="mobileMenu" class="md:hidden hidden border-t border-white/5 bg-zinc-950/80 backdrop-blur">
-      <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-3 text-sm">
-        <a class="text-white/80" href="#features">Funktioner</a>
-        <a class="text-white/80" href="#how">Så funkar det</a>
-        <a class="text-white/80" href="#roadmap">Roadmap</a>
-        <a class="text-white/80" href="#faq">FAQ</a>
-        <div class="pt-2 flex gap-3">
-          <a href="#recorder" class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/10">Öppna inspelare</a>
-          <a href="#share" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-500 via-fuchsia-500 to-emerald-500 text-zinc-900 font-semibold">Dela klipp</a>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <!-- HERO -->
-  <section class="relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
+    </header>
+
+    <!-- Hero -->
+    <main>
+      <section class="hero">
         <div>
-          <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">Spela in. <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-fuchsia-400 to-emerald-400">Sammanfatta.</span> Dela.</h1>
-          <p class="mt-5 text-white/70 text-lg max-w-xl">Kenai gör det superenkelt att fånga röst, skapa AI‑sammanfattningar och dela en länk direkt. Perfekt för podd‑recensioner, möten och snabba idéer.</p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#recorder" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-sky-500 via-fuchsia-500 to-emerald-500 text-zinc-900 font-semibold">Starta inspelning</a>
-            <a href="#how" class="px-5 py-3 rounded-2xl bg-white/10 border border-white/10">Se hur det funkar</a>
+          <div class="hero-kicker">
+            <span>Live</span>
+            <span>Röstrecensioner &amp; ljud-inspelning</span>
           </div>
-          <div class="mt-6 flex items-center gap-4 text-xs text-white/50">
-            <div class="flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span> iPhone/Safari‑klar</div>
-            <div class="flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-sky-400"></span> WAV‑only (44.1 kHz, mono)</div>
-            <div class="flex items-center gap-2"><span class="inline-block h-2 w-2 rounded-full bg-fuchsia-400"></span> Delbar länk</div>
+
+          <h1 class="hero-title">
+            Svensk <span>AI-verktygshubb</span><br />
+            för ljud, text och kreativa workflows.
+          </h1>
+
+          <p class="hero-copy">
+            Kenai gör det enkelt att spela in röster, recensera poddar och i
+            framtiden sammanfatta möten och videos – direkt i webbläsaren, på svenska.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://app.kenai.technology" class="btn btn-primary">
+              Öppna inspelaren
+            </a>
+            <a href="#verktyg" class="btn btn-ghost">
+              Se nuvarande &amp; kommande verktyg
+            </a>
+          </div>
+
+          <div class="hero-sub">
+            Ingen app, ingen inloggning – bara öppna sidan, spela in och dela länken.
           </div>
         </div>
-        <div class="relative">
-          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-sky-500/20 via-fuchsia-500/20 to-emerald-500/20 blur-2xl"></div>
-          <div class="relative glass rounded-3xl border border-white/10 p-6 md:p-8">
-            <div class="flex items-center justify-between">
-              <div class="text-sm text-white/70">Live‑inspelare</div>
-              <div class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">SuperSafe v2‑slot</div>
+
+        <aside>
+          <div class="live-banner-row">
+            <div class="live-banner">
+              <span class="pill-dot"></span>
+              <span>Kenai Recorder — SuperSafe v2</span>
             </div>
-            <!-- Recorder Slot: replace with your working recorder -->
-            <div id="recorder" class="mt-4">
-              <div id="recorder-slot" class="aspect-video rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-900/40 flex items-center justify-center">
-                <div class="text-center px-6">
-                  <div class="text-sm text-white/60">Här hamnar din inspelare</div>
-                  <p class="mt-2 text-xs text-white/40">Byt ut denna slot mot "Kenai Recorder – SuperSafe" när du vill. Knapparna nedan är placeholders.</p>
-                  <div class="mt-5 flex items-center justify-center gap-3">
-                    <button onclick="__start()" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 hover:bg-white/15">Starta</button>
-                    <button onclick="__stop()" class="px-4 py-2 rounded-xl bg-white/10 border border-white/10 hover:bg-white/15">Stoppa</button>
-                    <button onclick="alert('Upload/dela kopplas in när recordern är monterad.');" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 via-fuchsia-500 to-emerald-500 text-zinc-900 font-semibold">Dela</button>
-                  </div>
-                </div>
+            <div class="live-banner-badge">
+              Live · Webbläsare
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-header">
+              <div class="hero-card-dots">
+                <span></span><span></span><span></span>
               </div>
+              <span>Logg · inspelare</span>
             </div>
-            <div class="mt-4 grid grid-cols-3 gap-3 text-center text-xs text-white/50">
-              <div class="rounded-xl border border-white/10 p-3 bg-white/5">44.1 kHz</div>
-              <div class="rounded-xl border border-white/10 p-3 bg-white/5">Mono</div>
-              <div class="rounded-xl border border-white/10 p-3 bg-white/5">iOS‑kompatibel</div>
+            <div class="hero-card-body">
+              <div><span class="cmd">$</span> start kenai-recorder</div>
+              <div class="line-muted">→ init: öppna inspelaren…</div>
+              <div class="line-muted">→ steg 1: spela in röst</div>
+              <div class="line-muted">→ steg 2: länken är redo att delas</div>
+              <div class="ok">✓ Klart. Inget konto. Ingen app.</div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </aside>
+      </section>
 
-  <!-- FEATURES -->
-  <section id="features" class="py-16 md:py-24 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Allt du behöver för ljud</h2>
-        <p class="mt-3 text-white/70">Byggt för enkel delning och AI‑magi. Här är grunden som vi kopplar din kod till.</p>
-      </div>
-      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <h3 class="font-semibold">Inspelning</h3>
-          <p class="mt-2 text-sm text-white/70">WAV‑only, 44.1 kHz mono för maximal iOS‑kompatibilitet. Auto‑stop 30s/1m/2m/5m.</p>
+      <!-- Verktyg -->
+      <section id="verktyg" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Verktyg</h2>
+          <p class="section-sub">
+            Först ut är inspelaren. Därefter kommer AI-summaries för poddar, möten och videoklipp – allt samlat på ett ställe.
+          </p>
         </div>
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <h3 class="font-semibold">Delbar länk</h3>
-          <p class="mt-2 text-sm text-white/70">Ladda upp till Supabase och få en publikt delbar URL direkt.</p>
-        </div>
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <h3 class="font-semibold">AI‑sammanfattning</h3>
-          <p class="mt-2 text-sm text-white/70">(Kommer snart) Transkribera och sammanfatta rösten till korta highlights.</p>
-        </div>
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <h3 class="font-semibold">Delningssida</h3>
-          <p class="mt-2 text-sm text-white/70">Share‑view med uppspelning, kopiera länk, WhatsApp och Telegram.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how" class="py-16 md:py-24 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Så funkar det</h2>
-          <ol class="mt-6 space-y-4 text-white/80">
-            <li class="flex gap-3"><span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 border border-white/10 text-xs">1</span> Tryck <span class="font-semibold">Starta</span> för att spela in (mic‑tillstånd frågas).</li>
-            <li class="flex gap-3"><span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 border border-white/10 text-xs">2</span> Tryck <span class="font-semibold">Stoppa</span> eller låt auto‑stop avsluta.</li>
-            <li class="flex gap-3"><span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 border border-white/10 text-xs">3</span> Klicka <span class="font-semibold">Dela</span> för att ladda upp och få en länk.</li>
-            <li class="flex gap-3"><span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/10 border border-white/10 text-xs">4</span> Skicka länken till vänner eller posta på sociala medier.</li>
-          </ol>
-        </div>
-        <div class="glass rounded-3xl border border-white/10 p-6">
-          <h3 class="font-semibold">Design‑detaljer</h3>
-          <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
-            <li>Dark‑mode först. Ljusa highlights via gradient‑accent.</li>
-            <li>Grid‑layout och stora rundade hörn (2xl).</li>
-            <li>Stabila tom‑states (slot) för Recorder och Share.</li>
-            <li>Mobilheader med slide‑down meny.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+        <div class="tools-grid">
+          <!-- Kenai Recorder -->
+          <article class="tool-card">
+            <div class="tool-pill-row">
+              <span class="pill-beta">Live</span>
+              <span class="pill">Ljud</span>
+              <span class="pill">Röstrecensioner</span>
+            </div>
+            <div class="tool-title">Kenai Recorder</div>
+            <p class="tool-body">
+              Spela in korta röster direkt i webbläsaren och få en delbar länk.
+              Perfekt för podd-recensioner, feedback eller snabba röstmeddelanden.
+            </p>
+            <div class="tool-link">
+              <a href="https://app.kenai.technology" target="_blank" rel="noopener">
+                Öppna nu på app.kenai.technology →
+              </a>
+            </div>
+          </article>
 
-  <!-- ROADMAP -->
-  <section id="roadmap" class="py-16 md:py-24 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Roadmap</h2>
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <div class="text-xs text-white/60">v0.3</div>
-          <h3 class="mt-1 font-semibold">Recorder SuperSafe v2 + Upload</h3>
-          <p class="mt-2 text-sm text-white/70">Återaktivera Supabase upload och visa delbar länk i UI.</p>
-        </div>
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <div class="text-xs text-white/60">v0.4</div>
-          <h3 class="mt-1 font-semibold">Share‑view</h3>
-          <p class="mt-2 text-sm text-white/70">Publik uppspelning, kopiera länk och enkel statistik.</p>
-        </div>
-        <div class="rounded-2xl border border-white/10 p-6 bg-white/5">
-          <div class="text-xs text-white/60">v0.5</div>
-          <h3 class="mt-1 font-semibold">AI‑sammanfattning</h3>
-          <p class="mt-2 text-sm text-white/70">Transkribera och generera highlight‑kort med tidsstämplar.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+          <!-- Mötes- och samtals-sammanfattning -->
+          <article class="tool-card">
+            <div class="tool-pill-row">
+              <span class="pill-planerad">Planerat</span>
+              <span class="pill">Möten</span>
+              <span class="pill">AI-sammanfattning</span>
+            </div>
+            <div class="tool-title">Mötes- och samtals-sammanfattning</div>
+            <p class="tool-body">
+              Spela in ett möte, låt AI:n transkribera och ta fram en kort sammanfattning av det som bestämdes – i text
+              och senare även som tal/speaker.
+            </p>
+            <div class="tool-link">
+              <span>På ritbordet – byggs ovanpå samma inspelare.</span>
+            </div>
+          </article>
 
-  <!-- FAQ -->
-  <section id="faq" class="py-16 md:py-24 border-t border-white/5">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Vanliga frågor</h2>
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <details class="rounded-2xl border border-white/10 p-5 bg-white/5" open>
-          <summary class="font-semibold cursor-pointer">Funkar det på iPhone/Safari?</summary>
-          <p class="mt-2 text-white/70 text-sm">Ja, designen bygger på WAV 44.1 kHz mono för iOS‑kompabilitet.</p>
-        </details>
-        <details class="rounded-2xl border border-white/10 p-5 bg-white/5">
-          <summary class="font-semibold cursor-pointer">Behöver jag konton/nycklar?</summary>
-          <p class="mt-2 text-white/70 text-sm">För uppladdning krävs <span class="font-semibold">SUPABASE_URL</span> och <span class="font-semibold">SUPABASE_ANON_KEY</span>. Vi lägger dem i koden när recordern kopplas in.</p>
-        </details>
-        <details class="rounded-2xl border border-white/10 p-5 bg-white/5">
-          <summary class="font-semibold cursor-pointer">Kan jag dela direkt?</summary>
-          <p class="mt-2 text-white/70 text-sm">Ja – efter upload får du en offentlig länk som kan kopieras eller delas till WhatsApp/Telegram.</p>
-        </details>
-        <details class="rounded-2xl border border-white/10 p-5 bg-white/5">
-          <summary class="font-semibold cursor-pointer">Hur ser jag vågformen?</summary>
-          <p class="mt-2 text-white/70 text-sm">Vi kan lägga till en canvas‑vågform (Web Audio API) i Recorder‑slotten. Designen är redan redo för det.</p>
-        </details>
-      </div>
-    </div>
-  </section>
+          <!-- Sammanfatta video & podd via länk -->
+          <article class="tool-card">
+            <div class="tool-pill-row">
+              <span class="pill-beta">Beta</span>
+              <span class="pill">YouTube</span>
+              <span class="pill">Podd</span>
+            </div>
+            <div class="tool-title">Sammanfatta video &amp; podd via länk</div>
+            <p class="tool-body">
+              Klistra in en YouTube- eller videolänk och få en kort sammanfattning och full text på svenska.
+              Just nu kör den på demodata – senare kopplar vi på riktig AI.
+            </p>
+            <div class="tool-link">
+              <a href="youtube.html">Öppna verktyget →</a>
+            </div>
+          </article>
+        </div>
+      </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/5 py-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div class="flex items-center gap-3">
-          <div class="h-7 w-7 rounded-xl bg-gradient-to-tr from-sky-400 via-fuchsia-400 to-emerald-400"></div>
-          <div>
-            <div class="font-bold">Kenai</div>
-            <div class="text-xs text-white/50">Röster som blir tydliga.</div>
+      <!-- Om Kenai -->
+      <section id="om" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Om Kenai</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <p>
+              <strong>Kenai är ett personligt projekt som växer fram steg för steg.</strong>
+              Fokus är enkla, snabba verktyg som faktiskt används – inte tusen inställningar.
+              Först löser vi inspelning och delning av röster, sedan kopplar vi på AI för att göra vardagen lite enklare.
+            </p>
+          </div>
+          <div class="about-card">
+            <p>
+              Kenai är byggt med kärlek till ljud, AI och enkelhet. Ingen inloggning, inga konton –
+              bara en ren liten verktygshubb där allt börjar med: öppna sida, gör din grej, dela länken.
+            </p>
+            <p class="about-link">
+              <a href="https://app.kenai.technology" target="_blank" rel="noopener">
+                Öppna inspelaren →
+              </a>
+            </p>
           </div>
         </div>
-        <div class="text-sm text-white/50">© <span id="year"></span> Kenai. Alla rättigheter förbehållna.</div>
-      </div>
-    </div>
-  </footer>
+      </section>
+    </main>
 
-  <!-- SHARE MODAL (placeholder) -->
-  <div id="share" class="fixed inset-0 hidden items-center justify-center p-6">
-    <div class="absolute inset-0 bg-black/60" onclick="toggleShare(false)"></div>
-    <div class="relative max-w-lg w-full glass rounded-3xl border border-white/10 p-6">
-      <div class="flex items-center justify-between">
-        <h3 class="font-semibold">Dela klipp</h3>
-        <button class="p-2 rounded-lg bg-white/10 border border-white/10" onclick="toggleShare(false)">Stäng</button>
-      </div>
-      <p class="mt-3 text-sm text-white/70">När uploaden är inkopplad visas din publika URL här med knappar för att kopiera och dela.</p>
-      <div class="mt-4 grid sm:grid-cols-3 gap-3">
-        <button class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/10">Kopiera länk</button>
-        <button class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/10">WhatsApp</button>
-        <button class="px-3.5 py-2 rounded-xl bg-white/10 border border-white/10">Telegram</button>
-      </div>
-    </div>
+    <footer>
+      Kenai – byggt med kärlek till ljud, AI och enkelhet. ✨
+    </footer>
   </div>
-
-  <script>
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Recorder placeholder actions (replace with your real __start/__stop later)
-    window.__start = function () { alert('Start (placeholder) – här kopplas din riktiga recorder in.'); }
-    window.__stop  = function () { alert('Stop (placeholder).'); }
-
-    // Share modal
-    function toggleShare(open) {
-      const el = document.getElementById('share');
-      if (!el) return;
-      if (open) { el.classList.remove('hidden'); el.classList.add('flex'); }
-      else { el.classList.add('hidden'); el.classList.remove('flex'); }
-    }
-    // Open via #share link
-    document.querySelectorAll('a[href="#share"]').forEach(a => {
-      a.addEventListener('click', (e) => { e.preventDefault(); toggleShare(true); });
-    });
-  </script>
 </body>
 </html>
