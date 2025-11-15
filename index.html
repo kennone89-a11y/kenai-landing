@@ -44,16 +44,23 @@
 }
 
 
-/* Kenai Legends – poster i nederdelen */
+/* Kenai Legends – poster bara i nederdelen */
 body::before {
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: -8vh;           /* tryck ner bilden lite på desktop */
-    height: 55vh;           /* bara nederdelen syns */
-    z-index: -1;
-    pointer-events: none;
+    ...
+}
+
+@media (max-width: 900px) {
+    body::before {
+        ...
+    }
+}
+
+@media (min-width: 1200px) {
+    body::before {
+        ...
+    }
+}
+
 
     background:
         /* mörkt upptill så texten är ren på desktop */
