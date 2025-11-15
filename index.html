@@ -31,23 +31,22 @@
       box-sizing: border-box;
     }
 
-   body {
+  body {
     margin: 0;
     min-height: 100vh;
     color: var(--text);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
 
-    /* Bakgrund: Kenai Legends + mörk overlay för djup */
+    /* Bakgrund: Kenai Legends + lite mörkt lager ovanpå */
     background:
-        /* 1. Mjuk mörk topp/vänster – hjälper rubriken */
-        radial-gradient(circle at top left, #020617 0%, #020617 35%, rgba(15, 23, 42, 0.95) 100%),
-        /* 2. Vertikal mörkning över hela sidan */
-        linear-gradient(to bottom, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98)),
-        /* 3. Själva postern */
+        /* mörk overlay men inte för stark */
+        linear-gradient(to bottom, rgba(2, 6, 23, 0.35), rgba(15, 23, 42, 0.85)),
+        /* själva postern */
         url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
             center bottom / cover no-repeat fixed;
 }
+
 
 
     /* TEST: bara Kenai Legends som bakgrund */
