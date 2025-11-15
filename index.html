@@ -35,11 +35,15 @@
       box-sizing: border-box;
     }
 
-  body {
+ body {
   margin: 0;
   min-height: 100vh;
+  background: #020617;  /* enkel mörk bas, bilden läggs ovanpå via ::before */
   color: #e5e7eb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
 
   /* Kenai Legends – bild + mörk overlay */
   background:
@@ -59,10 +63,13 @@
     }
 
     .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 20px 20px 40px;
-    }
+  position: relative;
+  z-index: 1;           /* lyft innehållet över bilden */
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+}
+
 
     /* Nav */
     .nav {
@@ -480,25 +487,25 @@
       .tools-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-/* Kenai Legends – bakgrund med djup (TEST) */
-/* Kenai Legends – bakgrund, max synlig */
+/* Kenai Legends – bakgrund med djup */
 body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 
-    /* bara bilden, ingen extra mörk gradient */
-    background-image: url("img/kenai-legends-bg.jpg");
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
+  /* bara bilden – ingen extra mörk overlay */
+  background-image: url("img/kenai-legends-bg.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 
-    /* gör bilden helt tydlig */
-    opacity: 1;              /* 1 = fullt synlig */
-    filter: none;            /* ingen blur, ingen dimming */
-    transform: none;         /* ingen zoom */
+  /* gör den riktigt synlig */
+  opacity: 1;                       /* 1 = fullt synlig */
+  filter: brightness(1.6) contrast(1.15);  /* boosta bilden */
 }
+
 </style>
 </head>
 <body>
