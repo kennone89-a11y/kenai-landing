@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kenai – Sammanfatta video & podd via länk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Klistra in en YouTube- eller videolänk och få en AI-liknande sammanfattning och full text. Kenai – svensk verktygshubb för ljud och video."
+  />
+  <!-- Tailwind via CDN för snabb styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at top left, #020617, #000);
+    }
+    .kenai-card {
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+    }
+    .kenai-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .kenai-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100">
+  <div class="max-w-4xl mx-auto px-4 py-6 sm:py-10">
+    <!-- Top / "nav"-liknande rad -->
+    <header class="flex items-center justify-between gap-4 mb-8">
+      <div class="flex items-center gap-3">
+        <div class="kenai-dot"></div>
+        <div class="text-xs font-semibold tracking-[0.2em] uppercase text-slate-300">
+          Kenai
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-slate-400">
+        <a href="/" class="hover:text-slate-100">Hem</a>
+        <span class="text-slate-600 select-none">·</span>
+        <a href="https://app.kenai.technology" class="hover:text-slate-100"
+          >Inspelaren</a
+        >
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="mb-8">
+      <div
+        class="inline-flex items-center gap-2 kenai-pill px-3 py-1 text-[0.7rem] text-slate-300 mb-3"
+      >
+        <span
+          class="px-2 py-0.5 rounded-full border border-emerald-500/70 bg-emerald-500/10 text-emerald-200"
+          >Beta</span
+        >
+        <span>Video &amp; podd via länk</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-semibold mb-2">
+        Sammanfatta video &amp; podd via länk.
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 max-w-2xl">
+        Klistra in en YouTube-länk och få en kort sammanfattning plus full text –
+        perfekt för att snabbt förstå innehållet utan att behöva se hela videon.
+        Just nu kör den på demodata, senare kopplar vi på riktig AI.
+      </p>
+    </section>
+
+    <!-- Input-kort -->
+    <section class="kenai-card rounded-2xl p-5 mb-6">
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <input
+          id="youtubeUrl"
+          type="text"
+          placeholder="Klistra in YouTube-länk här..."
+          class="flex-1 rounded-lg border border-slate-600 bg-slate-900/70 px-4 py-3 text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
+        <button
+          id="transcribeBtn"
+          class="rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-medium px-5 py-3 text-sm transition-colors flex items-center justify-center gap-2"
+        >
+          <span>Sammanfatta</span>
+        </button>
+      </div>
+      <p class="text-[0.75rem] text-slate-400 mt-2">
+        Exempel: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      </p>
+    </section>
+
+    <!-- Loading -->
+    <div
+      id="loading"
+      class="hidden flex flex-col items-center justify-center py-8 text-sm text-slate-300"
+    >
+      <div
+        class="inline-block h-10 w-10 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent mb-3"
+      ></div>
+      <p>Bearbetar video... kan ta några sekunder.</p>
+    </div>
+
+    <!-- Error -->
+    <div
+      id="error"
+      class="hidden rounded-2xl border border-red-500/60 bg-red-950/40 px-4 py-4 mb-4 text-sm text-red-100"
+    >
+      <div class="font-medium mb-1" id="errorTitle">
+        Kunde inte behandla videon
+      </div>
+      <div id="errorMessage"></div>
+    </div>
+
+    <!-- Resultat -->
+    <section
+      id="resultContainer"
+      class="hidden kenai-card rounded-2xl overflow-hidden"
+    >
+      <!-- Video-info -->
+      <div class="border-b border-slate-700/80 px-5 py-4">
+        <div class="flex gap-4 items-center">
+          <img
+            id="thumbnail"
+            src=""
+            alt="Video thumbnail"
+            class="w-28 h-18 rounded-md object-cover bg-slate-800"
+          />
+          <div class="flex-1">
+            <h2
+              id="videoTitle"
+              class="font-semibold text-sm sm:text-base text-slate-50 mb-1"
+            ></h2>
+            <p
+              id="videoChannel"
+              class="text-xs text-slate-400"
+            ></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="px-5 py-5 text-sm">
+        <h3 class="font-semibold text-slate-200 mb-2">
+          Kort sammanfattning
+        </h3>
+        <div
+          id="transcriptSummary"
+          class="text-slate-200 text-sm mb-5 space-y-2"
+        ></div>
+
+        <h3 class="font-semibold text-slate-200 mb-2">Full text</h3>
+        <div
+          id="fullTranscript"
+          class="text-slate-300 text-sm leading-relaxed space-y-2 max-h-80 overflow-y-auto pr-1"
+        ></div>
+      </div>
+
+      <!-- Copy-knapp -->
+      <div
+        class="border-t border-slate-700/80 bg-slate-900/70 px-5 py-3 flex justify-end"
+      >
+        <button
+          id="copyBtn"
+          class="text-xs sm:text-sm text-emerald-400 hover:text-emerald-300 flex items-center gap-2"
+        >
+          Kopiera text
+        </button>
+      </div>
+    </section>
+
+    <!-- Liten footer -->
+    <footer class="mt-8 text-[0.75rem] text-slate-500">
+      Kenai – experimentell beta-funktion. I nästa steg kopplar vi på riktig AI
+      för svensk transkribering och sammanfattning.
+    </footer>
+  </div>
+
+  <!-- Enkel logik med mock-data -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const transcribeBtn = document.getElementById("transcribeBtn");
+      const youtubeUrlInput = document.getElementById("youtubeUrl");
+      const loadingEl = document.getElementById("loading");
+      const resultEl = document.getElementById("resultContainer");
+      const errorEl = document.getElementById("error");
+      const errorMessageEl = document.getElementById("errorMessage");
+      const copyBtn = document.getElementById("copyBtn");
+
+      let latestTranscript = "";
+
+      transcribeBtn.addEventListener("click", handleTranscribe);
+      copyBtn.addEventListener("click", handleCopy);
+
+      async function handleTranscribe() {
+        const url = youtubeUrlInput.value.trim();
+
+        if (!url) {
+          return showError("Skriv eller klistra in en YouTube-länk först.");
+        }
+        if (!isValidYouTubeUrl(url)) {
+          return showError("Det ser inte ut som en giltig YouTube-länk.");
+        }
+
+        setLoading(true);
+        hideError();
+        hideResult();
+
+        try {
+          // TODO: här kopplar vi senare på riktig backend / AI
+          // const response = await fetch("/api/transcribe", {...})
+          // const data = await response.json();
+
+          const data = await mockTranscription();
+          displayResults(data);
+        } catch (err) {
+          console.error(err);
+          showError(
+            "Något gick fel när videon skulle bearbetas. Försök igen om en liten stund."
+          );
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      function isValidYouTubeUrl(url) {
+        const pattern =
+          /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/i;
+        return pattern.test(url);
+      }
+
+      function displayResults(data) {
+        if (!data.success) {
+          showError(data.message || "Kunde inte behandla videon.");
+          return;
+        }
+
+        const { videoInfo, summary, transcript } = data;
+
+        document.getElementById("videoTitle").textContent = videoInfo.title;
+        document.getElementById("videoChannel").textContent =
+          videoInfo.channel;
+        document.getElementById("thumbnail").src = videoInfo.thumbnail;
+        document.getElementById(
+          "transcriptSummary"
+        ).innerHTML = `<p>${summary}</p>`;
+        document.getElementById(
+          "fullTranscript"
+        ).innerHTML = `<p>${transcript}</p>`;
+
+        latestTranscript = transcript;
+        resultEl.classList.remove("hidden");
+      }
+
+      function handleCopy() {
+        if (!latestTranscript) return;
+        navigator.clipboard
+          .writeText(latestTranscript)
+          .then(() => {
+            const original = copyBtn.textContent;
+            copyBtn.textContent = "Kopierat!";
+            setTimeout(() => {
+              copyBtn.textContent = original;
+            }, 1800);
+          })
+          .catch((err) => console.error("Kunde inte kopiera:", err));
+      }
+
+      function showError(message) {
+        errorMessageEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+
+      function hideError() {
+        errorEl.classList.add("hidden");
+      }
+
+      function hideResult() {
+        resultEl.classList.add("hidden");
+      }
+
+      function setLoading(isLoading) {
+        loadingEl.classList.toggle("hidden", !isLoading);
+      }
+
+      // Mock-funktion – endast demo
+      function mockTranscription() {
+        const mockResponse = {
+          success: true,
+          videoInfo: {
+            title: "Hur AI förändrar vardagen – en snabb genomgång",
+            channel: "Kenai Demo-kanal",
+            thumbnail:
+              "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=640"
+          },
+          summary:
+            "Den här demovideon går igenom hur AI kan användas i vardagen – från smarta assistenter till att sammanfatta poddar, möten och videos. Fokus ligger på att spara tid och göra information mer lättillgänglig.",
+          transcript:
+            "Välkommen till den här korta demovideon. I dag tittar vi på hur AI kan hjälpa dig att spara tid genom att automatiskt sammanfatta innehåll från poddar, möten och videoklipp. Tanken är enkel: i stället för att lägga 60 minuter på att lyssna, kan du få en översikt på ett par sekunder. I framtiden kan samma teknik användas direkt i verktyg som Kenai, där du spelar in eller klistrar in en länk och får en färdig text eller ljudsammanfattning tillbaka..."
+        };
+
+        return new Promise((resolve) =>
+          setTimeout(() => resolve(mockResponse), 1500)
+        );
+      }
+    });
+  </script>
+</body>
+</html>
