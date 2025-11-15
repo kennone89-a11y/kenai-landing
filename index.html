@@ -44,16 +44,30 @@
 }
 
 
-    /* Kenai Legends – poster bara i nederdelen */
+ /* Kenai Legends – poster bara i nederdelen */
 body::before {
     content: "";
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 42vh;  /* bara nedersta ~40% av skärmen */
+    height: 60vh; /* mer av posten syns på desktop */
     z-index: -1;
     pointer-events: none;
+
+    background:
+        /* lite mildare mörkning så bilden syns mer */
+        linear-gradient(
+            to top,
+            rgba(2, 6, 23, 0.0) 0%,
+            rgba(2, 6, 23, 0.35) 45%,
+            rgba(2, 6, 23, 0.85) 100%
+        ),
+        url("https://raw.githubusercontent.com/kennone89-a11y/kenai-landing/main/img/kenai-legends.jpg")
+            center bottom / 95% auto no-repeat;
+
+    opacity: 0.95; /* gör den nästan fullt synlig på desktop */
+}
 
     background:
         /* mörkare mot mitten, helt mörkt uppåt */
