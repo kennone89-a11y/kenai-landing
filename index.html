@@ -46,22 +46,35 @@
       flex-direction: column;
       gap: 2px;
     }
-    .brand-logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1);
-      -webkit-background-clip: text;
-      color: transparent;
-      text-shadow:
-        0 0 10px rgba(56, 189, 248, 0.8),
-        0 0 22px rgba(37, 99, 235, 0.8);
-    }
-    .brand-sub {
-      font-size: 12px;
-      color: #9ca3af;
-    }
+   .brand-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 0 10px rgba(56, 189, 248, 0.8),
+    0 0 22px rgba(37, 99, 235, 0.8);
+}
+.brand-sub {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-logo-img {
+  height: 40px;   /* ändra till 50 om du vill ha större logga */
+  width: auto;
+  display: block;
+}
+
 
     .nav {
       display: flex;
