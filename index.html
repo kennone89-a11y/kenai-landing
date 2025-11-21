@@ -62,13 +62,20 @@
       left: 24px;
       z-index: 1000;
     }
-
-    .kenai-logo img {
+.kenai-logo img {
   width: 72px;
   height: 72px;
   border-radius: 50%;
   display: block;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
 }
+
+/* Hover-effekt: loggan rör sig lite och glöder mer */
+.kenai-logo:hover img {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.8);
+}
+
 
     header {
       display: flex;
