@@ -2,515 +2,422 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
-  <title>Kenai – YouTube-sammanfattning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-  <meta name="theme-color" content="#00d8ff">
-
+  <title>Kenai – Smarta AI-verktyg för ljud & video</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
-    :root {
-      --bg: #020617;
-      --card: #020817;
-      --card-soft: #05091b;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --accent: #22d3ee;
-      --accent-soft: rgba(56, 189, 248, 0.35);
-      --accent-strong: #fbbf24;
-      --danger: #f97316;
-      --radius-lg: 18px;
-      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.7);
-    }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #002617 0, #020617 45%, #000000 100%);
-      color: var(--text-main);
       min-height: 100vh;
-      padding: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, #0ea5e9 0, #020617 35%) no-repeat,
+                  radial-gradient(circle at bottom right, #6366f1 0, #020617 40%) no-repeat,
+                  #020617;
+      background-attachment: fixed;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
       width: 100%;
-      max-width: 800px;
     }
 
-    /* Klickbar Kenai-logga */
-    .kenai-logo {
-      position: fixed;
-      top: 16px;
-      left: 24px;
-      z-index: 1000;
-      display: block;
-    }
-
-    .kenai-logo img {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      display: block;
-      transition: transform 0.18s ease-out, box-shadow 0.35s ease-out;
-      animation: kenaiPulse 4s ease-in-out infinite;
-    }
-
-    .kenai-logo:hover img {
-      transform: translateY(-2px);
-      box-shadow: 0 0 22px rgba(34, 211, 238, 0.85);
-    }
-
-    @keyframes kenaiPulse {
-      0%   { box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
-      50%  { box-shadow: 0 0 16px rgba(34, 211, 238, 0.5); }
-      100% { box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
-    }
-
-    header {
-      margin: 32px 0 20px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
+    /* HEADER */
+    .header {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      color: var(--text-soft);
-      font-size: 11px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      margin-bottom: 10px;
+      background: radial-gradient(circle, #22d3ee, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+      overflow: hidden;
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e0f2fe;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #9ca3af;
     }
 
-    .eyebrow span.tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.12);
-      color: #7dd3fc;
-      font-size: 11px;
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-
-    h1 {
-      font-size: 26px;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .sub {
-      font-size: 14px;
-      color: var(--text-soft);
-      max-width: 40rem;
-    }
-
-    .card {
-      margin-top: 20px;
-      border-radius: 24px;
-      padding: 18px 18px 16px;
-      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.25), transparent 60%) border-box,
-                  var(--card-soft);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: var(--shadow-soft);
-    }
-
-    label {
+    .nav-btn {
       font-size: 13px;
-      color: var(--text-soft);
-      display: block;
-      margin-bottom: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+    .nav-btn.primary {
+      border-color: #38bdf8;
+      background: radial-gradient(circle at top left, #22c1c3, #0f172a);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+    }
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.6);
+      border-color: #e5e7eb;
     }
 
-    .input-row {
+    /* HERO */
+    .hero {
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 24px;
+      align-items: center;
+    }
+    .hero-left {
+      padding-right: 8px;
+    }
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: #f9fafb;
+      margin-bottom: 12px;
+    }
+    .hero-highlight {
+      background: linear-gradient(90deg, #22c55e, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero-text {
+      font-size: 14px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+      max-width: 460px;
+    }
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
     }
-
-    input[type="text"] {
-      flex: 1;
-      min-width: 220px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      font-size: 13px;
-      outline: none;
-    }
-
-    input[type="text"]::placeholder {
-      color: #6b7280;
-    }
-
-    .btn {
-      border-radius: 999px;
-      border: none;
-      padding: 9px 16px;
-      font-size: 13px;
-      font-weight: 500;
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, background 0.12s ease-out, opacity 0.12s;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #22d3ee, #0ea5e9);
-      color: #0b1220;
-      box-shadow: 0 16px 36px rgba(56, 189, 248, 0.45);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 48px rgba(56, 189, 248, 0.6);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: default;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .hint {
+      gap: 6px;
+      padding: 4px 10px;
       font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34,197,94,0.9);
     }
 
-    .status {
-      margin-top: 10px;
+    .hero-right {
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.2), rgba(15, 23, 42, 0.9));
+      padding: 18px 18px 20px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.8);
+    }
+    .hero-right-title {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+    .hero-right-text {
       font-size: 12px;
-      color: var(--text-soft);
+      color: #9ca3af;
+      margin-bottom: 14px;
     }
-
-    .status.error {
-      color: #f97316;
-    }
-
-    .results {
-      margin-top: 18px;
-      display: none;
-      gap: 14px;
-    }
-
-    .summary-box,
-    .chapters-box {
-      border-radius: 16px;
-      padding: 12px 12px 10px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 13px;
-    }
-
-    .box-title {
+    .yt-label {
       font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
       color: #9ca3af;
       margin-bottom: 6px;
     }
-
-    .summary-text {
-      white-space: pre-wrap;
-      color: var(--text-main);
-    }
-
-    .chapters-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    .chapters-list li {
-      margin-bottom: 6px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .timestamp {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      padding: 2px 6px;
+    .yt-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15,23,42,0.85);
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      margin-right: 6px;
+      padding: 4px 4px 4px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+    .yt-input {
+      flex: 1;
+      border: none;
+      background: transparent;
       color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
     }
-
-    .chapter-title {
-      color: var(--text-main);
+    .yt-input::placeholder {
+      color: #6b7280;
     }
-
-    .chapter-desc {
-      display: block;
-      margin-left: 24px;
-      color: var(--text-soft);
+    .yt-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: #f9fafb;
+      box-shadow: 0 10px 20px rgba(56,189,248,0.5);
+      transition: all 0.15s ease-out;
+      white-space: nowrap;
     }
-
-    .chapter-link {
-      color: #7dd3fc;
-      text-decoration: none;
+    .yt-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(56,189,248,0.6);
+    }
+    .yt-help {
       font-size: 11px;
-      margin-left: 24px;
+      color: #6b7280;
+      margin-top: 8px;
     }
-
-    .chapter-link:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 20px;
+    .beta-tag {
       font-size: 11px;
-      color: var(--text-soft);
-      opacity: 0.8;
+      color: #9ca3af;
+      margin-top: 14px;
     }
 
-    footer a {
-      color: #7dd3fc;
-      text-decoration: none;
+    /* SECTION SEPARATOR */
+    .section-heading {
+      margin-top: 40px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ca3af;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .tool-card {
+      border-radius: 16px;
+      padding: 14px 14px 16px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tool-title {
+      font-weight: 600;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+    .tool-text {
+      color: #9ca3af;
+      font-size: 12px;
+    }
+    .tool-link {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #38bdf8;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
     }
 
-    @media (max-width: 880px) {
-      body {
-        padding: 12px;
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
       }
-
-      .kenai-logo {
-        top: 12px;
-        left: 12px;
+      .hero-left {
+        padding-right: 0;
       }
-
-      .kenai-logo img {
-        width: 52px;
-        height: 52px;
+      .hero {
+        margin-bottom: 24px;
       }
-
-      header {
-        margin-top: 80px;
-      }
-
-      .card {
-        padding: 16px 12px 14px;
+      .page {
+        padding: 20px 14px 28px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Klickbar Kenai-logga, tillbaka till startsidan -->
-  <a class="kenai-logo" href="/">
-    <img src="/android-chrome-512x512.png" alt="Kenai logo">
-  </a>
 
   <div class="page">
-    <header>
-      <div class="eyebrow">
-        <span>Experimentellt verktyg</span>
-        <span class="tag">YouTube → AI-sammanfattning</span>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo">
+          <!-- Byt src till din riktiga logofil om du vill -->
+          <img src="kenai-logo.png" alt="Kenai logo" />
+        </div>
+        <div>
+          <div class="brand-title">KENAI</div>
+          <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
+        </div>
       </div>
-      <h1>Sammanfatta ett YouTube-klipp med AI.</h1>
-      <p class="sub">
-        Klistra in en YouTube-länk så hämtar Kenai innehållet, sammanfattar klippet och (senare) delar upp det i kapitel med tidsstämplar.
-      </p>
+      <nav class="nav">
+        <a href="https://app.kenai.technology/recorder.html">
+          <button class="nav-btn primary">Öppna Kenai Recorder</button>
+        </a>
+        <a href="#youtube-ai">
+          <button class="nav-btn">YouTube-sammanfattning</button>
+        </a>
+      </nav>
     </header>
 
-    <section class="card">
-      <label for="yt-url">YouTube-länk</label>
-      <div class="input-row">
-        <input
-          id="yt-url"
-          type="text"
-          placeholder="https://www.youtube.com/watch?v=..."
-          autocomplete="off"
-        />
-        <button id="summarize-btn" class="btn btn-primary">
-          ⚡ Sammanfatta
-        </button>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>Experimentverktyg • Kenai AI</span>
+        </div>
+        <h1 class="hero-title">
+          Din AI-motor för
+          <span class="hero-highlight">ljud, klipp & sammanfattningar.</span>
+        </h1>
+        <p class="hero-text">
+          Spela in röster, klipp poddar, sammanfatta YouTube-videos
+          och skapa smarta snippets. Allt från Kenai, direkt i webbläsaren.
+        </p>
+        <div class="hero-actions">
+          <a href="https://app.kenai.technology/recorder.html">
+            <button class="nav-btn primary">Spela in & sammanfatta ljud</button>
+          </a>
+          <a href="#youtube-ai">
+            <button class="nav-btn">Testa YouTube-sammanfattning</button>
+          </a>
+        </div>
       </div>
-      <div class="hint">
-        Tips: börja med vanliga öppna videor. Långa klipp kan ta längre tid.
-      </div>
-      <div id="status" class="status"></div>
 
-      <div id="results" class="results">
-        <div class="summary-box">
-          <div class="box-title">Sammanfattning</div>
-          <div id="summary-text" class="summary-text"></div>
+      <!-- YouTube-tool card -->
+      <div class="hero-right" id="youtube-ai">
+        <div class="hero-right-title">YouTube – AI-sammanfattning</div>
+        <div class="hero-right-text">
+          Klistra in en YouTube-länk så hämtar Kenai innehållet
+          och sammanfattar klippet åt dig.
         </div>
-        <div class="chapters-box">
-          <div class="box-title">Kapitel (tidsstämplar)</div>
-          <ul id="chapters-list" class="chapters-list"></ul>
+
+        <div class="yt-label">YouTube-länk</div>
+        <div class="yt-input-row">
+          <input
+            id="yt-url"
+            class="yt-input"
+            type="text"
+            placeholder="https://www.youtube.com/watch?v=..."
+          />
+          <button class="yt-btn" id="yt-summarize-btn">Sammanfatta</button>
         </div>
+        <p class="yt-help">
+          Bäst med vanliga öppna videos. Längre klipp kan ta längre tid.
+        </p>
+
+        <p class="beta-tag">
+          Detta är en tidig version. Backend-endpoint för YouTube-sammanfattning
+          kopplas senare mot <code>/api/youtube-summary</code> på servern och
+          kommer att returnera <code>{ summary, chapters[] }</code>.
+        </p>
       </div>
     </section>
 
-    <footer>
-      Detta är en tidig version. Backend-endpointen för YouTube-sammanfattning behöver kopplas mot
-      <code>/api/youtube-summary</code> på servern. När den är klar ska den returnera
-      <code>{ summary, chapters[] }</code>.
-    </footer>
+    <!-- ANDRA VERKTYG / TEASERS -->
+    <h2 class="section-heading">Kenai-verktyg (pågående)</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-title">Kenai Recorder</div>
+        <div class="tool-text">
+          Spela in ljud direkt i webbläsaren, ladda upp till Kenai
+          och låt AI transkribera & sammanfatta. Exportera sammanfattningen
+          som PDF.
+        </div>
+        <a class="tool-link" href="https://app.kenai.technology/recorder.html">
+          Öppna på app.kenai.technology/recorder.html →
+        </a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-title">Kenai Reels (tidig test)</div>
+        <div class="tool-text">
+          Ladda upp bilder & korta klipp, låt AI bygga ett första utkast
+          till en reel/shorts med plan för klippordning och längd.
+        </div>
+        <a class="tool-link" href="https://app.kenai.technology/reels.html">
+          Testa prototypen →
+        </a>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-title">Möten & podd-sammanfattning</div>
+        <div class="tool-text">
+          På väg: ladda upp inspelade möten eller poddavsnitt och få
+          auto-sammanfattningar, highlights och aktionspunkter.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Kenai • Byggt med kärlek, kaffe och för mycket AI-idéer.
+    </div>
   </div>
 
+  <!-- Placeholder JS för framtida YouTube-integration -->
   <script>
-    const urlInput = document.getElementById('yt-url');
-    const summarizeBtn = document.getElementById('summarize-btn');
-    const statusEl = document.getElementById('status');
-    const resultsEl = document.getElementById('results');
-    const summaryTextEl = document.getElementById('summary-text');
-    const chaptersListEl = document.getElementById('chapters-list');
-
-    function isProbablyYouTubeUrl(url) {
-      return /youtube\.com\/watch\?v=|youtu\.be\//i.test(url);
-    }
-
-    function formatTime(seconds) {
-      if (typeof seconds !== 'number' || isNaN(seconds)) return '';
-      const s = Math.max(0, Math.floor(seconds));
-      const h = Math.floor(s / 3600);
-      const m = Math.floor((s % 3600) / 60);
-      const sec = s % 60;
-      if (h > 0) {
-        return [h, m.toString().padStart(2, '0'), sec.toString().padStart(2, '0')].join(':');
-      }
-      return [m, sec.toString().padStart(2, '0')].join(':');
-    }
-
-    async function summarize() {
-      const url = urlInput.value.trim();
-      statusEl.className = 'status';
-      statusEl.textContent = '';
-      resultsEl.style.display = 'none';
-      summaryTextEl.textContent = '';
-      chaptersListEl.innerHTML = '';
-
+    document.getElementById("yt-summarize-btn").addEventListener("click", () => {
+      const url = document.getElementById("yt-url").value.trim();
       if (!url) {
-        statusEl.classList.add('error');
-        statusEl.textContent = 'Klistra in en YouTube-länk först.';
+        alert("Klistra in en YouTube-länk först.");
         return;
       }
-
-      if (!isProbablyYouTubeUrl(url)) {
-        statusEl.classList.add('error');
-        statusEl.textContent = 'Det här ser inte ut som en YouTube-länk. Dubbelkolla URL:en.';
-        return;
-      }
-
-      summarizeBtn.disabled = true;
-      summarizeBtn.textContent = '⏳ Sammanfattar...';
-      statusEl.textContent = 'Jobbar på det... hämtar klippet och pratar med AI.';
-      statusEl.className = 'status';
-
-      try {
-        const response = await fetch('https://app.kenai.technology/api/youtube-summary', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ url })
-        });
-
-        if (!response.ok) {
-          throw new Error('Servern svarade med fel (' + response.status + ').');
-        }
-
-        const data = await response.json();
-
-        const summary = data.summary || 'Ingen sammanfattning returnerades.';
-        const chapters = Array.isArray(data.chapters) ? data.chapters : [];
-
-        summaryTextEl.textContent = summary;
-
-        chaptersListEl.innerHTML = '';
-        const urlObj = new URL(url);
-
-        if (chapters.length > 0) {
-          chapters.forEach(ch => {
-            const li = document.createElement('li');
-
-            const ts = document.createElement('span');
-            ts.className = 'timestamp';
-            ts.textContent = formatTime(ch.start ?? 0);
-
-            const title = document.createElement('span');
-            title.className = 'chapter-title';
-            title.textContent = ch.label || 'Kapitel';
-
-            li.appendChild(ts);
-            li.appendChild(title);
-
-            if (ch.description) {
-              const desc = document.createElement('span');
-              desc.className = 'chapter-desc';
-              desc.textContent = ch.description;
-              li.appendChild(document.createElement('br'));
-              li.appendChild(desc);
-            }
-
-            const link = document.createElement('a');
-            link.className = 'chapter-link';
-            const tSeconds = Math.max(0, Math.floor(ch.start ?? 0));
-            link.href = urlObj.origin + urlObj.pathname + '?v=' + (urlObj.searchParams.get('v') || '') + '&t=' + tSeconds + 's';
-            if (!urlObj.searchParams.get('v') && urlObj.pathname.startsWith('/watch')) {
-              // leave as-is
-            }
-            if (urlObj.hostname === 'youtu.be') {
-              link.href = url + '?t=' + tSeconds + 's';
-            }
-
-            link.target = '_blank';
-            link.rel = 'noreferrer';
-            link.textContent = 'Öppna vid ' + formatTime(tSeconds);
-
-            li.appendChild(document.createElement('br'));
-            li.appendChild(link);
-
-            chaptersListEl.appendChild(li);
-          });
-        } else {
-          const li = document.createElement('li');
-          li.textContent = 'Inga kapitel returnerades ännu. Den här delen behöver byggas klart i backend.';
-          chaptersListEl.appendChild(li);
-        }
-
-        resultsEl.style.display = 'grid';
-        statusEl.textContent = 'Klar. Testa gärna med ett annat klipp också.';
-      } catch (err) {
-        console.error(err);
-        statusEl.className = 'status error';
-        statusEl.textContent = 'Något gick fel. Antingen funkar inte backend ännu, eller så var URL:en krånglig. Vi kopplar färdigt detta på serversidan.';
-      } finally {
-        summarizeBtn.disabled = false;
-        summarizeBtn.textContent = '⚡ Sammanfatta';
-      }
-    }
-
-    summarizeBtn.addEventListener('click', summarize);
-    urlInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        summarize();
-      }
+      // Här kommer vi senare anropa /api/youtube-summary
+      alert("YouTube-sammanfattning kopplas in senare. Länken du skrev in: " + url);
     });
   </script>
 </body>
