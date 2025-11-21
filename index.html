@@ -67,24 +67,25 @@
   height: 72px;
   border-radius: 50%;
   display: block;
-  transition: transform 0.2s ease-out, box-shadow 0.3s ease-out;
-  
-  /* Idle animation */
-  animation: kenaiPulse 3.5s ease-in-out infinite;
+  transition: transform 0.18s ease-out, box-shadow 0.35s ease-out;
+
+  /* Lugn puls – bara glow, ingen zoom */
+  animation: kenaiPulse 4s ease-in-out infinite;
 }
 
-/* Hover: lyft, glow & liten rotation */
+/* Hover: lite lyft + extra glow, ingen rotation, nästan ingen zoom */
 .kenai-logo:hover img {
-  transform: translateY(-3px) scale(1.07) rotate(1.5deg);
-  box-shadow: 0 0 26px rgba(34, 211, 238, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.85);
 }
 
-/* Pulsanimation */
+/* Puls: ändrar bara glow, inte storlek */
 @keyframes kenaiPulse {
-  0%   { transform: scale(1);       box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
-  50%  { transform: scale(1.04);    box-shadow: 0 0 18px rgba(34, 211, 238, 0.45); }
-  100% { transform: scale(1);       box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
+  0%   { box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
+  50%  { box-shadow: 0 0 16px rgba(34, 211, 238, 0.5); }
+  100% { box-shadow: 0 0 6px rgba(34, 211, 238, 0.25); }
 }
+
 
 
 
