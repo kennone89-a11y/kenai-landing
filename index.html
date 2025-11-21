@@ -43,28 +43,20 @@
     }
     .brand {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 2px;
     }
-
-    /* 🔥 ENDA loggan – bilden du skickade (utan cirkel-CSS) */
-    .logo {
-      height: 40px;             /* justera om du vill ha större/mindre */
-      display: flex;
-      align-items: center;
-    }
-    .logo img {
-      height: 100%;
-      width: auto;
-      display: block;
-    }
-
-    .brand-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+    .brand-logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #e0f2fe;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 10px rgba(56, 189, 248, 0.8),
+        0 0 22px rgba(37, 99, 235, 0.8);
     }
     .brand-sub {
       font-size: 12px;
@@ -109,6 +101,24 @@
     .hero-left {
       padding-right: 8px;
     }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34,197,94,0.9);
+    }
     .hero-title {
       font-size: 32px;
       line-height: 1.15;
@@ -131,24 +141,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      font-size: 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: #9ca3af;
-      margin-bottom: 10px;
-    }
-    .hero-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34,197,94,0.9);
     }
 
     .hero-right {
@@ -289,14 +281,8 @@
     <!-- HEADER -->
     <header class="header">
       <div class="brand">
-        <div class="logo">
-          <!-- 🔥 SE TILL ATT FILNAMNET MATCHAR BILDEN DU LADDADE UPP -->
-          <img src="kenai-logo-main.jpg" alt="Kenai logo" />
-        </div>
-        <div>
-          <div class="brand-title">KENAI</div>
-          <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
-        </div>
+        <div class="brand-logo">KENAI</div>
+        <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
       </div>
       <nav class="nav">
         <a href="https://app.kenai.technology/recorder.html">
@@ -362,6 +348,7 @@
       </div>
     </section>
 
+    <!-- VERKTYGSKORT -->
     <h2 class="section-heading">Kenai-verktyg (pågående)</h2>
     <div class="tools-grid">
       <div class="tool-card">
