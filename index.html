@@ -41,47 +41,35 @@
       justify-content: space-between;
       margin-bottom: 32px;
     }
-  .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* EN huvudlogga – runda neon-Kenai-loggan */
-.logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 999px;
-  background: radial-gradient(circle, #0b1120 0, #020617 35%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 18px rgba(56, 189, 248, 0.9),
-    0 0 32px rgba(37, 99, 235, 0.6);
-  overflow: hidden;
-}
+    /* 🔥 ENDA loggan – bilden du skickade (utan cirkel-CSS) */
+    .logo {
+      height: 40px;             /* justera om du vill ha större/mindre */
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
 
-.logo img {
-  width: 115%;
-  height: 115%;
-  object-fit: contain;
-}
-
-/* Texten bredvid loggan */
-.brand-title {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #e0f2fe;
-}
-.brand-sub {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-
+    .brand-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e0f2fe;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #9ca3af;
+    }
 
     .nav {
       display: flex;
@@ -233,7 +221,6 @@
       margin-top: 14px;
     }
 
-    /* SECTION SEPARATOR */
     .section-heading {
       margin-top: 40px;
       margin-bottom: 10px;
@@ -298,26 +285,28 @@
   </style>
 </head>
 <body>
-
   <div class="page">
     <!-- HEADER -->
-    <div class="brand">
-    <div class="logo">
-      <!-- byt filnamn om du sparade loggan med annat namn -->
-      <img src="kenai-main-logo.png" alt="Kenai logo" />
-    </div>
-    <div>
-      <div class="brand-title">KENAI</div>
-      <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
-    </div>
-  </div>
-
-
-  <!-- resten av din header (nav-knapparna) lämnar du som den är -->
-  ...
-</header>
-
-
+    <header class="header">
+      <div class="brand">
+        <div class="logo">
+          <!-- 🔥 SE TILL ATT FILNAMNET MATCHAR BILDEN DU LADDADE UPP -->
+          <img src="kenai-logo-main.jpg" alt="Kenai logo" />
+        </div>
+        <div>
+          <div class="brand-title">KENAI</div>
+          <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="https://app.kenai.technology/recorder.html">
+          <button class="nav-btn primary">Öppna Kenai Recorder</button>
+        </a>
+        <a href="#youtube-ai">
+          <button class="nav-btn">YouTube-sammanfattning</button>
+        </a>
+      </nav>
+    </header>
 
     <!-- HERO -->
     <section class="hero">
@@ -344,7 +333,6 @@
         </div>
       </div>
 
-      <!-- YouTube-tool card -->
       <div class="hero-right" id="youtube-ai">
         <div class="hero-right-title">YouTube – AI-sammanfattning</div>
         <div class="hero-right-text">
@@ -374,7 +362,6 @@
       </div>
     </section>
 
-    <!-- ANDRA VERKTYG / TEASERS -->
     <h2 class="section-heading">Kenai-verktyg (pågående)</h2>
     <div class="tools-grid">
       <div class="tool-card">
@@ -414,7 +401,6 @@
     </div>
   </div>
 
-  <!-- Placeholder JS för framtida YouTube-integration -->
   <script>
     document.getElementById("yt-summarize-btn").addEventListener("click", () => {
       const url = document.getElementById("yt-url").value.trim();
@@ -422,7 +408,6 @@
         alert("Klistra in en YouTube-länk först.");
         return;
       }
-      // Här kommer vi senare anropa /api/youtube-summary
       alert("YouTube-sammanfattning kopplas in senare. Länken du skrev in: " + url);
     });
   </script>
