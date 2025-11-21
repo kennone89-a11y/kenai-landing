@@ -41,46 +41,54 @@
       justify-content: space-between;
       margin-bottom: 32px;
     }
+
     .brand {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
-   .brand-logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1);
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow:
-    0 0 10px rgba(56, 189, 248, 0.8),
-    0 0 22px rgba(37, 99, 235, 0.8);
-}
-.brand-sub {
-  font-size: 12px;
-  color: #9ca3af;
-}
 
-.brand-logo-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .brand-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.brand-logo-img {
-  height: 40px;   /* ändra till 50 om du vill ha större logga */
-  width: auto;
-  display: block;
-}
+    /* 🔥 Din riktiga Kenai-logga – filen MÅSTE heta kenai-logo.png.png */
+    .brand-logo-img {
+      height: 40px;      /* öka till 50 om du vill ha större logga */
+      width: auto;
+      display: block;
+      border-radius: 999px;
+      filter:
+        drop-shadow(0 0 10px rgba(56, 189, 248, 0.9))
+        drop-shadow(0 0 20px rgba(37, 99, 235, 0.8));
+    }
 
+    .brand-logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8, #6366f1);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 10px rgba(56, 189, 248, 0.8),
+        0 0 22px rgba(37, 99, 235, 0.8);
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: #9ca3af;
+    }
 
     .nav {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .nav-btn {
       font-size: 13px;
       padding: 8px 14px;
@@ -92,11 +100,13 @@
       cursor: pointer;
       transition: all 0.15s ease-out;
     }
+
     .nav-btn.primary {
       border-color: #38bdf8;
       background: radial-gradient(circle at top left, #22c1c3, #0f172a);
       box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
     }
+
     .nav-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.6);
@@ -111,9 +121,11 @@
       gap: 24px;
       align-items: center;
     }
+
     .hero-left {
       padding-right: 8px;
     }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -125,6 +137,7 @@
       color: #9ca3af;
       margin-bottom: 10px;
     }
+
     .hero-badge-dot {
       width: 7px;
       height: 7px;
@@ -132,6 +145,7 @@
       background: #22c55e;
       box-shadow: 0 0 8px rgba(34,197,94,0.9);
     }
+
     .hero-title {
       font-size: 32px;
       line-height: 1.15;
@@ -139,17 +153,20 @@
       color: #f9fafb;
       margin-bottom: 12px;
     }
+
     .hero-highlight {
       background: linear-gradient(90deg, #22c55e, #38bdf8);
       -webkit-background-clip: text;
       color: transparent;
     }
+
     .hero-text {
       font-size: 14px;
       color: #9ca3af;
       margin-bottom: 20px;
       max-width: 460px;
     }
+
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
@@ -163,21 +180,25 @@
       padding: 18px 18px 20px;
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.8);
     }
+
     .hero-right-title {
       font-size: 14px;
       color: #e5e7eb;
       margin-bottom: 8px;
     }
+
     .hero-right-text {
       font-size: 12px;
       color: #9ca3af;
       margin-bottom: 14px;
     }
+
     .yt-label {
       font-size: 12px;
       color: #9ca3af;
       margin-bottom: 6px;
     }
+
     .yt-input-row {
       display: flex;
       align-items: center;
@@ -187,6 +208,7 @@
       padding: 4px 4px 4px 14px;
       border: 1px solid rgba(148, 163, 184, 0.5);
     }
+
     .yt-input {
       flex: 1;
       border: none;
@@ -195,9 +217,11 @@
       font-size: 13px;
       outline: none;
     }
+
     .yt-input::placeholder {
       color: #6b7280;
     }
+
     .yt-btn {
       border: none;
       border-radius: 999px;
@@ -211,15 +235,18 @@
       transition: all 0.15s ease-out;
       white-space: nowrap;
     }
+
     .yt-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 14px 26px rgba(56,189,248,0.6);
     }
+
     .yt-help {
       font-size: 11px;
       color: #6b7280;
       margin-top: 8px;
     }
+
     .beta-tag {
       font-size: 11px;
       color: #9ca3af;
@@ -234,12 +261,14 @@
       letter-spacing: 0.16em;
       color: #9ca3af;
     }
+
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 16px;
       margin-top: 10px;
     }
+
     .tool-card {
       border-radius: 16px;
       padding: 14px 14px 16px;
@@ -251,15 +280,18 @@
       flex-direction: column;
       gap: 8px;
     }
+
     .tool-title {
       font-weight: 600;
       color: #e5e7eb;
       font-size: 14px;
     }
+
     .tool-text {
       color: #9ca3af;
       font-size: 12px;
     }
+
     .tool-link {
       margin-top: 4px;
       font-size: 12px;
@@ -294,9 +326,14 @@
     <!-- HEADER -->
     <header class="header">
       <div class="brand">
-        <div class="brand-logo">KENAI</div>
+        <div class="brand-logo-wrap">
+          <!-- DIN LOGGOBILD – filen ska heta kenai-logo.png.png -->
+          <img class="brand-logo-img" src="kenai-logo.png.png" alt="Kenai logo" />
+          <div class="brand-logo-text">KENAI</div>
+        </div>
         <div class="brand-sub">Smarta AI-verktyg för ljud & video</div>
       </div>
+
       <nav class="nav">
         <a href="https://app.kenai.technology/recorder.html">
           <button class="nav-btn primary">Öppna Kenai Recorder</button>
