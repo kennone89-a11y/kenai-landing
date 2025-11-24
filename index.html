@@ -48,14 +48,17 @@
       justify-content: center;
     }
 
-    .kenai-orbit {
-      position: relative;
-      width: min(320px, 70vw);
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .kenai-orbit {
+    position: relative;
+    width: min(320px, 70vw);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;   /* gör behållaren rund */
+    overflow: hidden;     /* klipper bort hörnen på bilden */
+  }
+
 
     .kenai-orbit img {
       width: 100%;
