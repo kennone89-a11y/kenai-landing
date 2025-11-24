@@ -2,576 +2,287 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
-  <title>Kenai – AI-motor för ljud, klipp & sammanfattningar</title>
+  <title>Kenai – AI från jorden till Mars</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Kenai är din AI-motor för ljud och video – spela in röster, bygg reels och få smarta sammanfattningar direkt i webbläsaren."
-  />
-
-  <!-- Favicon – ändra sökväg om din fil heter något annat -->
-  <link rel="icon" type="image/png" href="kenai-logo.png" />
-
+  <meta name="description" content="Kenai – framtidens AI-motor för ljud, reels och kreatörer.">
   <style>
-    :root {
-      --bg-1: #020617;
-      --bg-2: #020617;
-      --card-bg: rgba(15, 23, 42, 0.96);
-      --card-border: rgba(148, 163, 184, 0.4);
-      --card-radius: 24px;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --accent: #38bdf8;
-      --accent-2: #6366f1;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --danger: #fb7185;
-    }
-
+    /* Baslayout */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html,
     body {
-      height: 100%;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Inter", sans-serif;
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(99, 102, 241, 0.22), transparent 60%),
-        var(--bg-1);
       min-height: 100vh;
-      padding: 32px 16px 40px;
+      background: radial-gradient(circle at top, #0b1530 0, #020617 55%, #000 100%);
+      color: #f9fafb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
       display: flex;
+      align-items: center;
       justify-content: center;
+      padding: 24px 16px;
     }
 
-    .page-wrap {
+    .kenai-hero {
       width: 100%;
-      max-width: 1120px;
-    }
-
-    /* HEADER / LOGO */
-
-    header {
-      display: flex;
-      justify-content: space-between;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 40px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    @media (max-width: 768px) {
+      .kenai-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
     }
 
-    .brand-logo {
-      position: relative;
-      width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a);
+    /* LOGGA + ANIMATION */
+
+    .kenai-orbit-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
-    .brand-logo img {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8));
+    .kenai-orbit {
+      position: relative;
+      width: min(320px, 70vw);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* Glow & pulse runt loggan */
-    .brand-logo::before {
+    .kenai-orbit img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(0, 255, 255, 0.95));
+      animation: kenaiPulse 2.8s ease-in-out infinite;
+    }
+
+    /* Färger runt loggan som rör sig */
+    .kenai-orbit::before {
       content: "";
       position: absolute;
-      inset: -8px;
-      border-radius: inherit;
+      inset: -18%;
+      border-radius: 50%;
       background:
-        radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.9), transparent 55%),
-        radial-gradient(circle at 80% 100%, rgba(129, 140, 248, 0.9), transparent 55%);
-      filter: blur(10px);
-      opacity: 0.7;
+        conic-gradient(
+          from 0deg,
+          rgba(0, 255, 255, 0.15),
+          rgba(0, 255, 255, 1),
+          rgba(180, 0, 255, 1),
+          rgba(255, 120, 0, 1),
+          rgba(0, 255, 255, 0.15)
+        );
+      mix-blend-mode: screen;
+      filter: blur(18px) hue-rotate(0deg);
+      opacity: 1;
+      animation:
+        kenaiOrbit 12s linear infinite,
+        kenaiHue 7s linear infinite;
       z-index: -1;
-      animation: logoPulse 3.2s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    @keyframes logoPulse {
-      0%,
-      100% {
-        opacity: 0.5;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.06);
-      }
+    /* Inifrån-och-ut-ljus i mitten av coinet */
+    .kenai-orbit::after {
+      content: "";
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(0, 255, 255, 0.95),
+        rgba(0, 255, 255, 0.1),
+        transparent 70%
+      );
+      mix-blend-mode: screen;
+      animation: kenaiCore 2.8s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    /* TEXTDEL */
 
-    .brand-name {
-      letter-spacing: 0.22em;
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: #e0f2fe;
-    }
-
-    .brand-tagline {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .header-pill {
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.7);
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .header-pill span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
-    }
-
-    /* LAYOUT */
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
-      gap: 28px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 880px) {
-      .main-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-pill {
-        margin-left: 58px;
-      }
-    }
-
-    /* HERO */
-
-    .hero-title {
-      font-size: clamp(32px, 3.2vw, 40px);
+    .kenai-copy h1 {
+      font-size: clamp(28px, 4vw, 40px);
       line-height: 1.1;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .hero-title span.accent {
-      background: linear-gradient(135deg, #22c55e, #38bdf8);
-      -webkit-background-clip: text;
-      color: transparent;
+    .kenai-copy h1 span {
+      color: #38bdf8;
     }
 
-    .hero-text {
+    .kenai-copy p {
       font-size: 15px;
       line-height: 1.6;
-      color: var(--text-soft);
-      max-width: 460px;
-      margin-bottom: 22px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      opacity: 0.86;
+      max-width: 420px;
       margin-bottom: 24px;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
-        color 0.18s ease, border-color 0.18s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: white;
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.45);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.55);
-    }
-
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text-soft);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    .hero-hint {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    /* STORA HÖGERKORTET – YOUTUBE */
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--card-radius);
-      border: 1px solid var(--card-border);
-      padding: 20px 20px 18px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .card-pill {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: var(--text-soft);
-    }
-
-    .card-body {
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .card-body p {
-      margin-bottom: 10px;
-    }
-
-    .input-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-      margin-bottom: 10px;
-    }
-
-    .input-group input {
-      flex: 1;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: #020617;
-      color: var(--text-main);
-      font-size: 13px;
-      outline: none;
-    }
-
-    .input-group input::placeholder {
-      color: #6b7280;
-    }
-
-    .btn-small {
-      padding: 8px 14px;
-      font-size: 13px;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: white;
-      white-space: nowrap;
-      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.5);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .btn-small:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.6);
-    }
-
-    .card-footnote {
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 4px;
-    }
-
-    /* NEDRE KORT – GRID */
-
-    .tools-section-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: #9ca3af;
-      margin: 34px 0 10px;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 6px;
-    }
-
-    @media (max-width: 880px) {
-      .tools-grid {
-        grid-template-columns: minmax(0, 1fr);
+    @media (max-width: 768px) {
+      .kenai-copy p {
+        margin-inline: auto;
       }
     }
 
-    .tool-card {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 20px;
-      border: 1px solid rgba(30, 64, 175, 0.4);
-      padding: 16px 16px 14px;
-      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.8);
+    .kenai-actions {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .tool-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
-      border-color: rgba(59, 130, 246, 0.7);
+    @media (max-width: 768px) {
+      .kenai-actions {
+        justify-content: center;
+      }
     }
 
-    .tool-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #9ca3af;
-    }
-
-    .tool-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .tool-desc {
-      font-size: 13px;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-
-    .tool-link {
-      font-size: 12px;
-      color: var(--accent);
-      text-decoration: none;
-      margin-top: 2px;
-    }
-
-    .tool-link:hover {
-      text-decoration: underline;
-    }
-
-    .tool-tag {
-      margin-left: auto;
-      font-size: 11px;
-      padding: 3px 8px;
+    .kenai-button {
+      border: none;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-soft);
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
-    .footer {
-      margin-top: 26px;
+    .kenai-button.primary {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #0b1120;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+    }
+
+    .kenai-button.primary:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 0 26px rgba(56, 189, 248, 0.9);
+    }
+
+    .kenai-button.secondary {
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    .kenai-button.secondary:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .kenai-badge {
       font-size: 11px;
-      color: #6b7280;
-      text-align: center;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    /* ANIMATIONER */
+
+    @keyframes kenaiPulse {
+      0% {
+        transform: scale(1) translateX(0) translateY(0);
+        filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.8));
+      }
+      25% {
+        transform: scale(1.04) translateX(-1px) translateY(-1px);
+      }
+      50% {
+        transform: scale(1.08) translateX(1px) translateY(-2px);
+        filter: drop-shadow(0 0 36px rgba(0, 255, 255, 1));
+      }
+      75% {
+        transform: scale(1.04) translateX(-1px) translateY(-0.5px);
+      }
+      100% {
+        transform: scale(1) translateX(0) translateY(0);
+        filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.8));
+      }
+    }
+
+    @keyframes kenaiOrbit {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes kenaiHue {
+      0% {
+        filter: blur(18px) hue-rotate(0deg);
+      }
+      100% {
+        filter: blur(18px) hue-rotate(360deg);
+      }
+    }
+
+    @keyframes kenaiCore {
+      0% {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(1.25);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrap">
-    <!-- HEADER -->
-    <header>
-      <div class="brand">
-        <div class="brand-logo">
-          <!-- Byt source om din logofil heter annat -->
-          <img src="kenai-logo.png" alt="Kenai logo" />
-        </div>
-        <div class="brand-text">
-          <div class="brand-name">KENAI</div>
-          <div class="brand-tagline">Smarta AI-verktyg för ljud &amp; video</div>
-        </div>
+  <main class="kenai-hero">
+    <div class="kenai-orbit-wrap">
+      <div class="kenai-orbit">
+        <!-- Ändra filnamn här om din bild heter något annat -->
+        <img src="kenai-coin-main.png" alt="Kenai logotyp">
       </div>
+    </div>
 
-      <div class="header-pill">
-        <span class="dot"></span>
-        <span>Experimentverktyg – Kenai AI</span>
-      </div>
-    </header>
-
-    <!-- HERO + YT-KORT -->
-    <main class="main-grid">
-      <!-- Vänster: hero -->
-      <section>
-        <h1 class="hero-title">
-          Din AI-motor för <span class="accent">ljud, klipp &amp; sammanfattningar</span>.
-        </h1>
-        <p class="hero-text">
-          Spela in röster, bygg korta klipp, sammanfatta YouTube-videos och skapa smarta
-          snippets. Allt från Kenai, direkt i webbläsaren.
-        </p>
-
-        <div class="hero-actions">
-          <!-- Ändra länkarna om du vill peka någon annanstans -->
-          <a
-            class="btn btn-primary"
-            href="https://app.kenai.technology/recorder.html"
-          >
-            Spela in &amp; sammanfatta ljud
-          </a>
-          <a
-            class="btn btn-secondary"
-            href="https://app.kenai.technology/reels_preset_demo.html"
-          >
-            Testa Kenaireel (Marvel / Tarantino)
-          </a>
-        </div>
-
-        <p class="hero-hint">
-          Funkar direkt i webbläsaren. Ingen installation – bara klicka &amp; testa.
-        </p>
-      </section>
-
-      <!-- Höger: YouTube-sammanfattning (design, du kopplar backend sen) -->
-      <section class="card">
-        <div class="card-header">
-          <div class="card-title">YouTube – AI-sammanfattning</div>
-          <div class="card-pill">Planerad</div>
-        </div>
-        <div class="card-body">
-          <p>
-            Klistra in en YouTube-länk så läser Kenai in innehållet och ger dig en kort,
-            tydlig sammanfattning.
-          </p>
-
-          <div class="input-group">
-            <input
-              type="text"
-              placeholder="https://www.youtube.com/watch?v=…"
-              disabled
-            />
-            <button class="btn-small" type="button" disabled>Tidigt test</button>
-          </div>
-
-          <p class="card-footnote">
-            Den här funktionen är på ritbordet just nu. När backend är på plats kopplas
-            knappen till en riktig AI-sammanfattning.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <!-- NEDRE VERKTYGSKORT -->
-    <section>
-      <h2 class="tools-section-title">Kenai-verktyg (pågående)</h2>
-
-      <div class="tools-grid">
-        <!-- Recorder -->
-        <article class="tool-card">
-          <div class="tool-label">Kenai Recorder</div>
-          <div class="tool-title">Spela in röster &amp; få auto-sammanfattning</div>
-          <p class="tool-desc">
-            Spela in direkt i webbläsaren, ladda upp till Kenai och låt AI transkribera
-            &amp; sammanfatta. Perfekt för podd-avsnitt, möten eller egna anteckningar.
-          </p>
-          <a
-            class="tool-link"
-            href="https://app.kenai.technology/recorder.html"
-          >
-            Öppna Kenai Recorder →
-          </a>
-          <div class="tool-tag">Live (beta)</div>
-        </article>
-
-        <!-- Kenaireel -->
-        <article class="tool-card">
-          <div class="tool-label">Kenaireel (tidigt test)</div>
-          <div class="tool-title">Bygg Marvel / Tarantino-reels av dina klipp</div>
-          <p class="tool-desc">
-            Ladda upp bilder &amp; korta klipp, välj stil (Marvel-intro, Tarantino-cut
-            eller Kenaireel Classic) så hjälper AI dig att lägga upp en plan för din reel
-            eller short.
-          </p>
-          <a
-            class="tool-link"
-            href="https://app.kenai.technology/reels_preset_demo.html"
-          >
-            Testa Kenaireel-demo →
-          </a>
-          <div class="tool-tag">Tidigt test</div>
-        </article>
-
-        <!-- Möten / podd (planerad) -->
-        <article class="tool-card">
-          <div class="tool-label">Möten &amp; podd-sammanfattning</div>
-          <div class="tool-title">Sammanfatta möten &amp; poddavsnitt automatiskt</div>
-          <p class="tool-desc">
-            Ladda upp inspelade möten eller poddar och få auto-sammanfattning, highlights
-            och actionpunkter som du kan spara eller skicka vidare.
-          </p>
-          <span class="tool-link" style="cursor: default; opacity: 0.7;">
-            Kommer snart – på ritbordet
-          </span>
-          <div class="tool-tag">Planerad</div>
-        </article>
+    <section class="kenai-copy">
+      <div class="kenai-badge">Från jorden till Mars</div>
+      <h1><span>Kenai</span> – AI för ljud & reels</h1>
+      <p>
+        Spela in, sammanfatta och skapa klipp med AI.  
+        Kenai hjälper dig att fatta mer, snabbare – oavsett om det är poddar, möten eller content till dina sociala medier.
+      </p>
+      <div class="kenai-actions">
+        <a
+          class="kenai-button primary"
+          href="https://app.kenai.technology/recorder.html"
+        >
+          Öppna Kenai Recorder
+        </a>
+        <a
+          class="kenai-button secondary"
+          href="https://app.kenai.technology/reels.html"
+        >
+          Testa Reels Maker
+        </a>
       </div>
     </section>
-
-    <footer class="footer">
-      Kenai – byggt med kärlek, kaffe och alldeles för många AI-idéer.
-    </footer>
-  </div>
+  </main>
 </body>
 </html>
