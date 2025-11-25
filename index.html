@@ -13,18 +13,28 @@
       padding: 0;
     }
 
-    body {
-      min-height: 100vh;
-           background:
-        radial-gradient(circle at top, rgba(7, 15, 35, 0.92) 0, rgba(2, 6, 23, 0.96) 55%, #000000 100%),
-        url("kenai-earth-mars-bg..jpg");
+   body{
+  margin:0;
+  min-height:100vh;
+  color:#fff;
 
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-    }
+  /* 1) Lägg bilden + mörk overlay i samma background */
+  background-image:
+    radial-gradient(1200px 700px at 55% 35%, rgba(15, 35, 75, .75), rgba(4, 8, 18, .92)),
+    url("kenai-earth-mars-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Låser bilden snyggt på desktop */
+  background-attachment: fixed;
+}
+
+/* iOS gillar inte fixed bg – då kör vi scroll */
+@media (max-width: 900px){
+  body{ background-attachment: scroll; }
+}
+
 
     .kenai-hero {
       width: 100%;
@@ -60,16 +70,19 @@
     }
 
        /* Själva coinet – bara loggan, ingen extra platta */
-    .kenai-orbit img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      clip-path: circle(50%);
-      object-fit: cover;
-      display: block;
-      filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.9));
-      animation: kenaiPulse 3s ease-in-out infinite;
-    }
+    .kenai-coin-img{
+  width: 360px;
+  height: 360px;
+  display:block;
+
+  /* KLIPPER BORT FYRKANTEN (hörnen) */
+  -webkit-mask-image: radial-gradient(circle, #000 62%, transparent 64%);
+  mask-image: radial-gradient(circle, #000 62%, transparent 64%);
+
+  /* Glans */
+  filter: drop-shadow(0 0 22px rgba(0,255,255,.35));
+}
+
 
 
        /* Eld/auran runt loggan – levande och färgskiftande */
@@ -314,7 +327,10 @@ body::after{
     <div class="kenai-orbit-wrap">
       <div class="kenai-orbit">
         <!-- Ändra filnamn här om din bild heter något annat -->
-        <img src="kenai-coin-main.jpg" alt="Kenai logotyp">
+        <div class="kenai-coin">
+  <img class="kenai-coin-img" src="kenai-coin-main.jpg" alt="Kenai logotyp">
+</div>
+
       </div>
     </div>
 
