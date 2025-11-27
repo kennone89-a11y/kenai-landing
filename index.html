@@ -219,62 +219,110 @@
 
         /* ANIMATIONER */
 
-    @keyframes kenaiPulse {
-      0% {
-        transform: scale(1) translateX(0) translateY(0);
-        filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.85));
-      }
-      25% {
-        transform: scale(1.03) translateX(-1px) translateY(-1px);
-      }
-      50% {
-        transform: scale(1.07) translateX(1px) translateY(-2px);
-        filter: drop-shadow(0 0 32px rgba(0, 255, 255, 1));
-      }
-      75% {
-        transform: scale(1.03) translateX(-1px) translateY(-0.5px);
-      }
-      100% {
-        transform: scale(1) translateX(0) translateY(0);
-        filter: drop-shadow(0 0 18px rgba(0, 255, 255, 0.85));
-      }
-    }
+/* === KENAI LOGO FLAMES ANIMATION v2 (mer levande) === */
+.logo-wrapper {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    /* Rök/eld-ringen snurrar runt */
-    @keyframes kenaiOrbit {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
+.hero-logo {
+    width: 80%;
+    position: relative;
+    z-index: 5;
+}
 
-    /* Färgerna skiftar igenom hela spektrat */
-    @keyframes kenaiHue {
-      0% {
-        filter: blur(18px) hue-rotate(0deg);
-      }
-      100% {
-        filter: blur(18px) hue-rotate(360deg);
-      }
-    }
+/* Bas-auran runt coinen */
+.logo-flames {
+    position: absolute;
+    width: 160%;
+    height: 160%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.35), transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(0,255,255,0.45), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(140,0,255,0.55), transparent 65%);
+    mix-blend-mode: screen;
+    filter: blur(30px);
+    z-index: 1;
+    animation: flameBasePulse 3s infinite ease-in-out;
+}
 
-    /* Flammans “andning” – pulserar i styrka */
-    @keyframes kenaiFlame {
-      0% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-      40% {
-        transform: scale(1.06);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1.12);
-        opacity: 0.6;
-      }
-    }
+/* Själva "lågan" som fladdrar */
+.logo-flames::before,
+.logo-flames::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -60%);
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at bottom,
+            rgba(255,220,120,0.95) 0%,
+            rgba(255,140,0,0.9) 35%,
+            rgba(200,0,255,0.75) 55%,
+            rgba(0,0,0,0) 75%);
+    filter: blur(18px);
+    mix-blend-mode: screen;
+    opacity: 0.95;
+    animation: flameFlicker 0.18s infinite alternate,
+               flameDrift 6s infinite linear;
+}
+
+.logo-flames::after {
+    width: 60%;
+    height: 60%;
+    opacity: 0.7;
+    filter: blur(22px);
+    animation: flameFlickerSmall 0.23s infinite alternate,
+               flameDriftReverse 8s infinite linear;
+}
+
+/* Bas-puls av auran */
+@keyframes flameBasePulse {
+    0%   { transform: translate(-50%, -50%) scale(0.95); opacity: 0.65; filter: blur(32px) hue-rotate(0deg); }
+    50%  { transform: translate(-50%, -50%) scale(1.15); opacity: 1;    filter: blur(26px) hue-rotate(80deg); }
+    100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.65; filter: blur(32px) hue-rotate(360deg); }
+}
+
+/* Snabbt fladdrande låga */
+@keyframes flameFlicker {
+    0%   { transform: translate(-50%, -60%) scaleX(1.0)  scaleY(1.0);   opacity: 0.9; }
+    25%  { transform: translate(-52%, -63%) scaleX(0.95) scaleY(1.25);  opacity: 1.0; }
+    50%  { transform: translate(-48%, -58%) scaleX(1.05) scaleY(1.35);  opacity: 0.85; }
+    75%  { transform: translate(-51%, -62%) scaleX(0.9)  scaleY(1.1);   opacity: 1.0; }
+    100% { transform: translate(-50%, -60%) scaleX(1.0)  scaleY(1.0);   opacity: 0.9; }
+}
+
+/* Mindre inre flamma */
+@keyframes flameFlickerSmall {
+    0%   { transform: translate(-50%, -60%) scaleX(1.0)  scaleY(1.0);   opacity: 0.7; }
+    50%  { transform: translate(-49%, -64%) scaleX(0.9)  scaleY(1.3);   opacity: 0.95; }
+    100% { transform: translate(-50%, -60%) scaleX(1.05) scaleY(0.95);  opacity: 0.6; }
+}
+
+/* Lågan "driver runt" coinen långsamt */
+@keyframes flameDrift {
+    0%   { transform: translate(-50%, -60%) rotate(0deg)   scale(1); }
+    50%  { transform: translate(-50%, -60%) rotate(180deg) scale(1.1); }
+    100% { transform: translate(-50%, -60%) rotate(360deg) scale(1); }
+}
+
+@keyframes flameDriftReverse {
+    0%   { transform: translate(-50%, -60%) rotate(0deg)    scale(0.95); }
+    50%  { transform: translate(-50%, -60%) rotate(-180deg) scale(1.05); }
+    100% { transform: translate(-50%, -60%) rotate(-360deg) scale(0.95); }
+}
+
 
     /* Inre core-puls från mitten */
     @keyframes kenaiCore {
@@ -328,7 +376,11 @@ body::after{
       <div class="kenai-orbit">
         <!-- Ändra filnamn här om din bild heter något annat -->
         <div class="kenai-coin">
-  <img class="kenai-coin-img" src="kenai-coin-main.jpg" alt="Kenai logotyp">
+  <div class="logo-wrapper">
+    <img src="kenai-coin-main.jpg" class="hero-logo">
+    <div class="logo-flames"></div>
+</div>
+
 </div>
 
       </div>
