@@ -377,7 +377,7 @@ body::after{
         <!-- Ändra filnamn här om din bild heter något annat -->
         <div class="kenai-coin">
   <div class="logo-wrapper">
-    <img src="kenai-coin-main.jpg" class="hero-logo">
+    <div id="kenai-icon" class="hero-image"></div>
     <div class="logo-flames"></div>
 </div>
 
@@ -409,5 +409,17 @@ body::after{
       </div>
     </section>
   </main>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    lottie.loadAnimation({
+      container: document.getElementById('kenai-icon'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'kenai_flame_lottie.json' // ligger i samma mapp som index.html
+    });
+  });
+</script>
+</body>
 </body>
 </html>
