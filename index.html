@@ -377,7 +377,7 @@ body::after{
         <!-- Ändra filnamn här om din bild heter något annat -->
         <div class="kenai-coin">
   <div class="logo-wrapper">
-    <div id="kenai-icon" class="hero-image"></div>
+    <img src="kenai_flame.webp" alt="Kenai logo" class="kenai-hero-image">
     <div class="logo-flames"></div>
 </div>
 
@@ -409,17 +409,16 @@ body::after{
       </div>
     </section>
   </main>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
     lottie.loadAnimation({
-      container: document.getElementById('kenai-icon'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'kenai_flame_lottie.json' // ligger i samma mapp som index.html
+        container: document.getElementById('kenai-icon'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'kenai_flame_lottie.json'
     });
-  });
+});
 </script>
-</body>
 </body>
 </html>
