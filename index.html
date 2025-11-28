@@ -52,28 +52,35 @@
       }
     }
 
-  /* LOGGA + ANIMATION */
+/* LOGGA + ANIMATION */
 .kenai-orbit-wrap {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
-/* Själva logga-rutan */
 .kenai-orbit {
-  width: 280px;      /* storlek på ikonen */
-  max-width: 280px;
+  width: 260px;        /* storlek på ikonen */
+  max-width: 260px;
   height: auto;
+  background: none;    /* inga gamla färgblobbar */
+  box-shadow: none;
+  position: relative;
 }
 
-/* Bilden (kenai_flame.webp) */
+/* ta bort all pseudo-glow från gamla orb:en */
+.kenai-orbit::before {
+  content: none;
+}
+
 .kenai-orbit img,
 .kenai-hero-image {
   width: 100%;
   height: auto;
   display: block;
-  filter: brightness(0.85) saturate(1.05); /* lite mörkare, lite glow */
+  filter: none;        /* ingen extra ljusning/färg */
 }
+
 
 
   /* KLIPPER BORT FYRKANTEN (hörnen) */
