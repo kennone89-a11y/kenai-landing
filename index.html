@@ -13,7 +13,7 @@
       padding: 0;
     }
 
-   body{f
+   body{
   margin:0;
   min-height:100vh;
   color:#fff;
@@ -52,33 +52,28 @@
       }
     }
 
-/* LOGGA + ANIMATION */
-.kenai-orbit-wrap {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+        /* LOGGA + ANIMATION */
 
-.kenai-orbit {
-  width: 260px;
-  max-width: 260px;
-  height: auto;
-  background: none;
-  box-shadow: none;
-  position: relative;
-}
+    .kenai-orbit-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* Själva loggan – vår animerade webp */
-.kenai-orbit img,
-.kenai-hero-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: none;
-}
+    .kenai-orbit {
+      position: relative;
+      width: min(320px, 70vw);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-
-
+       /* Själva coinet – bara loggan, ingen extra platta */
+    .kenai-coin-img{
+  width: 360px;
+  height: 360px;
+  display:block;
 
   /* KLIPPER BORT FYRKANTEN (hörnen) */
   -webkit-mask-image: radial-gradient(circle, #000 62%, transparent 64%);
@@ -382,7 +377,7 @@ body::after{
         <!-- Ändra filnamn här om din bild heter något annat -->
         <div class="kenai-coin">
   <div class="logo-wrapper">
-    <img src="kenai_flame.webp" alt="Kenai logo" class="kenai-hero-image">
+    <div id="kenai-icon" class="hero-image"></div>
     <div class="logo-flames"></div>
 </div>
 
@@ -414,16 +409,17 @@ body::after{
       </div>
     </section>
   </main>
- <script>
-document.addEventListener('DOMContentLoaded', function () {
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
     lottie.loadAnimation({
-        container: document.getElementById('kenai-icon'),
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'kenai_flame_lottie.json'
+      container: document.getElementById('kenai-icon'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'kenai_flame_lottie.json' // ligger i samma mapp som index.html
     });
-});
+  });
 </script>
+</body>
 </body>
 </html>
