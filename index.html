@@ -370,174 +370,20 @@ body::after{
     </section>
    
  
-   <!-- KENAI HUB – verktyg -->
-<section id="kenai-hub" style="padding:80px 16px 120px;">
-  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;">
-    
-    <!-- Vänster: HUB-kortet -->
-    <div style="
-      flex:1 1 320px;
-      max-width:420px;
-      background:rgba(3,12,40,0.92);
-      border-radius:32px;
-      padding:24px 20px 24px;
-      box-shadow:0 22px 60px rgba(0,0,0,0.65);
-      border:1px solid rgba(110,207,255,0.35);
-      backdrop-filter:blur(18px);
-    ">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
-        <div style="
-          width:40px;height:40px;border-radius:999px;
-          display:flex;align-items:center;justify-content:center;
-          background:radial-gradient(circle at 30% 0%,#4ef1ff,#0070ff 55%,#050816 100%);
-          box-shadow:0 0 22px rgba(78,241,255,0.65);
-        ">
-          <img src="kenai-coin-main.jpg" alt="Kenai-logga" style="width:26px;height:26px;border-radius:999px;object-fit:cover;">
-        </div>
-        <div>
-          <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#7ddcff;">
-            Kenai hub
-          </div>
-          <div style="font-size:17px;font-weight:600;color:#f9fbff;">
-            AI-verktyg för ljud, video & creators
-          </div>
-        </div>
-      </div>
+ <button
+  class="kenai-btn"
+  onclick="window.location.href='https://app.kenai.technology/recorder.html'"
+  style="...">
+  ÖPPNA KENAI RECORDER
+</button>
 
-      <p style="font-size:13px;line-height:1.6;color:#c4d3ff;margin-bottom:18px;">
-        Välj ett verktyg och börja skapa: spela in ljud, få AI-
-        sammanfattningar, generera timestamps eller planera reels –
-        allt på samma ställe.
-      </p>
+<button
+  class="kenai-btn"
+  onclick="window.location.href='https://app.kenai.technology/reels.html'"
+  style="...">
+  TESTA REELS MAKER
+</button>
 
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <!-- Recorder -->
-        <div style="
-          border-radius:18px;
-          padding:12px 12px 12px;
-          background:linear-gradient(135deg,rgba(0,255,179,0.08),rgba(0,114,255,0.06));
-          border:1px solid rgba(94,234,212,0.35);
-        ">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="
-                font-size:11px;
-                padding:2px 7px;
-                border-radius:999px;
-                background:rgba(6,182,212,0.18);
-                color:#7deaff;
-                border:1px solid rgba(125,234,255,0.4);
-              ">Recorder</span>
-              <span style="font-size:13px;font-weight:600;color:#e8f4ff;">Spela in &amp; AI-sammanfattning</span>
-            </div>
-          </div>
-          <p style="font-size:12px;color:#c9ddff;margin-bottom:10px;">
-            Spela in direkt i browsern, ladda upp till Kenai och få en tydlig AI-
-            sammanfattning av vad du sagt – perfekt för möten, poddar & idéer.
-          </p>
-          <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'" style="...">
-            width:100%;
-            font-size:12px;
-            padding:7px 10px;
-            border-radius:999px;
-            border:none;
-            cursor:pointer;
-            background:linear-gradient(135deg,#22c55e,#4ade80);
-            color:#02101f;
-            font-weight:600;
-            box-shadow:0 10px 30px rgba(16,185,129,0.5);
-          ">
-            Öppna Kenai Recorder
-          </button>
-        </div>
-
-        <!-- Timestamps -->
-        <div style="
-          border-radius:18px;
-          padding:12px 12px 12px;
-          background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(129,140,248,0.08));
-          border:1px solid rgba(96,165,250,0.35);
-        ">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="
-                font-size:11px;
-                padding:2px 7px;
-                border-radius:999px;
-                background:rgba(59,130,246,0.18);
-                color:#bfdbfe;
-                border:1px solid rgba(191,219,254,0.4);
-              ">Timestamps</span>
-              <span style="font-size:13px;font-weight:600;color:#e8f4ff;">YouTube timestamps &amp; beskrivning</span>
-            </div>
-          </div>
-          <p style="font-size:12px;color:#c9ddff;margin-bottom:10px;">
-            Klistra in en YouTube- eller podd-URL. Kenai hjälper dig få kapitel,
-            sammanfattning och text du kan klistra in direkt i beskrivningen.
-          </p>
-        <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'" style="...">
-            width:100%;
-            font-size:12px;
-            padding:7px 10px;
-            border-radius:999px;
-            border:none;
-            cursor:pointer;
-            background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-            color:#f9fbff;
-            font-weight:600;
-            box-shadow:0 10px 30px rgba(59,130,246,0.5);
-          ">
-            Öppna Kenai Timestamps
-          </button>
-        </div>
-
-        <!-- Reels -->
-        <div style="
-          border-radius:18px;
-          padding:12px 12px 12px;
-          background:linear-gradient(135deg,rgba(249,115,22,0.12),rgba(236,72,153,0.12));
-          border:1px solid rgba(251,146,60,0.45);
-        ">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="
-                font-size:11px;
-                padding:2px 7px;
-                border-radius:999px;
-                background:rgba(248,113,113,0.18);
-                color:#fed7aa;
-                border:1px solid rgba(248,187,131,0.5);
-              ">Reels</span>
-              <span style="font-size:13px;font-weight:600;color:#fee2e2;">Planera &amp; bygg dina reels</span>
-            </div>
-          </div>
-          <p style="font-size:12px;color:#ffe4e6;margin-bottom:10px;">
-            Ladda upp bilder &amp; klipp, välj längd och låt Kenai hjälpa dig planera
-            en short/reel – med AI-idéer och hashtags på vägen.
-          </p>
-          <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'" style="...">
-            width:100%;
-            font-size:12px;
-            padding:7px 10px;
-            border-radius:999px;
-            border:none;
-            cursor:pointer;
-            background:linear-gradient(135deg,#fb923c,#ec4899);
-            color:#0b0410;
-            font-weight:700;
-            box-shadow:0 10px 32px rgba(236,72,153,0.6);
-          ">
-            Öppna Kenai Reels Maker
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Höger: tom yta så bakgrunden syns (låt vara tom) -->
-    <div style="flex:1 1 360px;min-height:260px;"></div>
-  </div>
-</section>
-<!-- /KENAI HUB – verktyg -->
 
 
 
