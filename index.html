@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+  <style>
+  .kenai-btn {
+    transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+  }
+
+  .kenai-btn:hover {
+    transform: translateY(-2px) scale(1.01);
+    filter: brightness(1.06);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+  }
+</style>
+
   <meta charset="UTF-8" />
   <title>Kenai – AI från jorden till Mars</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -423,7 +435,7 @@ body::after{
             Spela in direkt i browsern, ladda upp till Kenai och få en tydlig AI-
             sammanfattning av vad du sagt – perfekt för möten, poddar & idéer.
           </p>
-          <button onclick="window.location.href='https://app.kenai.technology/recorder.html'" ...
+          <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'" style="...">
             width:100%;
             font-size:12px;
             padding:7px 10px;
@@ -463,7 +475,7 @@ body::after{
             Klistra in en YouTube- eller podd-URL. Kenai hjälper dig få kapitel,
             sammanfattning och text du kan klistra in direkt i beskrivningen.
           </p>
-        <button onclick="window.location.href='https://app.kenai.technology/timestamps.html'" ...
+        <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'" style="...">
             width:100%;
             font-size:12px;
             padding:7px 10px;
@@ -503,7 +515,7 @@ body::after{
             Ladda upp bilder &amp; klipp, välj längd och låt Kenai hjälpa dig planera
             en short/reel – med AI-idéer och hashtags på vägen.
           </p>
-          <button onclick="window.location.href='https://app.kenai.technology/timestamps.html'" ...
+          <button class="kenai-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'" style="...">
             width:100%;
             font-size:12px;
             padding:7px 10px;
