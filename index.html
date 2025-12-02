@@ -553,5 +553,17 @@
     </section>
     <!-- /KENAI HUB – verktyg -->
   </div>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.getElementById('kenaiLogo');
+    if (logo) {
+      logo.style.cursor = 'pointer';
+      logo.addEventListener('click', () => {
+        // Refreshar sidan när man klickar på loggan
+        window.location.reload();
+      });
+    }
+  });
+</script>
 </body>
 </html>
