@@ -1,85 +1,498 @@
-<!-- KENAI HUB – verktyg -->
-<section id="kenai-hub">
-  <div class="hub-layout">
-    <div class="hub-card">
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kenai — Spela in. Sammanfatta. Dela.</title>
+  <meta name="description" content="Spela in ljud, få AI-sammanfattning och dela direkt. Snabbt, enkelt och byggt för creators, poddar och möten.">
 
-      <div class="hub-header">
-        <div class="hub-icon">
-          <img src="kenai-coin-main.jpg" alt="Kenai-logga" />
-        </div>
-        <div>
-          <div class="hub-kicker">AI-verktyg för creators</div>
-          <div class="hub-title">Skapa content med AI – på sekunder</div>
+  <!-- Kenai favicon & app icons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16 (1).png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32 (1).png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192 (1).png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512 (2).png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- Brand info för Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "Kenai",
+    "url": "https://kenai.technology",
+    "logo": "https://kenai.technology/kenai-icon-512.png"
+  }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f9fbff;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(3, 9, 24, 0.18),
+          rgba(3, 9, 18, 0.78) 75%,
+          rgba(3, 9, 18, 0.95)
+        ),
+        url("kenai-lake-mars.jpeg") center bottom / cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 16px 120px;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+
+    .hero-coin-wrap {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero-coin {
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0%, #4ef1ff, #0070ff 55%, #050816);
+      box-shadow:
+        0 0 60px rgba(56, 189, 248, 0.85),
+        0 0 120px rgba(59, 130, 246, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-coin::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 180deg,
+        rgba(56, 189, 248, 0.0),
+        rgba(56, 189, 248, 0.5),
+        rgba(129, 140, 248, 0.0),
+        rgba(236, 72, 153, 0.5),
+        rgba(56, 189, 248, 0.0)
+      );
+      mix-blend-mode: screen;
+      animation: spinGlow 14s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero-coin img {
+      width: 82%;
+      height: 82%;
+      border-radius: 999px;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes spinGlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero-copy {
+      flex: 1 1 260px;
+      max-width: 560px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      line-height: 1.12;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      text-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-title span { display: block; }
+
+    .hero-lead {
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 420px;
+      color: #e5edff;
+      margin-bottom: 26px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .kenai-btn {
+      padding: 11px 22px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .kenai-btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #02101f;
+      box-shadow: 0 14px 40px rgba(22, 163, 74, 0.65);
+    }
+
+    .kenai-btn-secondary {
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      color: #f9fbff;
+      box-shadow: 0 14px 40px rgba(59, 130, 246, 0.7);
+    }
+
+    .kenai-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.06);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.65);
+    }
+
+    /* HUB */
+    #kenai-hub { padding-top: 10px; }
+
+    .hub-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .hub-card {
+      flex: 1 1 320px;
+      max-width: 420px;
+      background: rgba(3, 12, 40, 0.92);
+      border-radius: 32px;
+      padding: 24px 20px 24px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(110, 207, 255, 0.35);
+      backdrop-filter: blur(18px);
+    }
+
+    .hub-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .hub-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0%, #4ef1ff, #0070ff 55%, #050816 100%);
+      box-shadow: 0 0 22px rgba(78, 241, 255, 0.65);
+      flex: 0 0 auto;
+    }
+
+    .hub-icon img {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      object-fit: cover;
+    }
+
+    .hub-kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #7ddcff;
+      margin-bottom: 4px;
+    }
+
+    .hub-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #f9fbff;
+      line-height: 1.2;
+    }
+
+    .hub-intro {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #c4d3ff;
+      margin-bottom: 14px;
+    }
+
+    .hub-trust {
+      font-size: 12px;
+      color: rgba(255,255,255,0.78);
+      opacity: 0.92;
+      margin-bottom: 16px;
+    }
+
+    .hub-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .tool-card {
+      border-radius: 18px;
+      padding: 12px 12px 12px;
+    }
+
+    .tool-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .tool-pill {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border-width: 1px;
+      border-style: solid;
+      display: inline-block;
+    }
+
+    .tool-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 6px;
+      display: inline-block;
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: #c9ddff;
+      margin-bottom: 10px;
+    }
+
+    .tool-btn {
+      width: 100%;
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-2px) scale(1.01);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Tool colors */
+    .tool-recorder {
+      background: linear-gradient(135deg, rgba(0, 255, 179, 0.08), rgba(0, 114, 255, 0.06));
+      border: 1px solid rgba(94, 234, 212, 0.35);
+    }
+    .tool-recorder .tool-pill {
+      background: rgba(6, 182, 212, 0.18);
+      color: #7deaff;
+      border-color: rgba(125, 234, 255, 0.4);
+    }
+    .tool-recorder .tool-name { color: #e8f4ff; }
+    .tool-recorder .tool-btn {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #02101f;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
+    }
+
+    .tool-timestamps {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(129, 140, 248, 0.08));
+      border: 1px solid rgba(96, 165, 250, 0.35);
+    }
+    .tool-timestamps .tool-pill {
+      background: rgba(59, 130, 246, 0.18);
+      color: #bfdbfe;
+      border-color: rgba(191, 219, 254, 0.4);
+    }
+    .tool-timestamps .tool-name { color: #e8f4ff; }
+    .tool-timestamps .tool-btn {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #f9fbff;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .tool-reels {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(236, 72, 153, 0.12));
+      border: 1px solid rgba(251, 146, 60, 0.45);
+    }
+    .tool-reels .tool-pill {
+      background: rgba(248, 113, 113, 0.18);
+      color: #fed7aa;
+      border-color: rgba(248, 187, 131, 0.5);
+    }
+    .tool-reels .tool-name { color: #fee2e2; }
+    .tool-reels .tool-btn {
+      background: linear-gradient(135deg, #fb923c, #ec4899);
+      color: #0b0410;
+      font-weight: 700;
+      box-shadow: 0 10px 32px rgba(236, 72, 153, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 24px 14px 80px; }
+      .hero { justify-content: center; text-align: center; }
+      .hero-copy { align-items: center; display: flex; flex-direction: column; }
+      .hero-lead { max-width: none; }
+      .hero-buttons { justify-content: center; }
+      .hub-card { margin: 0 auto; }
+      body { background-attachment: scroll; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-coin-wrap">
+        <div class="hero-coin">
+          <img id="kenaiLogo" src="kenai-coin-main.jpg" alt="Kenai logga">
         </div>
       </div>
 
-      <p class="hub-intro">
-        Spela in ljud, få sammanfattningar och skapa reels – utan inloggning, utan krångel.
-      </p>
-
-      <div class="hub-trust">
-        ✔️ Ingen inloggning &nbsp;•&nbsp;
-        ✔️ Fungerar direkt i webben &nbsp;•&nbsp;
-        ✔️ Byggd för creators
-      </div>
-
-      <div class="hub-tools">
-
-        <!-- Recorder -->
-        <div class="tool-card tool-recorder">
-          <div class="tool-header">
-            <div>
-              <span class="tool-pill">Recorder</span>
-              <span class="tool-name">Spela in &amp; AI-sammanfattning</span>
-            </div>
-          </div>
-          <p class="tool-desc">
-            Spela in direkt i browsern och få en tydlig AI-sammanfattning av vad du sagt.
-          </p>
-          <button class="tool-btn"
-            onclick="window.location.href='https://app.kenai.technology/recorder.html'">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">KENAI</div>
+        <h1 class="hero-title">
+          <span>Kenai – AI för</span>
+          <span>ljud &amp; reels</span>
+        </h1>
+        <p class="hero-lead">
+          Spela in, sammanfatta och skapa klipp med AI. Kenai hjälper dig att fatta mer, snabbare – oavsett om det är poddar, möten eller content till dina sociala medier.
+        </p>
+        <div class="hero-buttons">
+          <button class="kenai-btn kenai-btn-primary" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
             Öppna Kenai Recorder
           </button>
-        </div>
-
-        <!-- Timestamps -->
-        <div class="tool-card tool-timestamps">
-          <div class="tool-header">
-            <div>
-              <span class="tool-pill">Timestamps</span>
-              <span class="tool-name">YouTube timestamps &amp; beskrivning</span>
-            </div>
-          </div>
-          <p class="tool-desc">
-            Klistra in en URL och få kapitel, sammanfattning och färdig beskrivning.
-          </p>
-          <button class="tool-btn"
-            onclick="window.location.href='https://app.kenai.technology/timestamps.html'">
-            Öppna Kenai Timestamps
+          <button class="kenai-btn kenai-btn-secondary" onclick="window.location.href='https://app.kenai.technology/reels.html'">
+            Testa Reels Maker
           </button>
         </div>
-
-        <!-- Reels -->
-        <div class="tool-card tool-reels">
-          <div class="tool-header">
-            <div>
-              <span class="tool-pill">Reels</span>
-              <span class="tool-name">Planera &amp; bygg dina reels</span>
-            </div>
-          </div>
-          <p class="tool-desc">
-            Ladda upp bilder &amp; klipp och låt Kenai skapa en short/reel med AI.
-          </p>
-          <button class="tool-btn"
-            onclick="window.location.href='https://app.kenai.technology/reels.html'">
-            Öppna Kenai Reels Maker
-          </button>
-        </div>
-
       </div>
-    </div>
+    </header>
 
-    <div style="flex:1 1 360px;min-height:260px;"></div>
+    <!-- KENAI HUB -->
+    <section id="kenai-hub">
+      <div class="hub-layout">
+        <div class="hub-card">
+          <div class="hub-header">
+            <div class="hub-icon">
+              <img src="kenai-coin-main.jpg" alt="Kenai-logga" />
+            </div>
+            <div>
+              <div class="hub-kicker">AI-verktyg för creators</div>
+              <div class="hub-title">Skapa content med AI – på sekunder</div>
+            </div>
+          </div>
+
+          <p class="hub-intro">
+            Spela in ljud, få sammanfattningar och skapa reels – utan inloggning, utan krångel.
+          </p>
+
+          <div class="hub-trust">✓ Ingen inloggning &nbsp;&nbsp; ✓ Funkar direkt i webben &nbsp;&nbsp; ✓ Byggd för creators</div>
+
+          <div class="hub-tools">
+            <!-- Recorder -->
+            <div class="tool-card tool-recorder">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Recorder</span>
+                  <span class="tool-name">Spela in &amp; AI-sammanfattning</span>
+                </div>
+              </div>
+              <p class="tool-desc">
+                Spela in direkt i browsern, ladda upp till Kenai och få en tydlig AI-sammanfattning av vad du sagt – perfekt för möten, poddar &amp; idéer.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
+                Öppna Kenai Recorder
+              </button>
+            </div>
+
+            <!-- Timestamps -->
+            <div class="tool-card tool-timestamps">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Timestamps</span>
+                  <span class="tool-name">YouTube timestamps &amp; beskrivning</span>
+                </div>
+              </div>
+              <p class="tool-desc">
+                Klistra in en YouTube- eller podd-URL. Kenai hjälper dig få kapitel, sammanfattning och text du kan klistra in direkt i beskrivningen.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'">
+                Öppna Kenai Timestamps
+              </button>
+            </div>
+
+            <!-- Reels -->
+            <div class="tool-card tool-reels">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Reels</span>
+                  <span class="tool-name">Planera &amp; bygg dina reels</span>
+                </div>
+              </div>
+              <p class="tool-desc">
+                Ladda upp bilder &amp; klipp, välj längd och låt Kenai hjälpa dig planera en short/reel – med AI-idéer och hashtags på vägen.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'">
+                Öppna Kenai Reels Maker
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacer: keep background visible -->
+        <div style="flex: 1 1 360px; min-height: 260px;"></div>
+      </div>
+    </section>
+    <!-- /KENAI HUB -->
   </div>
-</section>
-<!-- /KENAI HUB – verktyg -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const logo = document.getElementById('kenaiLogo');
+      if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', () => window.location.reload());
+      }
+    });
+  </script>
+</body>
+</html>
