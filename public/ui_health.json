@@ -1,1 +1,4 @@
-{"ui_build":"publicize-ui","ts":"manual","ok":true}
+{
+  "ui_build": "ts-ui-v17-20260212-a1",
+  "ts": "manual"
+}
