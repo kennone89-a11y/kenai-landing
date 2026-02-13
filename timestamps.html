@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kenai Timestamps</title>
+  <link rel="stylesheet" href="/timestamps-ui.css">
+  <!-- UI_BUILD: 20260213-abcd-v1 -->
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">Kenai</div>
+      <div class="sub">Timestamps</div>
+      <div class="spacer"></div>
+      <a class="link" href="/index.html">Till hubben</a>
+    </header>
+
+    <main class="card">
+      <h1>YouTube timestamps & beskrivning</h1>
+      <p class="muted">Klistra in en YouTube-länk. Få kapitel + sammanfattning + copy-paste box.</p>
+
+      <div class="row">
+        <input id="ytUrl" class="input" placeholder="https://www.youtube.com/watch" autocomplete="off" />
+        <div style="margin:10px 0; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+  <label for="planSelect" style="opacity:.85;">Plan</label>
+  <select id="planSelect">
+    <option value="free">Free</option>
+    <option value="premium">Premium (25 min)</option>
+    <option value="gold">Gold (45 min)</option>
+  </select>
+  <small style="opacity:.75;">Om videon saknar CC krävs Premium/Gold för ljudanalys.</small>
+</div>
+<button id="btnGenerate" class="btn" onclick="try{window.__tsGenerate && window.__tsGenerate();}catch(e){alert("CLICK_ERR "+(e&&e.message?e.message:e));}">Generera</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <section class="grid">
+        <div class="panel">
+          <div class="panelTop">
+            <h2>Kapitel (YouTube-format)</h2>
+            <button id="btnCopyChapters" class="btn btnGhost">Kopiera</button>
+          </div>
+          <textarea id="chapters" class="ta" spellcheck="false" placeholder="00:00 Intro&#10;00:42 ..."></textarea>
+        </div>
+
+        <div class="panel">
+          <div class="panelTop">
+            <h2>Sammanfattning</h2>
+            <button id="btnCopySummary" class="btn btnGhost">Kopiera</button>
+          </div>
+          <textarea id="summary" class="ta" placeholder="Kort sammanfattning..."></textarea>
+        </div>
+
+        <div class="panel panelWide">
+          <div class="panelTop">
+            <h2>YouTube Description (allt i ett)</h2>
+            <button id="btnCopyAll" class="btn">Kopiera allt</button>
+          </div>
+          <textarea id="allBox" class="ta taTall" spellcheck="false" placeholder="Här bygger vi en färdig beskrivning som du kan klistra in direkt."></textarea>
+
+          <div class="chapListWrap">
+            <div class="muted small">Kapitel-lista (klickbar)</div>
+            <div id="chapList" class="chapList"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot muted small">
+      UI_BUILD: 20260213-abcd-v1
+    </footer>
+  </div>
+
+
+<script src="/timestamps-ui.js"></script>
+</body>
+</html>
