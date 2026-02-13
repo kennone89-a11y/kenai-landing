@@ -4,39 +4,76 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kenai Timestamps</title>
-  <style>
-    :root{--bg:#070c12;--panel:rgba(255,255,255,.06);--stroke:rgba(255,255,255,.14);--txt:rgba(255,255,255,.9);--muted:rgba(255,255,255,.65)}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto}
-    .wrap{max-width:920px;margin:0 auto;padding:28px 16px}
-    .card{background:var(--panel);border:1px solid var(--stroke);border-radius:16px;padding:18px}
-    h1{margin:0 0 10px;font-size:22px} .muted{color:var(--muted)}
-    label{display:block;margin:12px 0 6px}
-    input{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--stroke);background:rgba(0,0,0,.35);color:var(--txt)}
-    button{margin-top:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.10);color:var(--txt);cursor:pointer}
-    button:disabled{opacity:.55;cursor:not-allowed}
-    pre{white-space:pre-wrap;word-break:break-word;background:rgba(0,0,0,.35);border:1px solid var(--stroke);border-radius:12px;padding:12px;margin:12px 0 0}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .row button{margin-top:0}
-  </style>
+  <link rel="stylesheet" href="/timestamps-ui.css">
+  <!-- UI_BUILD: 20260213-abcd-v1 -->
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <h1>Kenai Timestamps</h1>
-      <div class="muted">Klistra in en YouTube-länk → få kapitel + summary. (API: api.kenai.technology)</div>
+    <header class="top">
+      <div class="brand">Kenai</div>
+      <div class="sub">Timestamps</div>
+      <div class="spacer"></div>
+      <a class="link" href="/index.html">Till hubben</a>
+    </header>
 
-      <label for="url">YouTube-URL</label>
-      <input id="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off" />
+    <main class="card">
+      <h1>YouTube timestamps & beskrivning</h1>
+      <p class="muted">Klistra in en YouTube-länk. Få kapitel + sammanfattning + copy-paste box.</p>
 
       <div class="row">
-        <button id="run">Skapa timestamps</button>
-        <button id="copy" disabled>Kopiera kapitel</button>
+        <input id="ytUrl" class="input" placeholder="https://www.youtube.com/watch" autocomplete="off" />
+        <div style="margin:10px 0; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+  <label for="planSelect" style="opacity:.85;">Plan</label>
+  <select id="planSelect">
+    <option value="free">Free</option>
+    <option value="premium">Premium (25 min)</option>
+    <option value="gold">Gold (45 min)</option>
+  </select>
+  <small style="opacity:.75;">Om videon saknar CC krävs Premium/Gold för ljudanalys.</small>
+</div>
+<button id="btnGenerate" class="btn" onclick="try{window.__tsGenerate && window.__tsGenerate();}catch(e){alert("CLICK_ERR "+(e&&e.message?e.message:e));}">Generera</button>
       </div>
 
-      <pre id="out" class="muted">Redo.</pre>
-    </div>
+      <div id="status" class="status" aria-live="polite"></div>
+
+      <section class="grid">
+        <div class="panel">
+          <div class="panelTop">
+            <h2>Kapitel (YouTube-format)</h2>
+            <button id="btnCopyChapters" class="btn btnGhost">Kopiera</button>
+          </div>
+          <textarea id="chapters" class="ta" spellcheck="false" placeholder="00:00 Intro&#10;00:42 ..."></textarea>
+        </div>
+
+        <div class="panel">
+          <div class="panelTop">
+            <h2>Sammanfattning</h2>
+            <button id="btnCopySummary" class="btn btnGhost">Kopiera</button>
+          </div>
+          <textarea id="summary" class="ta" placeholder="Kort sammanfattning..."></textarea>
+        </div>
+
+        <div class="panel panelWide">
+          <div class="panelTop">
+            <h2>YouTube Description (allt i ett)</h2>
+            <button id="btnCopyAll" class="btn">Kopiera allt</button>
+          </div>
+          <textarea id="allBox" class="ta taTall" spellcheck="false" placeholder="Här bygger vi en färdig beskrivning som du kan klistra in direkt."></textarea>
+
+          <div class="chapListWrap">
+            <div class="muted small">Kapitel-lista (klickbar)</div>
+            <div id="chapList" class="chapList"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot muted small">
+      UI_BUILD: 20260213-abcd-v1
+    </footer>
   </div>
 
-  <script src="/timestamps-ui.js"></script>
+
+<script src="/timestamps-ui.js"></script>
 </body>
 </html>

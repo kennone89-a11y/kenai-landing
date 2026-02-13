@@ -1,4 +1,4 @@
 {
-  "ui_build": "ts-ui-v17-20260212-a1",
-  "ts": "manual"
+  "ui_build": "20260213-abcd-v1",
+  "note": "Timestamps UI: A) loading, B) hover preview, C) copy UX, D) small wins (enter-to-run + persist URL)."
 }
