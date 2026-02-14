@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kenai Recorder – AI-sammanfattning</title>
+ <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at top, #07111f 0, #02040a 40%, #000000 100%);
+      color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 900px;
+      width: 100%;
+      border-radius: 24px;
+      padding: 28px 24px 32px;
+      background: rgba(5, 10, 25, 0.96);
+      border: 1px solid rgba(90, 200, 250, 0.25);
+      box-shadow:
+        0 0 40px rgba(0, 0, 0, 0.9),
+        0 0 60px rgba(88, 180, 255, 0.25);
+      backdrop-filter: blur(16px);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #a8b7cc;
+      margin-bottom: 16px;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(100, 120, 150, 0.4);
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8cd9ff;
+      margin-bottom: 8px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: #1f2937;
+      color: #e5e7eb;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out, opacity 0.12s ease-out;
+    }
+
+    button.primary {
+      background: linear-gradient(135deg, #ff3b30, #ff9500);
+      color: #fff;
+      box-shadow: 0 0 14px rgba(255, 149, 0, 0.5);
+    }
+
+    button.secondary {
+      background: linear-gradient(135deg, #007aff, #5ac8fa);
+      color: #fff;
+      box-shadow: 0 0 14px rgba(0, 122, 255, 0.5);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(120, 200, 255, 0.7);
+    }
+
+    .timer {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-left: auto;
+      min-width: 42px;
+      text-align: right;
+    }
+
+    .audio-box {
+      margin-top: 8px;
+      padding: 10px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, rgba(90, 200, 250, 0.12), transparent 55%),
+                  rgba(8, 15, 35, 1);
+      border: 1px solid rgba(90, 200, 250, 0.25);
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    label {
+      font-size: 12px;
+      color: #a8b7cc;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(100, 120, 150, 0.6);
+      background: rgba(3, 10, 25, 0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .inline-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .status-row {
+      margin-top: 6px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #9ca3af;
+    }
+
+    .status-row span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    #ai-status {
+      font-size: 12px;
+      color: #8cd9ff;
+      margin-top: 4px;
+      min-height: 1.2em;
+    }
+
+    #status {
+      color: #e5e7eb;
+    }
+
+    #log {
+      font-size: 11px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 16px 24px;
+      }
+    }
+    /* AI-jobbar status */
+.ai-status {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #a6b6ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 20px;
+  opacity: 0.9;
+}
+
+.ai-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #46f0ff, #0070ff);
+  box-shadow: 0 0 12px rgba(80, 200, 255, 0.9);
+  animation: ai-pulse 1s ease-in-out infinite;
+}
+
+.ai-status.done .ai-pulse {
+  animation: none;
+  background: #3cff9b;
+  box-shadow: 0 0 10px rgba(60, 255, 155, 0.9);
+}
+
+@keyframes ai-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+}
+
+  </style>
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2">
+</script>
+</head>
+<body>
+  <main class="page">
+        <header>
+      <h1>Spela in & få AI-sammanfattning (Kenai dev)</h1>
+<p class="subtitle">
+  1) Spela in ditt ljud · 2) Ladda upp till Supabase (automatiskt) · 3) AI transkriberar & skriver en kort sammanfattning åt dig.
+</p>
+      <p style="font-size: 11px; color: #9ca3af; margin-top: 4px;">
+        <a href="index.html" style="color:#9ca3af; text-decoration:none;">
+          ← Tillbaka till Kenai-hubben
+        </a>
+      </p>
+    </header>
+
+    <!-- INSPELNING -->
+    <section class="section">
+      <div class="section-title">1 · Inspelning</div>
+      <div class="btn-row">
+        <button id="startBtn" class="primary">● Starta inspelning</button>
+        <button id="stopBtn" disabled>■ Stoppa</button>
+        <span class="timer" id="timer">00:00</span>
+      </div>
+
+      <div class="audio-box">
+        <audio id="player" controls></audio>
+      </div>
+    </section>
+
+    <!-- UPPLADDNING -->
+    <section class="section">
+      <div class="section-title">2 · Ladda upp & få publik URL</div>
+        <div class="btn-row">
+    <button id="uploadBtn" class="primary" onclick="uploadRecording()">
+  Ladda upp & AI-sammanfatta
+</button>
+<p id="aiStatusText" style="font-size:13px;color:#9aa0c2;margin-top:6px;"></p>
+
+
+
+  </div>
+
+<label for="urlInput">Supabase public URL (fylls i automatiskt)</label>
+<input
+  type="text"
+  id="urlInput"
+  placeholder="Fylls i automatiskt när du laddar upp…"
+  readonly
+/>
+
+    </section>
+
+   <!-- SAMMANFATTNING -->
+<section class="section">
+  <div class="section-title">3 - AI-sammanfattning</div>
+
+  <label for="summary">AI-sammanfattning</label>
+  <textarea
+    id="summary"
+    placeholder="Sammanfattningen dyker upp här när AI är klar..."
+  ></textarea>
+
+  <div id="aiStatus" class="ai-status"></div>
+
+  <div class="btn-row" style="margin-top: 6px;">
+    <button id="summaryBtn" class="secondary" style="display:none" disabled>
+      Sammanfatta
+    </button>
+  </div>
+</section>
+
+    <!-- EXPORT / MAIL -->
+    <section class="section">
+      <div class="section-title">4 · Export</div>
+      <div class="btn-row">
+        <button id="pdfBtn" disabled>Ladda ner som PDF</button>
+        <div class="inline-input-row">
+          <input id="mailInput" type="email" placeholder="Din e-post (valfritt)" />
+          <button id="mailBtn" disabled>Maila (mock)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATUS / LOGG -->
+    <section class="section">
+      <div class="section-title">Status</div>
+      <div class="status-row">
+        <span id="status">Redo att spela in.</span>
+        <span id="log">–</span>
+      </div>
+      <p class="footer-note">
+        Obs. favicon 404 är irrelevant. Viktigast: /api/health och /api/summarize funkar.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    /***** FYLL I DINA SUPABASE-VÄRDEN HÄR (klistra in från din anteckning) *****/
+    const SUPABASE_URL ='https://hywwzzzxgagqhlxooekz.supabase.co';
+    const SUPABASE_ANON_KEY ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5d3d6enp4Z2FncWhseG9vZWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5Mjk5NTcsImV4cCI6MjA3NzUwNTk1N30.A1BcczjSnP-LOh6p9XLozCBbBcr9LgHIcpjIqsk3eSA';
+    const SUPABASE_BUCKET = "kenai-audio";
+    const SUPABASE_FOLDER = "reviews";
+    /**************************************************************************/
+
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+ // DOM-element
+const startBtn = document.getElementById("startBtn");
+const stopBtn = document.getElementById("stopBtn");
+const uploadBtn = document.getElementById("uploadBtn");
+const summaryBtn = document.getElementById("summaryBtn");
+const pdfBtn = document.getElementById("pdfBtn");
+const mailBtn = document.getElementById("mailBtn");
+const mailInput = document.getElementById("mailInput");
+
+const timerEl = document.getElementById("timer");
+const player = document.getElementById("player");
+const urlInput = document.getElementById("urlInput");
+const summaryEl = document.getElementById("summary");
+const statusEl = document.getElementById("status");
+const logEl = document.getElementById("log");
+function setStatus(t) {
+  if (statusEl) statusEl.textContent = t || "";
+  console.log("STATUS:", t);
+}
+
+function setLog(t) {
+  if (logEl) logEl.textContent = t || "";
+  console.log("LOG:", t);
+}
+
+// global state (behövs av upload/summarize)
+let audioBlob = null;
+let publicUrl = null;
+let mediaRecorder = null;
+let chunks = [];
+let timerId = null;
+let startTime = 0;
+
+
+const aiStatusEl = document.getElementById("aiStatus");       // div.ai-status
+const aiStatusTextEl = document.getElementById("aiStatusText"); // p under upload
+
+function setAIStatus(message, done = false) {
+  // liten text under upload-knappen
+  if (aiStatusTextEl) aiStatusTextEl.textContent = message || "";
+
+  // fancy status i steg 3
+  if (!aiStatusEl) return;
+
+  if (!message) {
+    aiStatusEl.innerHTML = "";
+    aiStatusEl.classList.remove("done");
+    return;
+  }
+
+  aiStatusEl.classList.toggle("done", !!done);
+  aiStatusEl.innerHTML = `
+    <span class="ai-pulse"></span>
+    <span>${message}</span>
+  `;
+}
+
+
+
+    function fmt(seconds) {
+      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const s = String(Math.floor(seconds % 60)).padStart(2, "0");
+      return m + ":" + s;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      if (timerId) clearInterval(timerId);
+      timerId = setInterval(() => {
+        const sec = (Date.now() - startTime) / 1000;
+        if (timerEl) timerEl.textContent = fmt(sec);
+      }, 250);
+    }
+
+    function stopTimer() {
+      if (timerId) clearInterval(timerId);
+      timerId = null;
+    }
+
+    async function startRecording() {
+      try {
+        setStatus("Ber om mikrofonåtkomst...");
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        chunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) {
+            chunks.push(e.data);
+          }
+        };
+
+       mediaRecorder.onstop = () => {
+  stopTimer();
+
+  // Använd den mimetype som browsern själv använde för chunks[0]
+  const mimeType = (chunks[0] && chunks[0].type) ? chunks[0].type : "audio/webm";
+  const blob = new Blob(chunks, { type: mimeType });
+  audioBlob = blob;
+
+  const url = URL.createObjectURL(blob);
+  player.src = url;
+  player.controls = true;
+
+  setStatus("Inspelning klar. Lyssna & ladda upp.");
+  uploadBtn.disabled = false;
+};
+
+
+        mediaRecorder.start();
+        startTimer();
+        setStatus("Spelar in...");
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        uploadBtn.disabled = true;
+        summaryBtn.disabled = true;
+        pdfBtn.disabled = true;
+        mailBtn.disabled = true;
+        summaryEl.value = "";
+        aiStatusEl.textContent = "";
+        publicUrl = null;
+        urlInput.value = "";
+        setLog("MediaRecorder startad.");
+      } catch (err) {
+        console.error(err);
+        setStatus("Kunde inte starta inspelning. Kolla mikrofon-behörigheter.");
+        setLog(String(err.message || err));
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        setStatus("Stoppar inspelning...");
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      }
+    }
+
+    async function uploadRecording() {
+        setAIStatus("AI jobbar… analyserar ditt ljud. Detta kan ta upp till någon minut.");
+  if (uploadBtn) {
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = "AI jobbar…";
+  }
+
+      if (!audioBlob) {
+        setStatus("Ingen inspelning att ladda upp.");
+        return;
+      }
+
+      try {
+        setStatus("Laddar upp till Supabase...");
+        setLog("Förbereder upload...");
+
+        const filename = `review-${Date.now()}.webm`; // filändelsen kan vi låta vara webm
+const path = `${SUPABASE_FOLDER}/${filename}`;
+
+// använd den riktiga typen från audioBlob
+const uploadContentType = audioBlob.type || "audio/webm";
+
+const { error: uploadError } = await sb.storage
+  .from(SUPABASE_BUCKET)
+  .upload(path, audioBlob, {
+    contentType: uploadContentType,
+    upsert: false
+  });
+
+
+        if (uploadError) {
+          console.error(uploadError);
+          throw new Error(uploadError.message || "Supabase-upload misslyckades");
+        }
+
+      const { data } = sb.storage.from(SUPABASE_BUCKET).getPublicUrl(path);
+publicUrl = data.publicUrl;
+urlInput.value = publicUrl || "";
+
+setStatus("Public URL hämtad. Startar AI-sammanfattning...");
+setAIStatus("AI analyserar ditt ljud...", false);
+
+await uploadAndSummarize();
+
+setLog("Public URL hämtad.");
+
+       
+      } catch (err) {
+        console.error(err);
+        setStatus("Uppladdning misslyckades.");
+        setLog(String(err.message || err));
+      }
+    }
+
+ async function callSummarize(url) {
+  setStatus("Skickar till AI för transkribering & sammanfattning...");
+  setAIStatus("AI transkriberar & skriver din sammanfattning...", false);
+
+  const backendBase = (location.hostname==="app.kenai.technology" ? "https://snipp-ai-1.onrender.com" : window.location.origin);
+  let res, txt, json = null;
+
+  try {
+    res = await fetch(`${backendBase}/api/summarize`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ audioUrl: url }),
+    });
+
+    txt = await res.text();
+    try {
+      json = JSON.parse(txt);
+    } catch (e) {
+      json = null;
+    }
+ 
+    if (!res.ok) {
+      const msg = (json && (json.error || json.message)) || txt || "Okänt fel";
+      throw new Error(`Backend-fel: ${String(msg).slice(0, 300)}`);
+    }
+
+    if (!json || !json.summary) {
+      throw new Error("Okänt AI-fel: saknar summary i svar.");
+    }
+
+    return json;
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message || "Något gick fel i AI-backend.");
+    setAIStatus("Något gick fel med AI-sammanfattningen.", true);
+    throw err;
+  }
+}
+
+
+  async function uploadAndSummarize() {
+  try {
+    let url = publicUrl || urlInput.value.trim();
+    if (!url) {
+      throw new Error("Ingen publik URL hittad. Ladda upp först.");
+    }
+
+    const json = await callSummarize(url);
+    summaryEl.value = json.summary || "";
+
+    setStatus("Klar! AI-sammanfattning skapad.");
+    setAIStatus("AI-sammanfattning klar ✅", true);
+
+    pdfBtn.disabled = !summaryEl.value;
+    mailBtn.disabled = !summaryEl.value;
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message || "Något gick fel när vi försökte sammanfatta.");
+    setAIStatus("Något gick fel med AI-sammanfattningen.", true);
+  }
+}
+
+    async function downloadPdf() {
+  try {
+    setStatus && setStatus("Skapar PDF...");
+
+    const backendBase =
+      (location.hostname === "app.kenai.technology" || location.hostname === "app.kenai.technology")
+        ? "https://snipp-ai-1.onrender.com"
+        : window.location.origin;
+
+    // plocka text från UI utan att gissa variabelnamn
+    const summary =
+      (document.querySelector("#summary")?.value) ||
+      (document.querySelector("#aiSummary")?.value) ||
+      (document.querySelector("#out")?.value) ||
+      (document.querySelector("textarea")?.value) ||
+      "";
+
+    const transcript =
+      (document.querySelector("#transcript")?.value) ||
+      (document.querySelector("#aiTranscript")?.value) ||
+      "";
+
+    const title = "Kenai Sammanfattning";
+
+    // Form-submit öppnar i ny flik och triggar nerladdning utan fetch/blob-krångel
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = backendBase + "/api/export-pdf";
+    form.target = "_blank";
+
+    const add = (name, value) => {
+      const i = document.createElement("input");
+      i.type = "hidden";
+      i.name = name;
+      i.value = String(value ?? "");
+      form.appendChild(i);
+    };
+
+    add("title", title);
+    add("summary", summary);
+    add("transcript", transcript);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    setTimeout(() => {
+      try { form.remove(); } catch {}
+      setStatus && setStatus("PDF skickad ✅");
+    }, 250);
+  } catch (e) {
+    console.error("downloadPdf error:", e);
+    setStatus && setStatus("PDF-fel: " + (e && e.message ? e.message : "okänt"));
+  }
+}
+
+// ÖPPNA istället för klick
+
+
+    async function sendSummaryEmail() {
+      // fortfarande mock / placeholder
+      try {
+        setStatus("Skickar (mock) e-post...");
+        const backendBase = (location.hostname==="app.kenai.technology" ? "https://snipp-ai-1.onrender.com" : window.location.origin);
+        const res = await fetch(`${backendBase}/api/send-summary-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: mailInput.value.trim(),
+            summary: summaryEl.value
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error("E-post (mock) misslyckades.");
+        }
+
+        setStatus("E-post (mock) skickad.");
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Kunde inte skicka e-post (mock).");
+      }
+    }
+
+    // Koppla knappar
+    startBtn.addEventListener("click", startRecording);
+    stopBtn.addEventListener("click", stopRecording);
+    uploadBtn.addEventListener("click", uploadRecording);
+    pdfBtn.addEventListener("click", downloadPdf);
+    mailBtn.addEventListener("click", sendSummaryEmail);
+  
+
+// expose handlers for inline onclick (Safari-safe)
+try {
+  if (typeof startRecording === "function") window.startRecording = startRecording;
+  if (typeof uploadRecording === "function") window.uploadRecording = uploadRecording;
+} catch (e) { console.error(e); }
+
+</script>
+
+</body>
+</html>
