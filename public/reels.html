@@ -73,29 +73,34 @@
       setDbg("");
     });
 
-    btnBuild.addEventListener("click", async () => {
-      const files = elFiles.files;
-      if (!files || files.length === 0) {
-        setStatus("Välj minst en fil.", "bad");
-        return;
-      }
+    btnBuild.addEventListener('click', async () => {
+  setStatus("Bygger (ping)...", "ok");
+  btnBuild.disabled = true;
+  try {
+    // v1: ping-only. Ignorera filer tills vi bygger riktig upload/render.
+    const r = await fetch(API + "/api/reels/build", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ ping: true })
+    });
 
-      btnBuild.disabled = true;
-      setStatus("AI jobbar… (upload → build)", "muted");
-      elResult.style.display = "none";
-      setDbg("");
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || !data || !data.videoUrl) {
+      throw new Error((data && (data.error || data.message)) || ("HTTP " + r.status));
+    }
 
-      try {
-        const fd = new FormData();
-        // backend kan heta olika; vi skickar båda för kompatibilitet
-        for (const f of files) {
-          fd.append("files", f);
-          fd.append("media", f);
-        }
-        fd.append("mode", "v1");
-        fd.append("client_build", "20260214-170755");
-
-        const res = await fetch(ENDPOINT, { method: "POST", body: fd });
+    elPlayer.src = data.videoUrl;
+    elDL.href = data.downloadUrl || data.videoUrl;
+    elDL.style.display = "inline-block";
+    elResult.style.display = "block";
+    setStatus("Klart.", "ok");
+  } catch (e) {
+    setStatus("Krasch i UI: " + (e?.message || e), "bad");
+    setDbg(String(e && (e.stack || e.message) || e));
+  } finally {
+    btnBuild.disabled = false;
+  }
+});
         const txt = await res.text();
         let data;
         try { data = JSON.parse(txt); } catch { data = { raw: txt }; }
