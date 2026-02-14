@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="sv">
 <head>
-  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+<meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Kenai Reels (v1)</title>
   <style>
@@ -41,84 +42,139 @@
 
 <script>
 (() => {
+  "use strict";
   const API = "https://api.kenai.technology";
-  const $ = (id) => document.getElementById(id);
 
-  const elFiles = $("files");
-  const btnBuild = $("btnBuild");
-  const btnReset = $("btnReset");
-  const elStatus = $("status");
-  const elDbg = $("dbg");
-  const elResult = $("result");
-  const elPlayer = $("player");
-  const elDl = $("dl");
+  // Resilient selectors (works even if ids change slightly)
+  const qs = (sel) => document.querySelector(sel);
+  const elStatus = document.getElementById("status") || (() => {
+    const d = document.createElement("div");
+    d.id = "status";
+    d.style.margin = "10px 0";
+    d.style.fontWeight = "600";
+    (document.body || document.documentElement).prepend(d);
+    return d;
+  })();
 
-  function setStatus(msg, cls) {
-    elStatus.className = cls || "";
+  const btnBuild =
+    document.getElementById("btnBuild") ||
+    Array.from(document.querySelectorAll("button")).find(b => (b.textContent || "").toLowerCase().includes("skapa"));
+
+  const btnReset =
+    document.getElementById("btnReset") ||
+    Array.from(document.querySelectorAll("button")).find(b => (b.textContent || "").toLowerCase().includes("rensa"));
+
+  const fileInput =
+    document.getElementById("files") ||
+    document.getElementById("kenaiFiles") ||
+    document.getElementById("fileInput") ||
+    qs('input[type="file"]');
+
+  const videoEl =
+    document.getElementById("player") ||
+    qs("video");
+
+  // download link (optional)
+  const dlEl =
+    document.getElementById("dl") ||
+    qs('a[download]') ||
+    qs("a");
+
+  function setStatus(msg, ok=true) {
     elStatus.textContent = msg;
+    elStatus.style.color = ok ? "#2e7d32" : "#b00020";
   }
-  function setDbg(x) {
-    elDbg.style.display = "block";
-    elDbg.textContent = String(x);
+
+  function setBusy(isBusy) {
+    if (!btnBuild) return;
+    btnBuild.disabled = !!isBusy;
+    if (isBusy) {
+      btnBuild.dataset._oldText = btnBuild.textContent || "Skapa reel";
+      btnBuild.textContent = "AI jobbar…";
+      btnBuild.style.opacity = "0.9";
+    } else {
+      btnBuild.textContent = btnBuild.dataset._oldText || "Skapa reel";
+      btnBuild.style.opacity = "";
+    }
+  }
+
+  async function postJSON(url, body, timeoutMs=60000) {
+    const ac = new AbortController();
+    const t = setTimeout(() => ac.abort("timeout"), timeoutMs);
+    try {
+      const r = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body || {}),
+        signal: ac.signal
+      });
+      const ct = (r.headers.get("content-type") || "").toLowerCase();
+      let data = null;
+      if (ct.includes("application/json")) {
+        try { data = await r.json(); } catch { data = null; }
+      } else {
+        const txt = await r.text().catch(() => "");
+        data = { ok:false, error: txt || "non-json response" };
+      }
+      return { r, data };
+    } finally {
+      clearTimeout(t);
+    }
   }
 
   async function doBuild() {
-    btnBuild.disabled = true;
-    setStatus("Jobbar…", "");
-    setDbg("");
+    if (!btnBuild) {
+      setStatus("UI fel: hittar inte 'Skapa reel'-knapp.", false);
+      return;
+    }
+
+    // For now endpoint is placeholder; we only "ping" it.
+    // Later we add multipart upload, but not in stabiliseringssteget.
+    setBusy(true);
+    setStatus("AI jobbar…", true);
 
     try {
-      // v1: IGNORERA filer – vi pingar API:t och visar placeholder-video.
-      const r = await fetch(API + "/api/reels/build", {
-        method: "POST",
-        headers: {"content-type":"application/json"},
-        body: JSON.stringify({ ping: true })
-      });
-
-      const ct = (r.headers.get("content-type") || "");
-      const data = ct.includes("application/json") ? await r.json().catch(() => ({})) : null;
-      const txt = data ? "" : await r.text().catch(() => "");
+      const url = API + "/api/reels/build";
+      const { r, data } = await postJSON(url, { ping: true }, 60000);
 
       if (!r.ok) {
-        setStatus("Fel från API: " + r.status + (data && data.error ? " — " + data.error : ""), "bad");
-        if (data) setDbg(JSON.stringify(data, null, 2)); else setDbg(txt);
+        const msg = (data && (data.error || data.message)) ? (data.error || data.message) : ("HTTP " + r.status);
+        setStatus("Fel från API: " + r.status + (msg ? (" — " + msg) : ""), false);
         return;
       }
 
       if (!data || !data.videoUrl) {
-        setStatus("API svarade utan videoUrl.", "bad");
-        setDbg(data ? JSON.stringify(data, null, 2) : txt);
+        setStatus("API svarade utan videoUrl.", false);
         return;
       }
 
-      elPlayer.src = data.videoUrl;
-      elDl.href = data.downloadUrl || data.videoUrl;
-      elResult.style.display = "block";
-      setStatus("Klart.", "ok");
-      setDbg(JSON.stringify(data, null, 2));
+      if (videoEl) videoEl.src = data.videoUrl;
+      if (dlEl) {
+        dlEl.href = data.downloadUrl || data.videoUrl;
+        dlEl.style.display = "inline-block";
+      }
+      setStatus("Klart.", true);
     } catch (e) {
-      setStatus("Krasch i UI: " + (e && e.message ? e.message : String(e)), "bad");
-      setDbg(e && e.stack ? e.stack : String(e));
+      const msg = (e && e.name === "AbortError") ? "timeout" : (e && e.message ? e.message : String(e));
+      setStatus("Krasch i UI: " + msg, false);
     } finally {
-      btnBuild.disabled = false;
+      setBusy(false);
     }
   }
 
   function doReset() {
-    elFiles.value = "";
-    elPlayer.removeAttribute("src");
-    elPlayer.load();
-    elResult.style.display = "none";
-    setStatus("Redo.", "");
-    elDbg.style.display = "none";
-    elDbg.textContent = "";
+    if (videoEl) videoEl.removeAttribute("src");
+    if (dlEl) dlEl.style.display = "none";
+    if (fileInput) fileInput.value = "";
+    setStatus("", true);
   }
 
-  btnBuild.addEventListener("click", (e) => { e.preventDefault(); doBuild(); });
-  btnReset.addEventListener("click", (e) => { e.preventDefault(); doReset(); });
+  // Bind
+  if (btnBuild) btnBuild.addEventListener("click", (e) => { e.preventDefault(); doBuild(); });
+  if (btnReset) btnReset.addEventListener("click", (e) => { e.preventDefault(); doReset(); });
 
-  // sanity log (för att se att script kör)
-  console.log("KENAI_REELS_UI_BUILD", "20260214-184528");
+  // Build stamp for verification
+  console.log("KENAI_REELS_UI_BUILD", "stabilize-v1");
 })();
 </script>
 </body>
