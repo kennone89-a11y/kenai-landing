@@ -43,6 +43,10 @@
   </div>
 
   <script>
+/* KENAI_IIFE_WRAP */
+;(async () => {
+  try {
+
     const API = "https://api.kenai.technology";
     const ENDPOINT = API + "/api/reels/build";
 
@@ -131,6 +135,11 @@
         btnBuild.disabled = false;
       }
     });
-  </script>
+  
+  } catch (e) {
+    console.error('Reels script crash:', e);
+  }
+})();
+</script>
 </body>
 </html>
