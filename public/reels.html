@@ -135,7 +135,14 @@
 
     try {
       const url = API + "/api/reels/build";
-      const { r, data } = await postJSON(url, { ping: true }, 60000);
+      // Build minimal payload (placeholder v1)
+    const files = (fileInput && fileInput.files) ? Array.from(fileInput.files) : [];
+    const payload = {
+      filesCount: files.length,
+      files: files.slice(0, 50).map(f => ({ name: f.name, type: f.type || "", size: f.size || 0 }))
+    };
+
+    const { r, data } = await postJSON(url, payload, 60000);
 
       if (!r.ok) {
         const msg = (data && (data.error || data.message)) ? (data.error || data.message) : ("HTTP " + r.status);
