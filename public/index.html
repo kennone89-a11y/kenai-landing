@@ -382,35 +382,34 @@
 .kenai-btn:hover::after,.tool-btn:hover::after{transform:translateX(120%)}
 </style>
 
-<style id="mo-section-css">  /* --- MO layout: desktop side-by-side, mobile stacked --- */
-  .mo-wrap { width: 100%; }
-
-  @media (min-width: 860px) {
-    .mo-wrap {
+<style id="mo-section-css">  /* --- MO layout: side-by-side earlier (most desktops), stacked only on small screens --- */
+  @media (min-width: 680px) {
+    #mo .mo-wrap {
       display: flex !important;
       align-items: center;
       gap: 32px;
       text-align: left;
       justify-content: flex-start;
     }
-    .mo-icon {
-      flex: 0 0 260px;
-    }
-    .mo-content {
-      flex: 1 1 auto;
-      min-width: 0;
-    }
+    #mo .mo-icon { flex: 0 0 260px; }
+    #mo .mo-content { flex: 1 1 auto; min-width: 0; }
   }
 
-  @media (max-width: 859px) {
-    .mo-wrap {
+  @media (max-width: 679px) {
+    #mo .mo-wrap {
       display: grid !important;
       grid-template-columns: 1fr;
       text-align: center;
       place-items: center;
       gap: 18px;
     }
-    .mo-icon { width: clamp(120px, 10vw, 160px); }
+    #mo .mo-icon { width: clamp(120px, 10vw, 160px); }
+  }
+
+  /* --- MO layout: desktop side-by-side, mobile stacked --- */
+  .mo-wrap { width: 100%; }
+
+  .mo-icon { width: clamp(120px, 10vw, 160px); }
   }
 
 
