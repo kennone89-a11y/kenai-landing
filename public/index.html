@@ -751,6 +751,38 @@
   /* If still shorter, enforce a minimum comparable height */
   #homeSplit #mo .mo-panel { min-height: 520px !important; }
 }
+
+/* mo-equal-height */
+/* Force both cards to share the same row height */
+#homeSplit #kenai-hub,
+#homeSplit #mo { height: 100% !important; }
+
+/* Make MO card layout fill height, and prevent content from making it taller */
+#homeSplit #mo .mo-panel { height: 100% !important; display: flex !important; flex-direction: column !important; }
+#homeSplit #mo .mo-wrap { align-items: flex-start !important; }
+#homeSplit #mo .mo-content { flex: 1 1 auto !important; min-height: 0 !important; overflow: hidden !important; }
+#homeSplit #mo .mo-body { overflow: hidden !important; }
+
+/* Clamp body paragraphs harder so card can't grow taller than hub */
+#homeSplit #mo .mo-body p{
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  -webkit-line-clamp: 1 !important;
+}
+
+/* Keep bullets compact */
+#homeSplit #mo .mo-bullets{
+  margin-top: 10px !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  -webkit-line-clamp: 2 !important;
+}
+
+/* Push CTA to bottom of the card */
+#homeSplit #mo .mo-cta{ margin-top: auto !important; }
+/* end mo-equal-height */
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
@@ -794,6 +826,10 @@
   #homeSplit #mo .mo-cta{ margin-top: 12px !important; }
 }
 
+/* mo-equal-height */
+/* Make the split row define a single shared height */
+#homeSplit .home-split-grid { align-items: stretch !important; }
+/* end mo-equal-height */
 </style>
 </head>
 
