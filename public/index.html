@@ -597,6 +597,22 @@
 
 
 @media (min-width: 600px) { #mo .mo-icon { margin-top: 6px; } }
+
+
+/* split-typography */
+@media (min-width: 800px) {
+  #homeSplit #mo .mo-panel { padding: 34px 36px; }
+  #homeSplit #mo .mo-wrap { gap: 22px; align-items: flex-start; }
+
+  #homeSplit #mo .mo-content { text-align: left; min-width: 0; }
+  #homeSplit #mo .mo-title { font-size: clamp(34px, 3.2vw, 48px); line-height: 1.05; }
+  #homeSplit #mo .mo-subtitle { font-size: 16px; line-height: 1.35; opacity: 0.9; }
+
+  #homeSplit #mo .mo-body { max-width: 56ch; }
+  #homeSplit #mo .mo-body p { font-size: 15px; line-height: 1.55; }
+  #homeSplit #mo .mo-bullets { font-size: 14px; line-height: 1.5; }
+  #homeSplit #mo .mo-cta { margin-top: 14px; }
+}
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
