@@ -744,6 +744,26 @@
 #homeSplit #mo {
   margin: 0 !important;
 }
+
+/* split-clamp-v1 (keep MO same height as Hub on desktop) */
+@media (min-width: 800px) {
+  #homeSplit #mo .mo-panel { padding-bottom: 18px !important; }
+  #homeSplit #mo .mo-body p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+  #homeSplit #mo .mo-bullets{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin-top: 12px !important;
+  }
+  #homeSplit #mo .mo-cta{ margin-top: 12px !important; }
+}
+
 </style>
 </head>
 
