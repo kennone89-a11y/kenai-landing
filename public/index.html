@@ -382,7 +382,38 @@
 .kenai-btn:hover::after,.tool-btn:hover::after{transform:translateX(120%)}
 </style>
 
-<style id="mo-section-css">
+<style id="mo-section-css">  /* --- MO layout: desktop side-by-side, mobile stacked --- */
+  .mo-wrap { width: 100%; }
+
+  @media (min-width: 860px) {
+    .mo-wrap {
+      display: flex !important;
+      align-items: center;
+      gap: 32px;
+      text-align: left;
+      justify-content: flex-start;
+    }
+    .mo-icon {
+      flex: 0 0 260px;
+    }
+    .mo-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 859px) {
+    .mo-wrap {
+      display: grid !important;
+      grid-template-columns: 1fr;
+      text-align: center;
+      place-items: center;
+      gap: 18px;
+    }
+    .mo-icon { width: clamp(120px, 10vw, 160px); }
+  }
+
+
   /* --- MO section (homepage) --- */
   .mo-section {
     position: relative;
@@ -416,24 +447,8 @@
   }
 
   /* Desktop: side-by-side */
-  @media (min-width: 860px) {
-    .mo-wrap {
-      grid-template-columns: 260px 1fr;
-      text-align: left;
-      place-items: unset;
-    }
-  }
-
   /* Mobile: stacked */
-  @media (max-width: 859px) {
-    .mo-wrap {
-      grid-template-columns: 1fr;
-      text-align: center;
-      place-items: center;
-    }
-  }
-
-.mo-panel::before {
+  .mo-panel::before {
     content: "";
     position: absolute;
     inset: -2px;
