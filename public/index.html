@@ -643,6 +643,56 @@
     line-height: 1.6;
   }
 }
+
+
+
+/* === MO SYMMETRIC TO HUB (override) === */
+@media (min-width: 900px) {
+  /* Ensure split columns stretch equally */
+  #homeSplit .home-split-grid { align-items: stretch; }
+
+  /* Make MO card behave like a normal single-column card */
+  #homeSplit #mo .mo-panel { height: 100%; }
+  #homeSplit #mo .mo-wrap {
+    display: block !important;
+    text-align: left !important;
+  }
+
+  /* Icon top, centered-ish like a hero badge */
+  #homeSplit #mo .mo-icon {
+    display: block !important;
+    width: 140px !important;
+    margin: 6px auto 18px auto !important;
+  }
+
+  /* Content uses full card width (no skinny column) */
+  #homeSplit #mo .mo-content {
+    width: 100% !important;
+    max-width: none !important;
+    text-align: left !important;
+  }
+
+  /* Typography similar to Hub card */
+  #homeSplit #mo .mo-title {
+    font-size: 32px !important;
+    line-height: 1.1 !important;
+    margin: 0 0 8px 0 !important;
+  }
+  #homeSplit #mo .mo-subtitle {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    opacity: 0.92 !important;
+    margin: 0 0 14px 0 !important;
+  }
+  #homeSplit #mo .mo-body { max-width: 60ch !important; }
+  #homeSplit #mo .mo-body p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin: 0 0 10px 0 !important;
+  }
+  #homeSplit #mo .mo-bullets { margin-top: 10px !important; }
+  #homeSplit #mo .mo-cta { margin-top: 14px !important; }
+}
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
