@@ -613,6 +613,36 @@
   #homeSplit #mo .mo-bullets { font-size: 14px; line-height: 1.5; }
   #homeSplit #mo .mo-cta { margin-top: 14px; }
 }
+
+
+/* CLEAN SPLIT LAYOUT */
+@media (min-width: 900px) {
+  #homeSplit #mo .mo-wrap {
+    display: grid !important;
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  #homeSplit #mo .mo-icon {
+    width: 180px;
+  }
+
+  #homeSplit #mo .mo-content {
+    text-align: left;
+    max-width: 620px;
+  }
+
+  #homeSplit #mo .mo-title {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  #homeSplit #mo .mo-body p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
