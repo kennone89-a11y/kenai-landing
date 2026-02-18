@@ -693,6 +693,36 @@
   #homeSplit #mo .mo-bullets { margin-top: 10px !important; }
   #homeSplit #mo .mo-cta { margin-top: 14px !important; }
 }
+
+
+
+/* === MO MATCH HUB HEIGHT === */
+@media (min-width: 900px) {
+  /* Make the split row stretch both cards equally */
+  #homeSplit .home-split-grid { align-items: stretch !important; }
+  #homeSplit #kenai-hub { height: 100%; }
+  #homeSplit #mo { height: 100%; }
+
+  /* Ensure MO panel fills the column height */
+  #homeSplit #mo .mo-panel {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Make content area stretch so CTA sits lower like Hub */
+  #homeSplit #mo .mo-content {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Push CTA towards bottom for symmetry */
+  #homeSplit #mo .mo-cta { margin-top: auto !important; }
+
+  /* If still shorter, enforce a minimum comparable height */
+  #homeSplit #mo .mo-panel { min-height: 520px !important; }
+}
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
