@@ -1,66 +1,59 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-<style id="critical-split-clamps">
-/* Critical: stop refresh flicker + stop middle-scroll in split layout */
+<style id="critical-split-clamps-v2">
+/* Critical v2: prevent refresh flicker + prevent internal scroll */
 
-/* Desktop split rules only */
+/* Applies whenever #homeSplit exists (desktop and mobile) */
+#homeSplit #mo,
+#homeSplit #kenai-hub {
+  overflow: hidden !important;
+}
+
+#homeSplit #mo p,
+#homeSplit #mo li,
+#homeSplit #kenai-hub p,
+#homeSplit #kenai-hub li {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+}
+
 @media (min-width: 800px) {
-  #homeSplit {
-    --split-h: 560px; /* tweak this number if you want slightly taller/shorter */
-  }
-  #homeSplit .home-split-grid {
-    align-items: stretch !important;
-  }
-
-  /* Force both columns to the same fixed height and hide overflow */
-  #homeSplit #kenai-hub,
-  #homeSplit #mo {
+  #homeSplit { --split-h: 560px; }
+  #homeSplit .home-split-grid { align-items: stretch !important; }
+  #homeSplit #mo,
+  #homeSplit #kenai-hub {
     height: var(--split-h) !important;
-    overflow: hidden !important;
   }
-
-  /* Inner panels take full height and must not create scrollbars */
-  #homeSplit #kenai-hub > * ,
   #homeSplit #mo .mo-panel {
     height: 100% !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
-
-  /* MO clamps (prevents last-line flash on refresh) */
-  #homeSplit #mo .mo-body { overflow: hidden !important; }
-  #homeSplit #mo .mo-body p {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
-    overflow: hidden !important;
-  }
-  #homeSplit #mo .mo-bullets {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
-    overflow: hidden !important;
-  }
-
-  /* HUB clamps (this is what stops the "scroll in the middle" when hub text is longer) */
-  #homeSplit #kenai-hub p,
-  #homeSplit #kenai-hub li {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
-    overflow: hidden !important;
-  }
+  /* Desktop clamp */
+  #homeSplit #mo p,
+  #homeSplit #kenai-hub p { -webkit-line-clamp: 2 !important; }
+  #homeSplit #mo li,
+  #homeSplit #kenai-hub li { -webkit-line-clamp: 2 !important; }
 }
 
-/* Mobile / stacked layout: never lock heights */
 @media (max-width: 799px) {
-  #homeSplit #kenai-hub,
-  #homeSplit #mo {
+  /* Mobile: stacked, never lock heights */
+  #homeSplit #mo,
+  #homeSplit #kenai-hub {
     height: auto !important;
     overflow: visible !important;
   }
+  /* Mobile clamp (a bit more room) */
+  #homeSplit #mo p,
+  #homeSplit #kenai-hub p { -webkit-line-clamp: 3 !important; }
+  #homeSplit #mo li,
+  #homeSplit #kenai-hub li { -webkit-line-clamp: 3 !important; }
 }
 </style>
+
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kenai — Spela in. Sammanfatta. Dela.</title>
