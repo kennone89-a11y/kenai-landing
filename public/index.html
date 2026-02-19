@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
+<style id="critical-split-clamps">
+/* Critical clamps to prevent refresh flicker (FOUC) */
+#homeSplit #mo .mo-body{ overflow:hidden !important; }
+#homeSplit #mo .mo-body p{
+  display:-webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow:hidden !important;
+}
+#homeSplit #mo .mo-bullets{
+  display:-webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow:hidden !important;
+}
+</style>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kenai — Spela in. Sammanfatta. Dela.</title>
@@ -1068,7 +1085,7 @@
         </div>
 
         <!-- Spacer: keep background visible -->
-        <div style="flex: 1 1 360px; min-height: 260px;"></div>
+        
       </div>
     </section>
     <!-- /KENAI HUB -->
@@ -1128,9 +1145,7 @@
   </div>
 </section>
     </div>
-    <div class="home-right">
-
-    </div>
+    
   </div>
 </section>
 
