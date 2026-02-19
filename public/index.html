@@ -908,6 +908,23 @@
   }
 }
 /* end mobile-split */
+
+/* mobile-stack-fix */
+@media (max-width: 799px) {
+  /* Kill fixed split-height behavior on phones */
+  #homeSplit { --split-h: auto !important; }
+  #homeSplit #kenai-hub { height: auto !important; }
+  #homeSplit #mo { height: auto !important; }
+  #homeSplit #mo .mo-panel { height: auto !important; min-height: 0 !important; }
+
+  /* Force normal document flow stacking (Hub then MO) */
+  #homeSplit .home-split-grid { display: block !important; }
+  #homeSplit #mo { margin-top: 22px !important; }
+
+  /* Avoid any leftover “push-down” spacing */
+  #homeSplit #kenai-hub { margin-bottom: 0 !important; }
+}
+/* end mobile-stack-fix */
 </style>
 </head>
 
