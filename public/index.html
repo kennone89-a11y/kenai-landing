@@ -412,7 +412,6 @@
   .mo-icon { width: clamp(120px, 10vw, 160px); }
   }
 
-
   /* --- MO section (homepage) --- */
   .mo-section {
     position: relative;
@@ -462,7 +461,6 @@
 
   @media (max-width: 899px) {
     }
-
 
   /* Icon: symmetric AI-core */
   .mo-icon {
@@ -595,9 +593,7 @@
     color: rgba(255,255,255,0.62);
   }
 
-
 @media (min-width: 600px) { #mo .mo-icon { margin-top: 6px; } }
-
 
 /* split-typography */
 @media (min-width: 800px) {
@@ -628,7 +624,6 @@
   #homeSplit #mo .mo-cta { margin-top: 14px; }
 }
 
-
 /* CLEAN SPLIT LAYOUT */
 @media (min-width: 900px) {
   #homeSplit #mo .mo-wrap {
@@ -657,8 +652,6 @@
     line-height: 1.6;
   }
 }
-
-
 
 /* === MO SYMMETRIC TO HUB (override) === */
 @media (min-width: 900px) {
@@ -721,8 +714,6 @@
 }
   #homeSplit #mo .mo-cta { margin-top: 14px !important; }
 }
-
-
 
 /* === MO MATCH HUB HEIGHT === */
 @media (min-width: 900px) {
@@ -877,6 +868,46 @@
 }
 /* end mo-equal-height */
 
+/* mobile-split */
+@media (max-width: 799px) {
+  /* Stack: Hub then MO */
+  #homeSplit .home-split-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    align-items: start !important;
+  }
+
+  /* Remove forced equal height on mobile */
+  #homeSplit { --split-h: auto !important; }
+  #homeSplit #kenai-hub,
+  #homeSplit #mo {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Make MO readable + centered without squeezing */
+  #homeSplit #mo .mo-panel {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 22px 18px !important;
+  }
+  #homeSplit #mo .mo-wrap {
+    gap: 14px !important;
+    align-items: center !important;
+  }
+  #homeSplit #mo .mo-content {
+    text-align: left !important;
+    max-width: 60ch !important;
+  }
+
+  /* Tone down huge desktop title on small screens */
+  #homeSplit #mo .mo-title {
+    font-size: 34px !important;
+    line-height: 1.05 !important;
+  }
+}
+/* end mobile-split */
 </style>
 </head>
 
@@ -1064,4 +1095,4 @@
   .kenai-brand{font-weight:800;letter-spacing:.2px;font-size:22px}
   .kenai-sub{opacity:.75;font-size:14px}
 </style>
-FORCEPAGESREBUILD
+
