@@ -925,6 +925,33 @@
   #homeSplit #kenai-hub { margin-bottom: 0 !important; }
 }
 /* end mobile-stack-fix */
+
+/* desktop-split-sync */
+@media (min-width: 800px) {
+  /* Exact same height for both cards (Hub -> drives --split-h via JS) */
+  #homeSplit { --split-h: auto; }
+
+  /* Stop clipping inside MO card */
+  #homeSplit #mo .mo-panel { overflow: hidden !important; }
+
+  /* Make MO text area scroll if it would clip */
+  #homeSplit #mo .mo-content { min-width: 0; }
+  #homeSplit #mo .mo-body {
+    overflow: auto !important;
+    padding-bottom: 18px !important;
+    max-height: none !important;
+  }
+
+  /* If line-clamp exists, neutralize it on desktop so last lines are readable */
+  #homeSplit #mo .mo-body,
+  #homeSplit #mo .mo-body p,
+  #homeSplit #mo .mo-bullets {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
+  }
+}
+/* end desktop-split-sync */
 </style>
 </head>
 
@@ -1098,6 +1125,44 @@
   </div>
 </section>
 
+<!-- split-height-sync -->
+<script>
+(function() {
+  function syncSplitHeight() {
+    try {
+      var root = document.getElementById('homeSplit');
+      if (!root) return;
+
+      // Only on desktop split layout
+      var isDesktop = window.matchMedia && window.matchMedia('(min-width: 800px)').matches;
+      if (!isDesktop) {
+        root.style.removeProperty('--split-h');
+        return;
+      }
+
+      var hub = document.getElementById('kenai-hub');
+      if (!hub) return;
+
+      // Use rendered height of hub card
+      var h = Math.ceil(hub.getBoundingClientRect().height);
+      if (h > 0) root.style.setProperty('--split-h', h + 'px');
+    } catch (e) {}
+  }
+
+  var t = null;
+  function schedule() {
+    if (t) clearTimeout(t);
+    t = setTimeout(syncSplitHeight, 50);
+  }
+
+  window.addEventListener('load', function() { schedule(); setTimeout(syncSplitHeight, 250); });
+  window.addEventListener('resize', schedule);
+
+  // run once immediately in case DOM is already ready
+  schedule();
+})();
+</script>
+<!-- end split-height-sync -->
 </body>
 </html>
 
