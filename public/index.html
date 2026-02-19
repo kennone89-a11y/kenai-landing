@@ -2,23 +2,66 @@
 <html lang="sv">
 <head>
 <style id="critical-split-clamps">
-/* Critical clamps to prevent refresh flicker (FOUC) */
-#homeSplit #mo .mo-body{ overflow:hidden !important; }
-#homeSplit #mo .mo-body p{
-  display:-webkit-box !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 2 !important;
-  overflow:hidden !important;
+/* Critical: stop refresh flicker + stop middle-scroll in split layout */
+
+/* Desktop split rules only */
+@media (min-width: 800px) {
+  #homeSplit {
+    --split-h: 560px; /* tweak this number if you want slightly taller/shorter */
+  }
+  #homeSplit .home-split-grid {
+    align-items: stretch !important;
+  }
+
+  /* Force both columns to the same fixed height and hide overflow */
+  #homeSplit #kenai-hub,
+  #homeSplit #mo {
+    height: var(--split-h) !important;
+    overflow: hidden !important;
+  }
+
+  /* Inner panels take full height and must not create scrollbars */
+  #homeSplit #kenai-hub > * ,
+  #homeSplit #mo .mo-panel {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* MO clamps (prevents last-line flash on refresh) */
+  #homeSplit #mo .mo-body { overflow: hidden !important; }
+  #homeSplit #mo .mo-body p {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+  }
+  #homeSplit #mo .mo-bullets {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+  }
+
+  /* HUB clamps (this is what stops the "scroll in the middle" when hub text is longer) */
+  #homeSplit #kenai-hub p,
+  #homeSplit #kenai-hub li {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    overflow: hidden !important;
+  }
 }
-#homeSplit #mo .mo-bullets{
-  display:-webkit-box !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 2 !important;
-  overflow:hidden !important;
+
+/* Mobile / stacked layout: never lock heights */
+@media (max-width: 799px) {
+  #homeSplit #kenai-hub,
+  #homeSplit #mo {
+    height: auto !important;
+    overflow: visible !important;
+  }
 }
 </style>
-
-  <meta charset="UTF-8" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kenai — Spela in. Sammanfatta. Dela.</title>
   <meta name="description" content="Spela in ljud, få AI-sammanfattning och dela direkt. Snabbt, enkelt och byggt för creators, poddar och möten.">
