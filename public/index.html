@@ -380,6 +380,11 @@
 .kenai-btn:focus-visible,.tool-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(125,234,255,.45)}
 .kenai-btn::after,.tool-btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.12) 35%,rgba(255,255,255,0) 70%);transform:translateX(-120%);transition:transform .45s ease;pointer-events:none}
 .kenai-btn:hover::after,.tool-btn:hover::after{transform:translateX(120%)}
+
+
+/* split-height cap css */
+#homeSplit #kenai-hub { overflow: auto !important; }
+#homeSplit #mo .mo-panel { overflow: hidden !important; }
 </style>
 
 <style id="mo-section-css">  /* --- MO layout: side-by-side earlier (most desktops), stacked only on small screens --- */
@@ -1145,8 +1150,19 @@
 
       // Use rendered height of hub card
       var h = Math.ceil(hub.getBoundingClientRect().height);
-      if (h > 0) root.style.setProperty('--split-h', h + 'px');
-    } catch (e) {}
+      if (h > 0) /* split-height cap */
+  (function(){
+    var __val = h + 'px';
+    var __num = parseInt(String(__val).replace(/[^0-9]/g,''), 10);
+    var __cap = 520;
+    if (window.innerWidth <= 420) __cap = 480;  // phones
+    if (!isNaN(__num) && __num > 0) {
+      var __final = Math.min(__num, __cap);
+      root.style.setProperty('--split-h', __final + 'px');
+      root.style.setProperty('--split-cap', __cap + 'px');
+    }
+  })();
+} catch (e) {}
   }
 
   var t = null;
