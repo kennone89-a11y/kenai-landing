@@ -387,8 +387,8 @@
 /* mo-scroll-fix */
 #homeSplit #mo { height: var(--split-h) !important; }
 #homeSplit #mo .mo-panel { max-height: 100% !important; }
-#homeSplit #kenai-hub { overflow: auto !important; }
-#homeSplit #mo .mo-panel { overflow: auto !important; padding-bottom: 18px !important; }
+#homeSplit #kenai-hub { overflow: auto !important; scrollbar-gutter: stable both-edges; min-height: 0 !important; }
+#homeSplit #mo .mo-panel { overflow: auto !important; padding-bottom: 22px !important; scrollbar-gutter: stable both-edges; min-height: 0 !important; overscroll-behavior: contain; }
 </style>
 
 <style id="mo-section-css">  /* --- MO layout: side-by-side earlier (most desktops), stacked only on small screens --- */
