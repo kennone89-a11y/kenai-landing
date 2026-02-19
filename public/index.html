@@ -71,6 +71,37 @@
 #homeSplit #mo a.button { margin-top: 10px !important; }
 /* end mo-spacing-tune */
 
+
+
+/* hub-edge-fix */
+/* Removes thin white border/edge and focus outline artifacts in the Hub card(s) */
+#kenai-hub, #kenai-hub * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+#kenai-hub .hub-panel,
+#kenai-hub .hub-card,
+#kenai-hub .panel,
+#kenai-hub .card,
+#kenai-hub .glass,
+#kenai-hub .kenai-card {
+  border-color: rgba(255,255,255,0.04) !important; /* lower "white line" */
+  outline: none !important;
+  background-clip: padding-box;
+  overflow: hidden; /* helps rounded + backdrop edges */
+}
+
+#kenai-hub .hub-panel:focus,
+#kenai-hub .hub-panel:focus-within,
+#kenai-hub .hub-card:focus,
+#kenai-hub .hub-card:focus-within,
+#kenai-hub .panel:focus,
+#kenai-hub .panel:focus-within,
+#kenai-hub .card:focus,
+#kenai-hub .card:focus-within {
+  outline: none !important;
+  box-shadow: none !important; /* prevents "ring" looking like a border */
+}
+/* end hub-edge-fix */
+
 </style>
 
 <meta charset="UTF-8" />
