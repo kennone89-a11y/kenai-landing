@@ -993,6 +993,27 @@
   }
 }
 /* end split-stable-v1 */
+
+/* mo-scroll-shadow-fix */
+#homeSplit #kenai-hub{
+  /* Kill asymmetric/right-heavy shadow and prevent inner scrolling */
+  box-shadow: 0 18px 60px rgba(0,0,0,.45) !important;
+  overflow: hidden !important;
+}
+
+#homeSplit #mo{
+  /* Never become a scroll container that steals wheel scroll */
+  overflow: hidden !important;
+}
+
+#homeSplit #mo .mo-panel,
+#homeSplit #mo .mo-content,
+#homeSplit #mo .mo-body{
+  overflow: hidden !important;
+  overscroll-behavior: auto !important;
+}
+/* end mo-scroll-shadow-fix */
+
 </style>
 </head>
 
