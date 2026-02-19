@@ -20,12 +20,10 @@
 }
 
 @media (min-width: 800px) {
-  #homeSplit { --split-h: 560px; }
+
   #homeSplit .home-split-grid { align-items: stretch !important; }
   #homeSplit #mo,
-  #homeSplit #kenai-hub {
-    height: var(--split-h) !important;
-  }
+
   #homeSplit #mo .mo-panel {
     height: 100% !important;
     overflow: hidden !important;
@@ -438,7 +436,7 @@
 /* split-height cap css */
 
 /* mo-scroll-fix */
-#homeSplit #mo { height: var(--split-h) !important; }
+
 #homeSplit #mo .mo-panel { max-height: 100% !important; }
 #homeSplit #kenai-hub { overflow: auto !important; scrollbar-gutter: stable both-edges; min-height: 0 !important; }
 #homeSplit #mo .mo-panel { overflow: auto !important; padding-bottom: 22px !important; scrollbar-gutter: stable both-edges; min-height: 0 !important; overscroll-behavior: contain; }
@@ -805,47 +803,6 @@
   #homeSplit #mo .mo-panel { }
 }
 
-/* mo-equal-height */
-@media (min-width: 900px) {
-  /* One fixed desktop height so MO can’t make the row taller than Hub */
-  #homeSplit { --split-h: 500px; }
-
-  #homeSplit .home-split-grid { align-items: stretch !important; }
-
-  #homeSplit #kenai-hub,
-  #homeSplit #mo { height: var(--split-h) !important; }
-
-  /* Make inner panels fill the fixed height */
-  #homeSplit #kenai-hub > * { height: 100% !important; }
-  #homeSplit #mo .mo-panel {
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-  }
-
-  /* Keep MO readable but bounded */
-  #homeSplit #mo .mo-body {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 3 !important;
-    overflow: hidden !important;
-  }
-  #homeSplit #mo .mo-bullets {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
-    overflow: hidden !important;
-  }
-
-  /* Button sits at bottom */
-  #homeSplit #mo .mo-cta { margin-top: auto !important; }
-
-  /* Optional: hide footnote in split to avoid pushing height */
-  #homeSplit #mo .mo-footnote { display: none !important; }
-}
-/* end mo-equal-height */
-
 </style>
 <style id="home-split-css">
 #homeSplit { padding: 32px 0; }
@@ -888,47 +845,6 @@
 }
   #homeSplit #mo .mo-cta{ margin-top: 12px !important; }
 }
-
-/* mo-equal-height */
-@media (min-width: 900px) {
-  /* One fixed desktop height so MO can’t make the row taller than Hub */
-  #homeSplit { --split-h: 500px; }
-
-  #homeSplit .home-split-grid { align-items: stretch !important; }
-
-  #homeSplit #kenai-hub,
-  #homeSplit #mo { height: var(--split-h) !important; }
-
-  /* Make inner panels fill the fixed height */
-  #homeSplit #kenai-hub > * { height: 100% !important; }
-  #homeSplit #mo .mo-panel {
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-  }
-
-  /* Keep MO readable but bounded */
-  #homeSplit #mo .mo-body {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 3 !important;
-    overflow: hidden !important;
-  }
-  #homeSplit #mo .mo-bullets {
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
-    overflow: hidden !important;
-  }
-
-  /* Button sits at bottom */
-  #homeSplit #mo .mo-cta { margin-top: auto !important; }
-
-  /* Optional: hide footnote in split to avoid pushing height */
-  #homeSplit #mo .mo-footnote { display: none !important; }
-}
-/* end mo-equal-height */
 
 /* mobile-split */
 @media (max-width: 799px) {
@@ -1014,6 +930,69 @@
   }
 }
 /* end desktop-split-sync */
+
+/* split-stable-v1 */
+/* Desktop split: equal-height cards, no inner scroll, no refresh flicker */
+#homeSplit .home-split-grid{
+  display:grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 22px !important;
+  align-items: stretch !important;
+}
+
+/* Ensure both cards stretch to same row height */
+#homeSplit #kenai-hub,
+#homeSplit #mo{
+  height: auto !important;
+}
+
+/* Hub card: prevent inner scrollbars */
+#homeSplit #kenai-hub{
+  overflow: hidden !important;
+}
+
+/* MO card: flex column so CTA can sit at bottom, without forcing a tall fixed height */
+#homeSplit #mo .mo-panel{
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding-bottom: 18px !important;
+}
+#homeSplit #mo .mo-cta{
+  margin-top: auto !important;
+}
+
+/* Clamp text consistently (prevents "sometimes one more line" on refresh) */
+#homeSplit #mo .mo-subtitle{
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 1 !important;
+  overflow: hidden !important;
+}
+#homeSplit #mo .mo-body{
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
+  overflow: hidden !important;
+}
+#homeSplit #mo .mo-bullets{
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+}
+
+/* Mobile: stack, and ensure MO does NOT end up far down */
+@media (max-width: 900px){
+  #homeSplit .home-split-grid{
+    grid-template-columns: 1fr !important;
+  }
+  #homeSplit #mo{
+    margin-top: 14px !important;
+  }
+}
+/* end split-stable-v1 */
 </style>
 </head>
 
