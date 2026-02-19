@@ -383,8 +383,12 @@
 
 
 /* split-height cap css */
+
+/* mo-scroll-fix */
+#homeSplit #mo { height: var(--split-h) !important; }
+#homeSplit #mo .mo-panel { max-height: 100% !important; }
 #homeSplit #kenai-hub { overflow: auto !important; }
-#homeSplit #mo .mo-panel { overflow: hidden !important; }
+#homeSplit #mo .mo-panel { overflow: auto !important; padding-bottom: 18px !important; }
 </style>
 
 <style id="mo-section-css">  /* --- MO layout: side-by-side earlier (most desktops), stacked only on small screens --- */
