@@ -48,13 +48,13 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.02);
-      backdrop-filter: blur(10px);
-      border-radius:14px;
-      box-shadow:none;
-      margin-bottom:24px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      backdrop-filter: blur(12px);
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,.22);
+      margin-bottom:28px;
     }
 
     .brand{
@@ -89,8 +89,8 @@
       flex-direction:column;
       align-items:center;
       text-align:center;
-      gap:14px;
-      padding:20px 0 12px;
+      gap:18px;
+      padding:28px 0 22px;
     }
 
     .hero-kicker{
@@ -143,14 +143,13 @@
 
     .btn:hover{transform:translateY(-2px)}
     .btn-primary{
-      background:#ffffff;
+      background:linear-gradient(135deg, #f8fafc, #e2e8f0);
       color:#020617;
-      border:1px solid rgba(255,255,255,.15);
     }
     .btn-secondary{
-      background:transparent;
-      color:#94a3b8;
-      border-color:rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      border-color:rgba(255,255,255,.10);
     }
 
     .demo{
@@ -434,9 +433,9 @@
     </nav>
 
     <section class="hero" id="voice">
-      <div class="hero-kicker" style="opacity:.7">voice AI</div>
+      <div class="hero-kicker">Hands-free AI for creators</div>
       <h1>Kenai Voice</h1>
-      <p>Control your world with voice. No hands. No friction.</p>
+      <p>Control your world with voice. No hands. No friction. Launch ideas, create content, and move faster without opening a hundred tabs.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#contact">Get Started</a>
         <a class="btn btn-secondary" href="#tools">See what Kenai can do</a>
