@@ -50,58 +50,6 @@
   #homeSplit #mo li,
   #homeSplit #kenai-hub li { -webkit-line-clamp: 3 !important; }
 }
-
-/* mo-spacing-tune */
-/* Goal: reduce vertical height inside both cards without changing layout logic */
-#homeSplit #kenai-hub { padding: 22px 22px !important; }
-#homeSplit #kenai-hub .tool-card { padding: 14px 14px !important; margin-bottom: 12px !important; }
-#homeSplit #kenai-hub .tool-card h3,
-#homeSplit #kenai-hub .tool-card h4 { margin: 6px 0 8px !important; }
-#homeSplit #kenai-hub .tool-card p { margin: 0 0 10px !important; line-height: 1.25 !important; }
-#homeSplit #kenai-hub .tool-card .btn,
-#homeSplit #kenai-hub .tool-card button,
-#homeSplit #kenai-hub .tool-card a.button { padding: 10px 14px !important; }
-
-#homeSplit #mo .mo-panel { padding: 24px 26px !important; }
-#homeSplit #mo .mo-wrap { gap: 12px !important; }
-#homeSplit #mo p { line-height: 1.28 !important; margin: 0 0 10px !important; }
-#homeSplit #mo ul { margin: 10px 0 12px !important; padding-left: 18px !important; }
-#homeSplit #mo .mo-cta,
-#homeSplit #mo button,
-#homeSplit #mo a.button { margin-top: 10px !important; }
-/* end mo-spacing-tune */
-
-
-
-/* hub-edge-fix */
-/* Removes thin white border/edge and focus outline artifacts in the Hub card(s) */
-#kenai-hub, #kenai-hub * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
-
-#kenai-hub .hub-panel,
-#kenai-hub .hub-card,
-#kenai-hub .panel,
-#kenai-hub .card,
-#kenai-hub .glass,
-#kenai-hub .kenai-card {
-  border-color: rgba(255,255,255,0.04) !important; /* lower "white line" */
-  outline: none !important;
-  background-clip: padding-box;
-  overflow: hidden; /* helps rounded + backdrop edges */
-}
-
-#kenai-hub .hub-panel:focus,
-#kenai-hub .hub-panel:focus-within,
-#kenai-hub .hub-card:focus,
-#kenai-hub .hub-card:focus-within,
-#kenai-hub .panel:focus,
-#kenai-hub .panel:focus-within,
-#kenai-hub .card:focus,
-#kenai-hub .card:focus-within {
-  outline: none !important;
-  box-shadow: none !important; /* prevents "ring" looking like a border */
-}
-/* end hub-edge-fix */
-
 </style>
 
 <meta charset="UTF-8" />
@@ -176,9 +124,8 @@
       justify-content: center;
       background: radial-gradient(circle at 30% 0%, #4ef1ff, #0070ff 55%, #050816);
       box-shadow:
-  0 0 100px rgba(56, 189, 248, 1),
-  0 0 200px rgba(59, 130, 246, 1),
-  0 0 300px rgba(168, 85, 247, 0.5);
+        0 0 60px rgba(56, 189, 248, 0.85),
+        0 0 120px rgba(59, 130, 246, 0.85);
       position: relative;
       overflow: hidden;
     }
@@ -1074,121 +1021,92 @@
   <div class="page">
     <!-- HERO -->
     <header class="hero">
-  <div class="hero-coin-wrap">
-    <div class="hero-coin">
-      <img id="kenaiLogo" src="kenai-coin-main.jpg" alt="Kenai logo">
-    </div>
-  </div>
-
-  <div class="hero-copy">
-    <h1 class="hero-title">
-      <span>Kenai</span>
-      <span>Skapa, sammanfatta och bygg content med AI</span>
-    </h1>
-    <p class="hero-lead">
-      Spela in ljud, få AI-sammanfattningar och bygg content snabbare. En clean hub för creators, poddar, reels och idéer.
-    </p>
-
-    <div class="hero-buttons">
-      <button class="kenai-btn kenai-btn-primary" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
-        Öppna Kenai Recorder
-      </button>
-      <button class="kenai-btn kenai-btn-secondary" onclick="window.location.href='https://app.kenai.technology/reels.html'">
-        Testa Reels Maker
-      </button>
-    </div>
-  </div>
-</header>
-
-<section id="homeSplit">
-  <div class="home-split-grid">
-    <div class="home-left">
-
-      <section id="kenai-hub">
-        <div class="hub-layout">
-          <div class="hub-card">
-
-            <div class="hub-header">
-              <div class="hub-icon">
-                <img src="kenai-coin-main.jpg" alt="Kenai logo">
-              </div>
-              <div>
-                <div class="hub-kicker">AI-verktyg för creators</div>
-                <div class="hub-title">Skapa content med AI – på sekunder</div>
-              </div>
-            </div>
-
-            <p class="hub-intro">
-              Spela in ljud, få sammanfattningar och skapa reels – utan inloggning, utan krångel.
-            </p>
-
-            <div class="hub-trust">
-              ✓ Ingen inloggning &nbsp;&nbsp; ✓ Funkar direkt &nbsp;&nbsp; ✓ Byggd för creators
-            </div>
-
-            <div class="hub-tools">
-
-              <div class="tool-card">
-                <span class="tool-pill">Recorder</span>
-                <div class="tool-name">Spela in &amp; AI-sammanfattning</div>
-                <p class="tool-desc">Spela in direkt i browsern och få en tydlig AI-sammanfattning.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
-                  Öppna
-                </button>
-              </div>
-
-              <div class="tool-card">
-                <span class="tool-pill">Timestamps</span>
-                <div class="tool-name">YouTube timestamps</div>
-                <p class="tool-desc">Få kapitel och beskrivningar direkt från video eller podd.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'">
-                  Öppna
-                </button>
-              </div>
-
-              <div class="tool-card">
-                <span class="tool-pill">Reels</span>
-                <div class="tool-name">Bygg reels</div>
-                <p class="tool-desc">Planera och skapa content med AI-idéer och struktur.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'">
-                  Öppna
-                </button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <section id="mo" class="mo-section">
-    <div class="mo-panel">
-      <div class="mo-wrap">
-
-        <div class="mo-content">
-          <h2 class="mo-title">MO</h2>
-          <p class="mo-subtitle">När du är upptagen – men behöver svar.</p>
-
-          <p>
-            Hands-free AI via hörlurar. Ställ frågan direkt och få ett tydligt svar – utan att ta upp mobilen.
-          </p>
-
-          <ul class="mo-list">
-            <li>Fokus. Inga distraktioner.</li>
-            <li>Snabba, konkreta svar.</li>
-            <li>Prata → få svar → fortsätt.</li>
-          </ul>
-
-          <a class="mo-cta" href="https://app.kenai.technology/recorder.html">
-            Testa Kenai
-          </a>
-
+      <div class="hero-coin-wrap">
+        <div class="hero-coin">
+          <img id="kenaiLogo" src="kenai-coin-main.jpg" alt="Kenai logga">
         </div>
       </div>
+
+      <div class="hero-copy">
+        <h1 class="hero-title">
+  <span>Kenai – AI för</span>
+  <span>ljud & reels</span>
+</h1>
+        <p class="hero-lead">
+          Spela in, sammanfatta och skapa klipp med AI. Kenai hjälper dig att fatta mer, snabbare – oavsett om det är poddar, möten eller content till dina sociala medier.
+        </p>
+        <div class="hero-buttons">
+          <button class="kenai-btn kenai-btn-primary" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
+            Öppna Kenai Recorder
+          </button>
+          <button class="kenai-btn kenai-btn-secondary" onclick="window.location.href='https://app.kenai.technology/reels.html'">
+            Testa Reels Maker
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- KENAI HUB -->
+    
+    <!-- /KENAI HUB -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const logo = document.getElementById('kenaiLogo');
+      if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', () => window.location.reload());
+      }
+    });
+  </script>
+<section id="mo" class="mo-section">
+  <div class="mo-panel">
+    <div class="mo-wrap">
+      <svg class="mo-icon" viewBox="0 0 200 200" role="img" aria-label="MO core">
+        <circle cx="100" cy="100" r="74" fill="none" class="mo-core-ring"/>
+        <g class="mo-core-pulse">
+          <circle cx="100" cy="100" r="8" class="mo-core-dot"/>
+        </g>
+        <!-- subtle symmetric signal lines -->
+        <g opacity="0.55" stroke="rgba(0,225,255,0.75)" stroke-width="2" stroke-linecap="round">
+          <line x1="100" y1="26" x2="100" y2="40"/>
+          <line x1="26" y1="100" x2="40" y2="100"/>
+          <line x1="160" y1="100" x2="174" y2="100"/>
+        </g>
+      </svg>
+
+      <div class="mo-content">
+      <h2 class="mo-title">MO</h2>
+      <p class="mo-subtitle">När du är upptagen – men behöver svar.</p>
+
+      <div class="mo-body">
+        <p>
+          MO är en hands-free AI för stunder när du inte kan ta upp mobilen.
+          Via hörlurar eller knapp aktiverar du MO direkt.
+        </p>
+        <p>
+          Istället för att öppna webben, skriva en sökning och skrolla länkar – säger du bara frågan.
+          MO ger ett koncentrerat, handlingsbart svar direkt i dina hörlurar.
+        </p>
+      </div>
+
+      <ul class="mo-list">
+        <li>Byggd för fokus: korta sessioner, tydliga svar.</li>
+        <li>Ingen distraktion, ingen oändlig dialog.</li>
+        <li>Prata. Få svar. Fortsätt.</li>
+      </ul>
+
+      <a class="mo-cta" href="#tools" aria-label="Gå till verktyg">Utforska Kenai</a>
+
+      
+      <div class="mo-footnote">Detta är början.</div>
     </div>
-  </section>
+  </div>
+</section>
+    </div>
+    
+  </div>
 </section>
 
 <!-- split-height-sync -->

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenai v2</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f7ff;
+      background:
+        linear-gradient(to bottom, rgba(5,10,24,.30), rgba(5,10,24,.82) 70%, rgba(5,10,24,.96)),
+        url("kenai-lake-mars.jpeg") center center / cover no-repeat fixed;
+    }
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .hero-coin-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .hero-coin {
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0%, #64e8ff, #116dff 58%, #050816 100%);
+      box-shadow:
+        0 0 60px rgba(56,189,248,.80),
+        0 0 120px rgba(59,130,246,.55),
+        0 0 180px rgba(168,85,247,.28);
+      overflow: hidden;
+    }
+    .hero-coin img {
+      width: 84%;
+      height: 84%;
+      object-fit: cover;
+      border-radius: 999px;
+    }
+    .hero-copy {
+      max-width: 760px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #8ee7ff;
+      margin-bottom: 12px;
+      opacity: .95;
+    }
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: .94;
+      letter-spacing: -.03em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .lead {
+      max-width: 620px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: #dbe6ff;
+      margin: 0 0 26px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-primary {
+      color: #04121f;
+      background: linear-gradient(135deg, #2ce46f, #7dff9d);
+      box-shadow: 0 10px 30px rgba(34,197,94,.35);
+    }
+    .btn-secondary {
+      color: white;
+      background: linear-gradient(135deg, #4a8bff, #a855f7);
+      box-shadow: 0 10px 30px rgba(82,109,255,.28);
+    }
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      color: rgba(255,255,255,.78);
+      font-size: 14px;
+    }
+    .tools {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: rgba(6, 14, 38, 0.78);
+      border: 1px solid rgba(125,220,255,.12);
+      border-radius: 24px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.26);
+    }
+    .pill {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #aeeeff;
+      border: 1px solid rgba(125,220,255,.24);
+      background: rgba(125,220,255,.06);
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+    .card p {
+      margin: 0 0 18px;
+      color: #d8e2ff;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .card .btn {
+      width: 100%;
+    }
+    .mo {
+      margin-top: 22px;
+      background: rgba(6, 14, 38, 0.72);
+      border: 1px solid rgba(125,220,255,.10);
+      border-radius: 28px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+    }
+    .mo h2 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1;
+    }
+    .mo-sub {
+      margin: 0 0 14px;
+      color: #dbe6ff;
+      font-size: 18px;
+    }
+    .mo p {
+      max-width: 820px;
+      margin: 0 0 16px;
+      color: #dbe6ff;
+      line-height: 1.6;
+    }
+    .mo ul {
+      margin: 0 0 20px;
+      padding-left: 18px;
+      color: #f1f6ff;
+      line-height: 1.8;
+    }
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-copy, .lead { max-width: none; }
+      .hero-actions, .hero-trust { justify-content: center; }
+      .tools { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-coin-wrap">
+        <div class="hero-coin">
+          <img src="kenai-coin-main.jpg" alt="Kenai logo" />
+        </div>
+      </div>
+      <div class="hero-copy">
+        <div class="eyebrow">AI-verktyg för creators</div>
+        <h1>Kenai<br>Skapa, förstå och bygg content med AI</h1>
+        <p class="lead">
+          Spela in ljud, få AI-sammanfattningar och skapa content snabbare.
+          En clean hub för creators, poddar, reels och idéer.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://app.kenai.technology/recorder.html">Öppna Kenai Recorder</a>
+          <a class="btn btn-secondary" href="https://app.kenai.technology/reels.html">Testa Reels Maker</a>
+        </div>
+        <div class="hero-trust">
+          <span>✓ Ingen inloggning</span>
+          <span>✓ Funkar direkt</span>
+          <span>✓ Byggd för creators</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools">
+      <article class="card">
+        <div class="pill">Recorder</div>
+        <h3>Spela in & få AI-sammanfattning</h3>
+        <p>Spela in direkt i browsern och få en tydlig AI-sammanfattning av möten, idéer och snack.</p>
+        <a class="btn btn-primary" href="https://app.kenai.technology/recorder.html">Öppna</a>
+      </article>
+      <article class="card">
+        <div class="pill">Timestamps</div>
+        <h3>Gör kapitel & beskrivningar snabbare</h3>
+        <p>Klistra in en video- eller podd-URL och få kapitel, sammanfattning och text direkt.</p>
+        <a class="btn btn-secondary" href="https://app.kenai.technology/timestamps.html">Öppna</a>
+      </article>
+      <article class="card">
+        <div class="pill">Reels</div>
+        <h3>Planera & bygg reels med AI</h3>
+        <p>Ladda upp bilder och klipp, få AI-idéer och bygg en bättre reel utan att börja från noll.</p>
+        <a class="btn btn-secondary" href="https://app.kenai.technology/reels.html">Öppna</a>
+      </article>
+    </section>
+
+    <section class="mo">
+      <h2>MO</h2>
+      <div class="mo-sub">När du är upptagen – men behöver svar.</div>
+      <p>
+        MO är hands-free AI för stunder när du inte kan ta upp mobilen.
+        Säg frågan direkt och få ett tydligt, koncentrerat svar i hörlurarna.
+      </p>
+      <ul>
+        <li>Fokus. Inga distraktioner.</li>
+        <li>Snabba, konkreta svar.</li>
+        <li>Prata → få svar → fortsätt.</li>
+      </ul>
+      <a class="btn btn-primary" href="https://app.kenai.technology/recorder.html">Utforska Kenai</a>
+    </section>
+  </div>
+</body>
+</html>

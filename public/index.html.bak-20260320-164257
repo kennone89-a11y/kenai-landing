@@ -1074,121 +1074,168 @@
   <div class="page">
     <!-- HERO -->
     <header class="hero">
-  <div class="hero-coin-wrap">
-    <div class="hero-coin">
-      <img id="kenaiLogo" src="kenai-coin-main.jpg" alt="Kenai logo">
-    </div>
-  </div>
+      <div class="hero-coin-wrap">
+        <div class="hero-coin">
+          <img id="kenaiLogo" src="kenai-coin-main.jpg" alt="Kenai logga">
+        </div>
+      </div>
 
-  <div class="hero-copy">
-    <h1 class="hero-title">
-      <span>Kenai</span>
-      <span>Skapa, sammanfatta och bygg content med AI</span>
-    </h1>
-    <p class="hero-lead">
-      Spela in ljud, få AI-sammanfattningar och bygg content snabbare. En clean hub för creators, poddar, reels och idéer.
-    </p>
+      <div class="hero-copy">
+        <h1 class="hero-title">
+  <span>Kenai – AI för</span>
+  <span>ljud & reels</span>
+</h1>
+        <p class="hero-lead">
+          Spela in, sammanfatta och skapa klipp med AI. Kenai hjälper dig att fatta mer, snabbare – oavsett om det är poddar, möten eller content till dina sociala medier.
+        </p>
+        <div class="hero-buttons">
+          <button class="kenai-btn kenai-btn-primary" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
+            Öppna Kenai Recorder
+          </button>
+          <button class="kenai-btn kenai-btn-secondary" onclick="window.location.href='https://app.kenai.technology/reels.html'">
+            Testa Reels Maker
+          </button>
+        </div>
+      </div>
+    </header>
 
-    <div class="hero-buttons">
-      <button class="kenai-btn kenai-btn-primary" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
-        Öppna Kenai Recorder
-      </button>
-      <button class="kenai-btn kenai-btn-secondary" onclick="window.location.href='https://app.kenai.technology/reels.html'">
-        Testa Reels Maker
-      </button>
-    </div>
-  </div>
-</header>
-
-<section id="homeSplit">
+    <!-- KENAI HUB -->
+    <section id="homeSplit">
   <div class="home-split-grid">
     <div class="home-left">
+<section id="kenai-hub">
+      <div class="hub-layout">
+        <div class="hub-card">
+          <div class="hub-header">
+            <div class="hub-icon">
+              <img src="kenai-coin-main.jpg" alt="Kenai-logga" />
+            </div>
+            <div>
+              <div class="hub-kicker">AI-verktyg för creators</div>
+              <div class="hub-title">Skapa content med AI – på sekunder</div>
+            </div>
+          </div>
 
-      <section id="kenai-hub">
-        <div class="hub-layout">
-          <div class="hub-card">
+          <p class="hub-intro">
+            Spela in ljud, få sammanfattningar och skapa reels – utan inloggning, utan krångel.
+          </p>
 
-            <div class="hub-header">
-              <div class="hub-icon">
-                <img src="kenai-coin-main.jpg" alt="Kenai logo">
+          <div class="hub-trust">✓ Ingen inloggning &nbsp;&nbsp; ✓ Funkar direkt i webben &nbsp;&nbsp; ✓ Byggd för creators</div>
+
+          <div class="hub-tools">
+            <!-- Recorder -->
+            <div class="tool-card tool-recorder">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Recorder</span>
+                  <span class="tool-name">Spela in &amp; AI-sammanfattning</span>
+                </div>
               </div>
-              <div>
-                <div class="hub-kicker">AI-verktyg för creators</div>
-                <div class="hub-title">Skapa content med AI – på sekunder</div>
-              </div>
+              <p class="tool-desc">
+                Spela in direkt i browsern, ladda upp till Kenai och få en tydlig AI-sammanfattning av vad du sagt – perfekt för möten, poddar &amp; idéer.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
+                Öppna Kenai Recorder
+              </button>
             </div>
 
-            <p class="hub-intro">
-              Spela in ljud, få sammanfattningar och skapa reels – utan inloggning, utan krångel.
-            </p>
-
-            <div class="hub-trust">
-              ✓ Ingen inloggning &nbsp;&nbsp; ✓ Funkar direkt &nbsp;&nbsp; ✓ Byggd för creators
+            <!-- Timestamps -->
+            <div class="tool-card tool-timestamps">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Timestamps</span>
+                  <span class="tool-name">YouTube timestamps &amp; beskrivning</span>
+                </div>
+              </div>
+              <p class="tool-desc">
+                Klistra in en YouTube- eller podd-URL. Kenai hjälper dig få kapitel, sammanfattning och text du kan klistra in direkt i beskrivningen.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'">
+                Öppna Kenai Timestamps
+              </button>
             </div>
 
-            <div class="hub-tools">
-
-              <div class="tool-card">
-                <span class="tool-pill">Recorder</span>
-                <div class="tool-name">Spela in &amp; AI-sammanfattning</div>
-                <p class="tool-desc">Spela in direkt i browsern och få en tydlig AI-sammanfattning.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/recorder.html'">
-                  Öppna
-                </button>
+            <!-- Reels -->
+            <div class="tool-card tool-reels">
+              <div class="tool-header">
+                <div>
+                  <span class="tool-pill">Reels</span>
+                  <span class="tool-name">Planera &amp; bygg dina reels</span>
+                </div>
               </div>
-
-              <div class="tool-card">
-                <span class="tool-pill">Timestamps</span>
-                <div class="tool-name">YouTube timestamps</div>
-                <p class="tool-desc">Få kapitel och beskrivningar direkt från video eller podd.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/timestamps.html'">
-                  Öppna
-                </button>
-              </div>
-
-              <div class="tool-card">
-                <span class="tool-pill">Reels</span>
-                <div class="tool-name">Bygg reels</div>
-                <p class="tool-desc">Planera och skapa content med AI-idéer och struktur.</p>
-                <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'">
-                  Öppna
-                </button>
-              </div>
-
+              <p class="tool-desc">
+                Ladda upp bilder &amp; klipp, välj längd och låt Kenai hjälpa dig planera en short/reel – med AI-idéer och hashtags på vägen.
+              </p>
+              <button class="tool-btn" onclick="window.location.href='https://app.kenai.technology/reels.html'">
+                Öppna Kenai Reels Maker
+              </button>
             </div>
           </div>
         </div>
-      </section>
 
-    </div>
+        <!-- Spacer: keep background visible -->
+        
+      </div>
+    </section>
+    <!-- /KENAI HUB -->
   </div>
 
-  <section id="mo" class="mo-section">
-    <div class="mo-panel">
-      <div class="mo-wrap">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const logo = document.getElementById('kenaiLogo');
+      if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', () => window.location.reload());
+      }
+    });
+  </script>
+<section id="mo" class="mo-section">
+  <div class="mo-panel">
+    <div class="mo-wrap">
+      <svg class="mo-icon" viewBox="0 0 200 200" role="img" aria-label="MO core">
+        <circle cx="100" cy="100" r="74" fill="none" class="mo-core-ring"/>
+        <g class="mo-core-pulse">
+          <circle cx="100" cy="100" r="8" class="mo-core-dot"/>
+        </g>
+        <!-- subtle symmetric signal lines -->
+        <g opacity="0.55" stroke="rgba(0,225,255,0.75)" stroke-width="2" stroke-linecap="round">
+          <line x1="100" y1="26" x2="100" y2="40"/>
+          <line x1="26" y1="100" x2="40" y2="100"/>
+          <line x1="160" y1="100" x2="174" y2="100"/>
+        </g>
+      </svg>
 
-        <div class="mo-content">
-          <h2 class="mo-title">MO</h2>
-          <p class="mo-subtitle">När du är upptagen – men behöver svar.</p>
+      <div class="mo-content">
+      <h2 class="mo-title">MO</h2>
+      <p class="mo-subtitle">När du är upptagen – men behöver svar.</p>
 
-          <p>
-            Hands-free AI via hörlurar. Ställ frågan direkt och få ett tydligt svar – utan att ta upp mobilen.
-          </p>
-
-          <ul class="mo-list">
-            <li>Fokus. Inga distraktioner.</li>
-            <li>Snabba, konkreta svar.</li>
-            <li>Prata → få svar → fortsätt.</li>
-          </ul>
-
-          <a class="mo-cta" href="https://app.kenai.technology/recorder.html">
-            Testa Kenai
-          </a>
-
-        </div>
+      <div class="mo-body">
+        <p>
+          MO är en hands-free AI för stunder när du inte kan ta upp mobilen.
+          Via hörlurar eller knapp aktiverar du MO direkt.
+        </p>
+        <p>
+          Istället för att öppna webben, skriva en sökning och skrolla länkar – säger du bara frågan.
+          MO ger ett koncentrerat, handlingsbart svar direkt i dina hörlurar.
+        </p>
       </div>
+
+      <ul class="mo-list">
+        <li>Byggd för fokus: korta sessioner, tydliga svar.</li>
+        <li>Ingen distraktion, ingen oändlig dialog.</li>
+        <li>Prata. Få svar. Fortsätt.</li>
+      </ul>
+
+      <a class="mo-cta" href="#tools" aria-label="Gå till verktyg">Utforska Kenai</a>
+
+      
+      <div class="mo-footnote">Detta är början.</div>
     </div>
-  </section>
+  </div>
+</section>
+    </div>
+    
+  </div>
 </section>
 
 <!-- split-height-sync -->
