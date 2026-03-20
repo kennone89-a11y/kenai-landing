@@ -160,13 +160,13 @@
       border-radius:32px;
       border:1px solid var(--panel-border);
       background:
-        radial-gradient(700px 260px at 50% -10%, rgba(96,165,250,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        radial-gradient(700px 260px at 50% -10%, rgba(96,165,250,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       backdrop-filter:blur(20px);
       box-shadow:var(--shadow);
       overflow:hidden;
       position:relative;
-      padding:22px;
+      padding:26px;
     }
 
     .demo::before{
@@ -178,166 +178,212 @@
       pointer-events:none;
     }
 
-    .demo-grid{
+    .demo-stills{
       position:relative;
       z-index:1;
       display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:18px;
-      min-height:386px;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+      min-height:378px;
     }
 
-    .hero-shot,
-    .hero-side{
+    .still-main,
+    .still-side{
       position:relative;
       overflow:hidden;
       border-radius:24px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    .hero-shot img,
-    .hero-side img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .hero-shot::after{
-      content:"";
-      position:absolute;
-      inset:0;
+      border:1px solid rgba(255,255,255,.10);
       background:
-        linear-gradient(180deg, rgba(2,6,23,.10), rgba(2,6,23,.55) 78%, rgba(2,6,23,.82)),
-        radial-gradient(circle at 68% 20%, rgba(125,211,252,.18), transparent 22%);
-      pointer-events:none;
+        radial-gradient(circle at 50% 22%, rgba(96,165,250,.18), transparent 26%),
+        linear-gradient(180deg, rgba(15,23,42,.90), rgba(2,6,23,.98));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 20px 50px rgba(0,0,0,.22);
     }
 
-    .hero-side{
-      display:grid;
-      grid-template-rows:1fr auto;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(96,165,250,.16), transparent 30%),
-        linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.98));
-    }
-
-    .hero-side-top{
-      position:relative;
+    .still-main{
+      min-height:378px;
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:220px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      overflow:hidden;
     }
 
-    .hero-side-top::after{
+    .still-main::before{
       content:"";
       position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(2,6,23,.04), rgba(2,6,23,.38));
-      pointer-events:none;
+      inset:-10%;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(96,165,250,.26), transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(59,130,246,.18), transparent 28%);
+      filter: blur(30px);
+      opacity:.95;
     }
 
-    .hero-logo-wrap{
+    .still-orb{
       position:relative;
       width:180px;
       height:180px;
       border-radius:999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:radial-gradient(circle at 50% 35%, rgba(96,165,250,.18), rgba(2,6,23,.05) 62%, transparent 72%);
-      box-shadow:0 0 60px rgba(59,130,246,.16);
-    }
-
-    .hero-logo-wrap img{
-      width:120px;
-      height:120px;
-      border-radius:999px;
-      object-fit:cover;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(191,219,254,.88), rgba(96,165,250,.42) 28%, rgba(59,130,246,.14) 52%, rgba(255,255,255,.03) 72%);
       box-shadow:
-        0 0 18px rgba(56,189,248,.28),
-        0 0 42px rgba(59,130,246,.18);
-      background:#0f172a;
+        0 0 80px rgba(59,130,246,.24),
+        0 0 140px rgba(96,165,250,.12);
     }
 
-    .hero-side-bottom{
-      padding:22px;
+    .still-orb::before{
+      content:"";
+      position:absolute;
+      inset:20px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.55);
+    }
+
+    .still-orb::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:16px;
+      height:16px;
+      transform:translate(-50%,-50%);
+      border-radius:999px;
+      background:#7dd3fc;
+      box-shadow:0 0 24px rgba(125,211,252,.95);
+    }
+
+    .still-caption{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:22px;
       display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      gap:8px;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-end;
     }
 
-    .hero-kicker-small{
+    .still-caption-text{
+      max-width:420px;
+    }
+
+    .still-label{
       font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
       color:#93c5fd;
-      margin:0;
+      margin-bottom:8px;
     }
 
-    .hero-side-title{
-      margin:0;
+    .still-head{
       font-size:24px;
-      line-height:1.1;
+      line-height:1.12;
       letter-spacing:-.03em;
       color:#f8fafc;
       font-weight:700;
+      margin:0 0 6px;
     }
 
-    .hero-side-text{
-      margin:0;
+    .still-sub{
       font-size:14px;
       line-height:1.6;
       color:#94a3b8;
+      margin:0;
     }
 
-    .hero-shot-copy{
+    .still-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      color:#e2e8f0;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      white-space:nowrap;
+    }
+
+    .still-side{
+      min-height:378px;
+      display:grid;
+      grid-template-rows: 1fr 1fr;
+      gap:0;
+    }
+
+    .side-top,
+    .side-bottom{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .side-top{
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(96,165,250,.16), transparent 28%),
+        linear-gradient(180deg, rgba(15,23,42,.76), rgba(2,6,23,.96));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .side-ring{
+      width:110px;
+      height:110px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.42);
+      position:relative;
+      box-shadow:0 0 36px rgba(96,165,250,.16);
+    }
+
+    .side-ring::after{
+      content:"";
       position:absolute;
-      left:24px;
-      bottom:22px;
-      z-index:2;
-      max-width:72%;
+      left:50%;
+      top:50%;
+      width:12px;
+      height:12px;
+      transform:translate(-50%,-50%);
+      border-radius:999px;
+      background:#7dd3fc;
+      box-shadow:0 0 18px rgba(125,211,252,.9);
     }
 
-    .hero-shot-copy h3{
-      margin:0 0 6px;
-      font-size:30px;
-      line-height:1.05;
+    .side-bottom{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.03));
+    }
+
+    .side-kicker{
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#93c5fd;
+      margin-bottom:8px;
+    }
+
+    .side-title{
+      font-size:20px;
+      line-height:1.15;
       letter-spacing:-.03em;
       color:#f8fafc;
+      font-weight:700;
+      margin:0 0 8px;
     }
 
-    .hero-shot-copy p{
-      margin:0;
+    .side-text{
       font-size:14px;
       line-height:1.6;
-      color:#cbd5e1;
+      color:#94a3b8;
+      margin:0;
     }
 
     @media (max-width: 920px){
-      .demo-grid{
-        grid-template-columns:1fr;
+      .demo-stills{
+        grid-template-columns: 1fr;
       }
-      .hero-side-top{
-        min-height:180px;
-      }
-      .hero-logo-wrap{
-        width:150px;
-        height:150px;
-      }
-      .hero-shot-copy{
-        max-width:86%;
-      }
-      .hero-shot-copy h3{
-        font-size:24px;
-      }
-    }
-
       .still-main,
       .still-side{
         min-height:280px;
@@ -468,10 +514,10 @@
     }
 
     .contact{
-      width:min(520px, 100%);
+      width:min(600px, 100%);
       margin:0 auto;
-      padding:20px;
-      border-radius:22px;
+      padding:30px;
+      border-radius:28px;
       background:rgba(255,255,255,.04);
       border:1px solid var(--panel-border);
       backdrop-filter:blur(16px);
@@ -479,20 +525,17 @@
     }
 
     .contact h2{
-      margin:0 0 6px;
-      font-size:18px;
+      margin:0 0 10px;
+      font-size:34px;
       text-align:center;
-      letter-spacing:-.02em;
-      opacity:.88;
+      letter-spacing:-.03em;
     }
 
     .contact p{
-      margin:0 0 16px;
+      margin:0 0 24px;
       text-align:center;
       color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-      opacity:.82;
+      line-height:1.6;
     }
 
     .field{
@@ -586,32 +629,32 @@
       </div>
     </section>
 
-    
     <section class="demo" aria-label="Kenai Voice preview">
-      <div class="demo-grid">
-        <div class="hero-shot">
-          <img src="kenai-lake-mars.jpeg" alt="Kenai cinematic background" />
-          <div class="hero-shot-copy">
-            <h3>Kenai, but cleaner.</h3>
-            <p>A more cinematic hero with real imagery instead of fake placeholder UI.</p>
+      <div class="demo-stills">
+        <div class="still-main">
+          <div class="still-orb"></div>
+          <div class="still-caption">
+            <div class="still-caption-text">
+              <div class="still-label">Kenai Voice</div>
+              <h3 class="still-head">Fast, hands-free AI built for creators.</h3>
+              <p class="still-sub">A cleaner visual preview that feels premium instead of fake. This is where your future still image or polished mockup can live.</p>
+            </div>
+            <div class="still-pill">Still preview mode</div>
           </div>
         </div>
 
-        <div class="hero-side">
-          <div class="hero-side-top">
-            <div class="hero-logo-wrap">
-              <img src="kenai-coin-main.jpg" alt="Kenai logo" />
-            </div>
+        <div class="still-side">
+          <div class="side-top">
+            <div class="side-ring"></div>
           </div>
-          <div class="hero-side-bottom">
-            <p class="hero-kicker-small">Kenai Voice</p>
-            <h3 class="hero-side-title">Hands-free AI with a stronger visual identity.</h3>
-            <p class="hero-side-text">This keeps your current structure, but makes the first section feel more premium and intentional.</p>
+          <div class="side-bottom">
+            <div class="side-kicker">Preview</div>
+            <h3 class="side-title">Subtle motion. Stronger product feel.</h3>
+            <p class="side-text">Instead of fake chat bubbles, this section now behaves like a cinematic product still with depth, glow, and room for future visual assets.</p>
           </div>
         </div>
       </div>
     </section>
-    
 
     <section id="tools">
       <h2 class="section-title">Everything you can do with Kenai</h2>

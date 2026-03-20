@@ -156,14 +156,16 @@
     .demo{
       margin:34px auto 62px;
       width:min(920px, 100%);
-      min-height:430px;
+      min-height:380px;
       border-radius:32px;
       border:1px solid var(--panel-border);
       background:
-        radial-gradient(700px 260px at 50% -10%, rgba(96,165,250,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        radial-gradient(600px 220px at 50% -10%, rgba(96,165,250,.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       backdrop-filter:blur(20px);
       box-shadow:var(--shadow);
+      display:grid;
+      place-items:center;
       overflow:hidden;
       position:relative;
       padding:22px;
@@ -178,178 +180,36 @@
       pointer-events:none;
     }
 
-    .demo-grid{
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:18px;
-      min-height:386px;
-    }
-
-    .hero-shot,
-    .hero-side{
-      position:relative;
-      overflow:hidden;
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    .hero-shot img,
-    .hero-side img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .hero-shot::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(2,6,23,.10), rgba(2,6,23,.55) 78%, rgba(2,6,23,.82)),
-        radial-gradient(circle at 68% 20%, rgba(125,211,252,.18), transparent 22%);
-      pointer-events:none;
-    }
-
-    .hero-side{
-      display:grid;
-      grid-template-rows:1fr auto;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(96,165,250,.16), transparent 30%),
-        linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.98));
-    }
-
-    .hero-side-top{
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:220px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      overflow:hidden;
-    }
-
-    .hero-side-top::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(2,6,23,.04), rgba(2,6,23,.38));
-      pointer-events:none;
-    }
-
-    .hero-logo-wrap{
-      position:relative;
-      width:180px;
-      height:180px;
+    .demo-core{
+      width:160px;
+      height:160px;
       border-radius:999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:radial-gradient(circle at 50% 35%, rgba(96,165,250,.18), rgba(2,6,23,.05) 62%, transparent 72%);
-      box-shadow:0 0 60px rgba(59,130,246,.16);
-    }
-
-    .hero-logo-wrap img{
-      width:120px;
-      height:120px;
-      border-radius:999px;
-      object-fit:cover;
+      position:relative;
+      background:radial-gradient(circle at 35% 30%, rgba(96,165,250,.75), rgba(59,130,246,.12) 45%, rgba(255,255,255,.02) 70%);
       box-shadow:
-        0 0 18px rgba(56,189,248,.28),
-        0 0 42px rgba(59,130,246,.18);
-      background:#0f172a;
+        0 0 60px rgba(59,130,246,.16),
+        inset 0 0 60px rgba(255,255,255,.04);
     }
 
-    .hero-side-bottom{
-      padding:22px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      gap:8px;
-    }
-
-    .hero-kicker-small{
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#93c5fd;
-      margin:0;
-    }
-
-    .hero-side-title{
-      margin:0;
-      font-size:24px;
-      line-height:1.1;
-      letter-spacing:-.03em;
-      color:#f8fafc;
-      font-weight:700;
-    }
-
-    .hero-side-text{
-      margin:0;
-      font-size:14px;
-      line-height:1.6;
-      color:#94a3b8;
-    }
-
-    .hero-shot-copy{
+    .demo-core::before{
+      content:"";
       position:absolute;
-      left:24px;
-      bottom:22px;
-      z-index:2;
-      max-width:72%;
+      inset:20px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.45);
     }
 
-    .hero-shot-copy h3{
-      margin:0 0 6px;
-      font-size:30px;
-      line-height:1.05;
-      letter-spacing:-.03em;
-      color:#f8fafc;
-    }
-
-    .hero-shot-copy p{
-      margin:0;
-      font-size:14px;
-      line-height:1.6;
-      color:#cbd5e1;
-    }
-
-    @media (max-width: 920px){
-      .demo-grid{
-        grid-template-columns:1fr;
-      }
-      .hero-side-top{
-        min-height:180px;
-      }
-      .hero-logo-wrap{
-        width:150px;
-        height:150px;
-      }
-      .hero-shot-copy{
-        max-width:86%;
-      }
-      .hero-shot-copy h3{
-        font-size:24px;
-      }
-    }
-
-      .still-main,
-      .still-side{
-        min-height:280px;
-      }
-      .still-caption{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .still-orb{
-        width:140px;
-        height:140px;
-      }
+    .demo-core::after{
+      content:"";
+      position:absolute;
+      width:16px;
+      height:16px;
+      border-radius:999px;
+      background:#7dd3fc;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 24px rgba(125,211,252,.9);
     }
 
     .section-title{
@@ -468,10 +328,10 @@
     }
 
     .contact{
-      width:min(520px, 100%);
+      width:min(600px, 100%);
       margin:0 auto;
-      padding:20px;
-      border-radius:22px;
+      padding:30px;
+      border-radius:28px;
       background:rgba(255,255,255,.04);
       border:1px solid var(--panel-border);
       backdrop-filter:blur(16px);
@@ -479,20 +339,17 @@
     }
 
     .contact h2{
-      margin:0 0 6px;
-      font-size:18px;
+      margin:0 0 10px;
+      font-size:34px;
       text-align:center;
-      letter-spacing:-.02em;
-      opacity:.88;
+      letter-spacing:-.03em;
     }
 
     .contact p{
-      margin:0 0 16px;
+      margin:0 0 24px;
       text-align:center;
       color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-      opacity:.82;
+      line-height:1.6;
     }
 
     .field{
@@ -586,32 +443,9 @@
       </div>
     </section>
 
-    
     <section class="demo" aria-label="Kenai Voice preview">
-      <div class="demo-grid">
-        <div class="hero-shot">
-          <img src="kenai-lake-mars.jpeg" alt="Kenai cinematic background" />
-          <div class="hero-shot-copy">
-            <h3>Kenai, but cleaner.</h3>
-            <p>A more cinematic hero with real imagery instead of fake placeholder UI.</p>
-          </div>
-        </div>
-
-        <div class="hero-side">
-          <div class="hero-side-top">
-            <div class="hero-logo-wrap">
-              <img src="kenai-coin-main.jpg" alt="Kenai logo" />
-            </div>
-          </div>
-          <div class="hero-side-bottom">
-            <p class="hero-kicker-small">Kenai Voice</p>
-            <h3 class="hero-side-title">Hands-free AI with a stronger visual identity.</h3>
-            <p class="hero-side-text">This keeps your current structure, but makes the first section feel more premium and intentional.</p>
-          </div>
-        </div>
-      </div>
+      <div class="demo-core"></div>
     </section>
-    
 
     <section id="tools">
       <h2 class="section-title">Everything you can do with Kenai</h2>
@@ -657,14 +491,13 @@
     </section>
 
     <section class="contact" id="contact">
-      <h2><span style='font-size:14px; opacity:.75;'>Start using Kenai today</span></h2>
+      <h2>Start using Kenai today</h2>
       <p>Want a clean AI workflow for voice and content? Send a message and build from here.</p>
       <div class="field"><input type="text" placeholder="Name" /></div>
       <div class="field"><input type="email" placeholder="Email" /></div>
       <div class="field"><textarea placeholder="Message"></textarea></div>
       <button class="submit">Get Started</button>
-    
-<style>.cta-section{padding:40px 0 !important;}</style></section>
+    </section>
 
     <footer class="footer">
       <div>© Kenai Voice</div>
