@@ -569,15 +569,7 @@
   <div class="brand" onclick="window.location.reload()" title="Refresh">
     <img src="kenai-coin-main.jpg" alt="Kenai logo" />
     <span>Kenai Voice</span>
-<div id="demo-response" style="
-margin-top:12px;
-opacity:0;
-transform:translateY(10px);
-transition:all 0.4s ease;
-font-size:14px;
-color:#93c5fd;">
-Opening YouTube...
-</div>
+
 
   </div>
 
@@ -781,7 +773,7 @@ document.addEventListener("DOMContentLoaded", () => {
     response.style.transform = "translateY(0)";
 
     setTimeout(() => {
-      response.innerHTML = "✓ Done";
+      response.innerHTML = "";
     }, 800);
 
   }, 1200);
