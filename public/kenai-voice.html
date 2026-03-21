@@ -606,7 +606,7 @@
       <h1>Kenai Voice</h1>
       <p>Control your world with voice. No hands. No friction.<br><span style='color:#93c5fd;'><span id="typing-demo"></span></span></p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#contact">Get Started</a>
+        <a class="btn btn-primary" href="#contact"><span id="cta-text">Get Started</span></a>
         <a class="btn btn-secondary" href="#tools">See what Kenai can do</a>
       </div>
     </section>
@@ -705,7 +705,7 @@
       <div class="field"><input type="text" placeholder="Name" /></div>
       <div class="field"><input type="email" placeholder="Email" /></div>
       <div class="field"><textarea placeholder="Message"></textarea></div>
-      <button class="submit">Get Started</button>
+      <button id="cta-btn" class="submit"><span id="cta-text">Get Started</span></button>
     
 <style>.cta-section{padding:40px 0 !important;}</style></section>
 
@@ -734,6 +734,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (el) type();
+});
+</script>
+
+
+<script>
+const btn = document.getElementById("cta-btn");
+
+document.addEventListener("mousemove", (e) => {
+  if (!btn) return;
+
+  const rect = btn.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width / 2);
+  const dy = e.clientY - (rect.top + rect.height / 2);
+
+  btn.style.transform = `translate(${dx * 0.05}px, ${dy * 0.05}px)`;
+  btn.style.boxShadow = "0 0 30px rgba(147,197,253,0.3)";
+});
+
+document.addEventListener("mouseleave", () => {
+  if (!btn) return;
+  btn.style.transform = "translate(0,0)";
+  btn.style.boxShadow = "none";
 });
 </script>
 
