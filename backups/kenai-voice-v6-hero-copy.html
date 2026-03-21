@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenai Voice</title>
+  <meta name="description" content="Kenai Voice hjälper dig styra din vardag med röst. Hands-free, snabbt och byggt för creators." />
+  <style>
+    :root{
+      --bg:#030712;
+      --bg2:#0b1220;
+      --panel:rgba(255,255,255,.06);
+      --panel-border:rgba(255,255,255,.10);
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --line:rgba(255,255,255,.08);
+      --green-1:#22c55e;
+      --green-2:#4ade80;
+      --orange-1:#f97316;
+      --orange-2:#fb923c;
+      --blue-1:#3b82f6;
+      --blue-2:#60a5fa;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:26px;
+      --max:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 500px at 50% -10%, rgba(59,130,246,.18), transparent 60%),
+        radial-gradient(800px 400px at 50% 0%, rgba(99,102,241,.10), transparent 65%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      min-height:100vh;
+    }
+
+    a{text-decoration:none;color:inherit}
+    .page{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      padding:24px 0 90px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+      backdrop-filter: blur(10px);
+      border-radius:14px;
+      box-shadow:none;
+      margin-bottom:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.01em;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .brand img{
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      object-fit:cover;
+      box-shadow:0 0 18px rgba(56,189,248,.22);
+      background:#0f172a;
+      display:block;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:22px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+      padding:20px 0 12px;
+    }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:#cbd5e1;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(34px, 5vw, 56px);
+      line-height:1.02;
+      letter-spacing:-.035em;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:760px;
+      font-size:clamp(18px, 2.2vw, 24px);
+      line-height:1.45;
+      color:var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:6px;
+    }
+
+    .btn{
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      letter-spacing:.01em;
+      transition:transform .16s ease, box-shadow .16s ease, opacity .16s ease;
+      border:1px solid transparent;
+      box-shadow:0 10px 30px rgba(0,0,0,.22);
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:#ffffff;
+      color:#020617;
+      border:1px solid rgba(255,255,255,.15);
+    }
+    .btn-secondary{
+      background:transparent;
+      color:#94a3b8;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .demo{
+      margin:34px auto 62px;
+      width:min(920px, 100%);
+      min-height:430px;
+      border-radius:32px;
+      border:1px solid var(--panel-border);
+      background:
+        radial-gradient(700px 260px at 50% -10%, rgba(96,165,250,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+      padding:22px;
+    }
+
+    .demo::before{
+      content:"";
+      position:absolute;
+      inset:20px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      pointer-events:none;
+    }
+
+    .demo-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      min-height:386px;
+    }
+
+    .hero-shot,
+    .hero-side{
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .hero-shot img,
+    .hero-side img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .hero-shot::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(2,6,23,.10), rgba(2,6,23,.55) 78%, rgba(2,6,23,.82)),
+        radial-gradient(circle at 68% 20%, rgba(125,211,252,.18), transparent 22%);
+      pointer-events:none;
+    }
+
+    .hero-side{
+      display:grid;
+      grid-template-rows:1fr auto;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(96,165,250,.16), transparent 30%),
+        linear-gradient(180deg, rgba(15,23,42,.82), rgba(2,6,23,.98));
+    }
+
+    .hero-side-top{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:220px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .hero-side-top::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(2,6,23,.04), rgba(2,6,23,.38));
+      pointer-events:none;
+    }
+
+    .hero-logo-wrap{
+      position:relative;
+      width:180px;
+      height:180px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at 50% 35%, rgba(96,165,250,.18), rgba(2,6,23,.05) 62%, transparent 72%);
+      box-shadow:0 0 60px rgba(59,130,246,.16);
+    }
+
+    .hero-logo-wrap img{
+      width:120px;
+      height:120px;
+      border-radius:999px;
+      object-fit:cover;
+      box-shadow:
+        0 0 18px rgba(56,189,248,.28),
+        0 0 42px rgba(59,130,246,.18);
+      background:#0f172a;
+    }
+
+    .hero-side-bottom{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      gap:8px;
+    }
+
+    .hero-kicker-small{
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#93c5fd;
+      margin:0;
+    }
+
+    .hero-side-title{
+      margin:0;
+      font-size:24px;
+      line-height:1.1;
+      letter-spacing:-.03em;
+      color:#f8fafc;
+      font-weight:700;
+    }
+
+    .hero-side-text{
+      margin:0;
+      font-size:14px;
+      line-height:1.6;
+      color:#94a3b8;
+    }
+
+    .hero-shot-copy{
+      position:absolute;
+      left:24px;
+      bottom:22px;
+      z-index:2;
+      max-width:72%;
+    }
+
+    .hero-shot-copy h3{
+      margin:0 0 6px;
+      font-size:30px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+      color:#f8fafc;
+    }
+
+    .hero-shot-copy p{
+      margin:0;
+      font-size:14px;
+      line-height:1.6;
+      color:#cbd5e1;
+    }
+
+    @media (max-width: 920px){
+      .demo-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-side-top{
+        min-height:180px;
+      }
+      .hero-logo-wrap{
+        width:150px;
+        height:150px;
+      }
+      .hero-shot-copy{
+        max-width:86%;
+      }
+      .hero-shot-copy h3{
+        font-size:24px;
+      }
+    }
+
+      .still-main,
+      .still-side{
+        min-height:280px;
+      }
+      .still-caption{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .still-orb{
+        width:140px;
+        height:140px;
+      }
+    }
+
+    .section-title{
+      margin:0 0 24px;
+      font-size:clamp(30px, 4vw, 44px);
+      line-height:1.08;
+      letter-spacing:-.03em;
+      text-align:center;
+    }
+
+    .section-sub{
+      margin:0 auto 36px;
+      text-align:center;
+      color:var(--muted);
+      max-width:720px;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      margin-bottom:72px;
+    }
+
+    .card{
+      position:relative;
+      padding:28px 24px 24px;
+      border-radius:24px;
+      color:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height:300px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      pointer-events:none;
+    }
+
+    .card > *{position:relative;z-index:1}
+
+    .card-icon{
+      width:72px;
+      height:72px;
+      border-radius:20px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.18);
+      margin-bottom:18px;
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .card-kicker{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      opacity:.82;
+      margin-bottom:10px;
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size:28px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+
+    .card p{
+      margin:0;
+      font-size:16px;
+      line-height:1.6;
+      color:rgba(255,255,255,.92);
+    }
+
+    .card-green{background:linear-gradient(160deg, var(--green-2), var(--green-1))}
+    .card-orange{background:linear-gradient(160deg, var(--orange-2), var(--orange-1))}
+    .card-blue{background:linear-gradient(160deg, var(--blue-2), var(--blue-1))}
+
+    .faq-wrap{
+      margin:0 auto 74px;
+      width:min(760px, 100%);
+      padding:26px;
+      border-radius:26px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--panel-border);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+    }
+
+    .faq-item{
+      padding:16px 4px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .faq-item:last-child{border-bottom:none}
+    .faq-q{
+      font-weight:700;
+      margin-bottom:8px;
+      font-size:16px;
+    }
+
+    .faq-a{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .contact{
+      width:min(520px, 100%);
+      margin:0 auto;
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--panel-border);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+    }
+
+    .contact h2{
+      margin:0 0 6px;
+      font-size:18px;
+      text-align:center;
+      letter-spacing:-.02em;
+      opacity:.88;
+    }
+
+    .contact p{
+      margin:0 0 16px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14px;
+      opacity:.82;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      border:none;
+      outline:none;
+      padding:15px 16px;
+      border-radius:14px;
+      background:#fff;
+      color:#111827;
+      font:inherit;
+    }
+
+    .field textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .submit{
+      width:100%;
+      border:none;
+      padding:15px 18px;
+      border-radius:999px;
+      background:linear-gradient(135deg, #f8fafc, #e2e8f0);
+      color:#020617;
+      font-weight:800;
+      font-size:15px;
+      cursor:pointer;
+    }
+
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      margin-top:34px;
+      color:var(--muted);
+      font-size:14px;
+      padding:0 2px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 920px){
+      .cards{grid-template-columns:1fr; gap:18px}
+      .demo{min-height:300px}
+      .footer{flex-direction:column; align-items:flex-start}
+    }
+
+    @media (max-width: 640px){
+      .page{width:min(100% - 20px, var(--max)); padding-top:14px}
+      .nav{padding:14px}
+      .nav-links{gap:14px; font-size:13px}
+      .hero{padding-top:18px}
+      .demo{margin-top:26px; margin-bottom:46px; min-height:240px; border-radius:24px}
+      .section-title{font-size:34px}
+      .contact{padding:24px 18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <div class="brand" onclick="window.location.reload()" title="Refresh">
+        <img src="kenai-coin-main.jpg" alt="Kenai logo" />
+        <span>Kenai Voice</span>
+      </div>
+      <div class="nav-links">
+        <a href="#voice">Voice</a>
+        <a href="#tools">Tools</a>
+        <a href="#contact">Contact</a>
+      </div>
+    
+<a href="https://instagram.com/kennone" target="_blank" style="margin-left:16px;display:flex;align-items:center;opacity:.8;">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+<rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="1.5"/>
+<circle cx="12" cy="12" r="4" stroke="white" stroke-width="1.5"/>
+<circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+</svg>
+</a>
+
+</nav>
+
+    <section class="hero" id="voice">
+      <div class="hero-kicker" style="opacity:.7">voice AI</div>
+      <h1>Kenai Voice</h1>
+      <p>Control your world with voice. No hands. No friction.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Get Started</a>
+        <a class="btn btn-secondary" href="#tools">See what Kenai can do</a>
+      </div>
+    </section>
+<section style="margin:80px 0;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;">
+
+    <div style="padding:28px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+      <div style="font-size:12px;letter-spacing:.08em;color:#93c5fd;margin-bottom:10px;">DESKTOP</div>
+      <h3 style="font-size:24px;margin:0 0 10px;">Control your Mac with voice</h3>
+      <p style="color:#94a3b8;margin:0;">Open apps. Run commands. No clicking. Just speak and continue working.</p>
+    </div>
+
+    <div style="padding:28px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+      <div style="font-size:12px;letter-spacing:.08em;color:#93c5fd;margin-bottom:10px;">IPHONE</div>
+      <h3 style="font-size:24px;margin:0 0 10px;">Hands-free AI anywhere</h3>
+      <p style="color:#94a3b8;margin:0;">Ask. Get answers. No screen needed. Built for real-life situations.</p>
+    </div>
+
+  </div>
+</section>
+
+
+    
+    <section class="demo" aria-label="Kenai Voice preview">
+      <div class="demo-grid">
+        <div class="hero-shot">
+          <img src="kenai-lake-mars.jpeg" alt="Kenai cinematic background" />
+          <div class="hero-shot-copy">
+            <h3>Voice, made practical.</h3>
+            <p>Control your Mac. Get answers on iPhone. One voice layer across both.</p>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="hero-side-top">
+            <div class="hero-logo-wrap">
+              <img src="kenai-coin-main.jpg" alt="Kenai logo" />
+            </div>
+          </div>
+          <div class="hero-side-bottom">
+            <p class="hero-kicker-small">Kenai Voice</p>
+            <h3 class="hero-side-title">One product. Two real use cases.</h3>
+            <p class="hero-side-text">Desktop for commands and control. iPhone for hands-free questions and fast replies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section id="tools">
+      <h2 class="section-title">Everything you can do with Kenai</h2>
+      <p class="section-sub">One clean system for voice capture, reels, and timestamps. Same structure as your mockup — just designed to feel premium instead of placeholder.</p>
+
+      <div class="cards">
+        <article class="card card-green">
+          <div class="card-icon">●</div>
+          <div class="card-kicker">Recorder</div>
+          <h3>Record</h3>
+          <p>Capture voice notes, meetings, and ideas instantly, then turn them into usable AI summaries without friction.</p>
+        </article>
+
+        <article class="card card-orange">
+          <div class="card-icon">▲</div>
+          <div class="card-kicker">Reels</div>
+          <h3>Create</h3>
+          <p>Turn raw media into short-form content faster with AI structure, hooks, pacing, and a cleaner path to publishable clips.</p>
+        </article>
+
+        <article class="card card-blue">
+          <div class="card-icon">✦</div>
+          <div class="card-kicker">Timestamps</div>
+          <h3>Navigate</h3>
+          <p>Generate chapters, timestamps, and concise summaries so long audio and video become easier to scan and reuse.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-wrap">
+      <div class="faq-item">
+        <div class="faq-q">What platforms does Kenai Voice support?</div>
+        <div class="faq-a">Kenai Voice is designed around fast mobile-first usage and is built to feel lightweight, direct, and hands-free where possible.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I get started?</div>
+        <div class="faq-a">Start with the core tools first: voice capture, reels, and timestamps. The goal is clarity and speed, not complexity.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why does this page feel cleaner than the Framer draft?</div>
+        <div class="faq-a">Because the layout stays the same, but the visual system is rebuilt with proper contrast, spacing, depth, and hierarchy.</div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2><span style='font-size:14px; opacity:.75;'>Start using Kenai today</span></h2>
+      <p>Want a clean AI workflow for voice and content? Send a message and build from here.</p>
+      <div class="field"><input type="text" placeholder="Name" /></div>
+      <div class="field"><input type="email" placeholder="Email" /></div>
+      <div class="field"><textarea placeholder="Message"></textarea></div>
+      <button class="submit">Get Started</button>
+    
+<style>.cta-section{padding:40px 0 !important;}</style></section>
+
+    <footer class="footer">
+      <div>© Kenai Voice</div>
+      <div class="footer-links">
+        <a href="#voice">Voice</a>
+        <a href="#tools">Tools</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
