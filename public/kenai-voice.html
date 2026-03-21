@@ -791,5 +791,35 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+<style>
+.voicepaint-fade {
+  transition: opacity 0.8s ease;
+}
+</style>
+
+<script>
+window.addEventListener("load", () => {
+  const img = document.querySelector('#voice-paint-section img');
+  if (!img) return;
+
+  const images = ["image.png", "image2.png", "image3.png"];
+  let i = 0;
+
+  img.classList.add("voicepaint-fade");
+
+  setInterval(() => {
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      i = (i + 1) % images.length;
+      img.src = images[i];
+      img.style.opacity = 1;
+    }, 400);
+
+  }, 2500);
+});
+</script>
+
 </body>
 </html>
