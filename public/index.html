@@ -614,48 +614,7 @@
     </section>
 <section style="margin:90px auto 40px;max-width:1100px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;">
   <div>
-    
-<style>
-.voicepaint-loop {
-  position: relative;
-  width: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-}
-.voicepaint-loop img {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-.voicepaint-loop img.active {
-  opacity: 1;
-  position: relative;
-}
-</style>
-
-<div class="voicepaint-loop">
-  <img src="image.png" class="active">
-  <img src="image2.png">
-  <img src="image3.png">
-</div>
-
-<script>
-(function(){
-  const images = document.querySelectorAll('.voicepaint-loop img');
-  let i = 0;
-
-  setInterval(() => {
-    images[i].classList.remove('active');
-    i = (i + 1) % images.length;
-    images[i].classList.add('active');
-  }, 2500);
-})();
-</script>
- alt="Voice Paint demo" style="width:100%;display:block;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.28);" />
+    <img src="voicepaint-demo.png" alt="Voice Paint demo" style="width:100%;display:block;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.28);" />
   </div>
   <div>
     <div style="font-size:12px;color:#93c5fd;letter-spacing:.08em;margin-bottom:12px;">VOICE PAINT</div>
