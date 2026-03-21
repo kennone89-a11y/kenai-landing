@@ -569,6 +569,8 @@
   <div class="brand" onclick="window.location.reload()" title="Refresh">
     <img src="kenai-coin-main.jpg" alt="Kenai logo" />
     <span>Kenai Voice</span>
+
+
   </div>
 
   <div style="display:flex;align-items:center;gap:28px;margin-left:auto;">
@@ -610,6 +612,17 @@
         <a class="btn btn-secondary" href="#tools">See what Kenai can do</a>
       </div>
     </section>
+<section style="margin:90px auto 40px;max-width:1100px;display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;">
+  <div>
+    <img src="voicepaint-demo.png" alt="Voice Paint demo" style="width:100%;display:block;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.28);" />
+  </div>
+  <div>
+    <div style="font-size:12px;color:#93c5fd;letter-spacing:.08em;margin-bottom:12px;">VOICE PAINT</div>
+    <h2 style="font-size:44px;line-height:1.05;letter-spacing:-.03em;margin:0 0 12px;">Voice Paint</h2>
+    <p style="font-size:20px;color:#94a3b8;line-height:1.5;margin:0;">Tryck. Säg. Få en bild.</p>
+  </div>
+</section>
+
 <section style="margin:80px 0;">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;">
 
@@ -719,45 +732,7 @@
     </footer>
   </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const text = 'Say: "open YouTube" → it opens instantly';
-  const el = document.getElementById("typing-demo");
-  let i = 0;
 
-  function type() {
-    if (i < text.length) {
-      el.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, 30);
-    }
-  }
-
-  if (el) type();
-});
-</script>
-
-
-<script>
-const btn = document.getElementById("cta-btn");
-
-document.addEventListener("mousemove", (e) => {
-  if (!btn) return;
-
-  const rect = btn.getBoundingClientRect();
-  const dx = e.clientX - (rect.left + rect.width / 2);
-  const dy = e.clientY - (rect.top + rect.height / 2);
-
-  btn.style.transform = `translate(${dx * 0.05}px, ${dy * 0.05}px)`;
-  btn.style.boxShadow = "0 0 30px rgba(147,197,253,0.3)";
-});
-
-document.addEventListener("mouseleave", () => {
-  if (!btn) return;
-  btn.style.transform = "translate(0,0)";
-  btn.style.boxShadow = "none";
-});
-</script>
 
 </body>
 </html>

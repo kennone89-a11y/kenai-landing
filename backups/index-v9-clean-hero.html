@@ -569,6 +569,8 @@
   <div class="brand" onclick="window.location.reload()" title="Refresh">
     <img src="kenai-coin-main.jpg" alt="Kenai logo" />
     <span>Kenai Voice</span>
+
+
   </div>
 
   <div style="display:flex;align-items:center;gap:28px;margin-left:auto;">
@@ -756,6 +758,25 @@ document.addEventListener("mouseleave", () => {
   if (!btn) return;
   btn.style.transform = "translate(0,0)";
   btn.style.boxShadow = "none";
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const response = document.getElementById("demo-response");
+
+  setTimeout(() => {
+    if (!response) return;
+
+    response.style.opacity = "1";
+    response.style.transform = "translateY(0)";
+
+    setTimeout(() => {
+      response.innerHTML = "";
+    }, 800);
+
+  }, 1200);
 });
 </script>
 

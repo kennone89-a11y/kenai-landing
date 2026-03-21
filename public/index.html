@@ -560,7 +560,122 @@
       .section-title{font-size:34px}
       .contact{padding:24px 18px}
     }
-  </style>
+  
+@media (max-width: 767px) {
+  /* NAVBAR */
+  .topbar, .navbar, nav {
+    padding: 10px 14px !important;
+    gap: 10px !important;
+    border-radius: 18px !important;
+  }
+
+  .topbar .nav-links,
+  .navbar .nav-links,
+  nav .nav-links,
+  .topbar .social-links,
+  .navbar .social-links,
+  nav .social-links,
+  .topbar .contact-link,
+  .navbar .contact-link,
+  nav .contact-link,
+  .topbar .tools-link,
+  .navbar .tools-link,
+  nav .tools-link {
+    display: none !important;
+  }
+
+  .brand, .logo-wrap {
+    gap: 10px !important;
+    align-items: center !important;
+  }
+
+  .brand img, .logo-wrap img, .logo img {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 999px !important;
+  }
+
+  .brand-title, .logo-text {
+    font-size: 18px !important;
+    line-height: 1.05 !important;
+  }
+
+  /* HERO BUTTONS */
+  .hero-actions, .hero-buttons, .button-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .hero-actions a, .hero-actions button,
+  .hero-buttons a, .hero-buttons button,
+  .button-row a, .button-row button {
+    width: 100% !important;
+    min-height: 52px !important;
+    border-radius: 999px !important;
+  }
+
+  /* VOICE PAINT */
+  .voice-paint,
+  .voice-paint-section,
+  .voice-paint-row,
+  .feature-row,
+  .split-row,
+  .two-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .voice-paint img,
+  .voice-paint-media img,
+  .feature-media img,
+  .split-media img {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    border-radius: 22px !important;
+  }
+
+  .voice-paint-copy,
+  .feature-copy,
+  .split-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .voice-paint h2,
+  .voice-paint-copy h2,
+  .feature-copy h2,
+  .split-copy h2 {
+    font-size: 44px !important;
+    line-height: 0.95 !important;
+    margin: 0 0 10px !important;
+  }
+
+  .voice-paint p,
+  .voice-paint-copy p,
+  .feature-copy p,
+  .split-copy p {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+    max-width: 24ch !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  section {
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
