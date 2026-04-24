@@ -733,6 +733,40 @@
     padding-top: 40px !important;
     padding-bottom: 40px !important;
   }
+
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    text-align: center !important;
+  }
+
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] img[src="voicepaint-demo.png"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] h2,
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] p,
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] div {
+    text-align: center !important;
+  }
+
+  section[style*="grid-template-columns:1.1fr .9fr"][style*="align-items:center;"] .btn {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: min(100%, 280px) !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    margin: 0 auto !important;
+  }
 }
 
 </style>
