@@ -208,15 +208,16 @@
       letter-spacing:.01em;
     }
 
-    .voice-paint-cta{
-      border-radius:999px;
-      box-shadow:0 10px 24px rgba(2,6,23,.16), 0 1px 0 rgba(255,255,255,.16) inset;
-      transition:transform .18s ease, box-shadow .18s ease, opacity .16s ease;
+    .voice-paint-badge-link{
+      display:inline-flex;
+      margin-top:18px;
     }
 
-    .voice-paint-cta:hover{
-      transform:translateY(-1px) scale(1.03);
-      box-shadow:0 14px 30px rgba(2,6,23,.20), 0 1px 0 rgba(255,255,255,.18) inset;
+    .voice-paint-appstore-badge{
+      width:150px;
+      max-width:100%;
+      height:auto;
+      display:block;
     }
 
     .demo{
@@ -901,14 +902,19 @@
     <h2 class="voice-paint-title" style="font-size:44px;line-height:1.05;letter-spacing:-.03em;margin:0 0 12px;">Voice Paint</h2>
     <p style="font-size:20px;color:#94a3b8;line-height:1.5;margin:0;">Tryck. Säg. Få en bild.</p>
     <p class="voice-paint-store" style="font-size:16px;color:#cbd5e1;line-height:1.6;margin:16px 0 0;">Voice Paint is now available on the App Store.</p>
-    <div style="margin-top:20px;">
-      <a
-        class="btn btn-primary voice-paint-cta"
-        href="https://apps.apple.com/se/app/voice-paint/id6761559900"
-        target="_blank"
-        rel="noopener noreferrer"
-      >Download on the App Store</a>
-    </div>
+    <a
+      class="voice-paint-badge-link"
+      href="https://apps.apple.com/se/app/voice-paint/id6761559900"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Download Voice Paint on the App Store"
+    >
+      <img
+        class="voice-paint-appstore-badge"
+        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+        alt="Download on the App Store"
+      />
+    </a>
   </div>
 </section>
 
